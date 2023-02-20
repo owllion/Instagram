@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct BrowseView: View {
+    var posts = PostArrayObject()
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             CarouselView()
+            ImageGridView(data: posts)
         }.navigationTitle("Browse").navigationBarTitleDisplayMode(.large)
     }
 }

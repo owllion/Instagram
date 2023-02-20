@@ -8,25 +8,36 @@
 import SwiftUI
 
 struct ImageGridView: View {
+    
+    @ObservedObject var data: PostArrayObject
+    
     var body: some View {
         LazyVGrid(
             columns: [
-                GridItem(.fixed(20)),
-                GridItem(.fixed(20)),
-                GridItem(.fixed(20))
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
             ],
             alignment: .center,
             spacing: nil,
             pinnedViews: []) {
-                Text("123")
-                Text("456")
-                Text("4feergerger")
+                ForEach(data.posts, id: \.self) {
+                    post in
+                    NavigationLink {
+                        FeedView(data: PostArrayObject(post: post), title: "postw")
+                    } label: {
+                        PostView(post: post, showHeaderAndFooter: false)
+                    }
+
+                   
+                }
+               
             }
     }
 }
 
 struct ImageGridView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageGridView().previewLayout(.sizeThatFits)
+        ImageGridView(data: PostArrayObject()).previewLayout(.sizeThatFits)
     }
 }

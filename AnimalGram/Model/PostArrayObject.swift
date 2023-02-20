@@ -21,4 +21,8 @@ class PostArrayObject: ObservableObject {
             .init(postID: "", userID: "", username: "Will Buyers", caption: "I am a Gay.", dateCreate: Date(), likeCount:  5002, likedByUser: true)
         ]
     }
+    /// use for single post selection
+    init(post: PostModel) {
+        posts = [post]
+    }
 }

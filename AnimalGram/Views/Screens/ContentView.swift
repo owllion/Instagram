@@ -10,23 +10,27 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            //NavigationView is for the top title
+            //NavigationView is for the top title & link
             NavigationView {
-                FeedView(data: PostArrayObject())
+                FeedView(data: PostArrayObject(), title: "Feed")
             }.tabItem {
                     Image(systemName: "book.fill")
                     Text("Feed")
                 }
-            Text("Screen 2")
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                    Text("Browse")
-                }
-            Text("Screen 3")
-                .tabItem {
-                    Image(systemName: "square.and.arrow.up.fill")
-                    Text("Upload")
-                }
+            NavigationView {
+               BrowseView()
+            } .tabItem {
+                Image(systemName: "magnifyingglass")
+                Text("Browse")
+            }
+            NavigationView {
+                UploadView()
+                   
+            } .tabItem {
+                Image(systemName: "square.and.arrow.up.fill")
+                Text("Upload")
+            }
+
             Text("Screen 4")
                 .tabItem {
                     Image(systemName: "person.fill")
