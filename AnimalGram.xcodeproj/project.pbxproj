@@ -15,6 +15,9 @@
 		256B181029A3496700087828 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B180F29A3496700087828 /* colors.swift */; };
 		256B181229A34A8600087828 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181129A34A8600087828 /* FeedView.swift */; };
 		256B181429A34B9100087828 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181329A34B9100087828 /* PostView.swift */; };
+		256B181729A355E900087828 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181629A355E900087828 /* PostModel.swift */; };
+		256B181929A35A0C00087828 /* PostArrayObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181829A35A0C00087828 /* PostArrayObject.swift */; };
+		256B181B29A36A9600087828 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181A29A36A9600087828 /* CommentsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 		256B180F29A3496700087828 /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		256B181129A34A8600087828 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		256B181329A34B9100087828 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		256B181629A355E900087828 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		256B181829A35A0C00087828 /* PostArrayObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostArrayObject.swift; sourceTree = "<group>"; };
+		256B181A29A36A9600087828 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,7 @@
 		256B17FA29A330E900087828 /* AnimalGram */ = {
 			isa = PBXGroup;
 			children = (
+				256B181529A355DD00087828 /* Model */,
 				256B180E29A3494600087828 /* Constants */,
 				256B180B29A346D200087828 /* Views */,
 				256B17FF29A330EA00087828 /* Assets.xcassets */,
@@ -91,6 +98,7 @@
 				256B181129A34A8600087828 /* FeedView.swift */,
 				256B17FD29A330E900087828 /* ContentView.swift */,
 				256B17FB29A330E900087828 /* AnimalGramApp.swift */,
+				256B181A29A36A9600087828 /* CommentsView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -109,6 +117,15 @@
 				256B180F29A3496700087828 /* colors.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		256B181529A355DD00087828 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				256B181629A355E900087828 /* PostModel.swift */,
+				256B181829A35A0C00087828 /* PostArrayObject.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,9 +200,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				256B181229A34A8600087828 /* FeedView.swift in Sources */,
+				256B181729A355E900087828 /* PostModel.swift in Sources */,
 				256B17FE29A330E900087828 /* ContentView.swift in Sources */,
 				256B181029A3496700087828 /* colors.swift in Sources */,
+				256B181929A35A0C00087828 /* PostArrayObject.swift in Sources */,
 				256B181429A34B9100087828 /* PostView.swift in Sources */,
+				256B181B29A36A9600087828 /* CommentsView.swift in Sources */,
 				256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
