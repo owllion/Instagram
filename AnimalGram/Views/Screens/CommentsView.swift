@@ -10,13 +10,17 @@ import SwiftUI
 struct CommentsView: View {
     
     @State var submissionText:String = ""
-    //tetField changes the text -> this variable will also change.
+    //textField changes the text -> this variable will also change.
+    @State var comments = [CommentModel]()
     
     var body: some View {
         VStack {
             ScrollView {
-                Text("PLACEF")
-                Text("PLACEF")
+                LazyVStack {
+                    ForEach(comments, id: \.self) {
+                        comment in MessageView(comment: comment)
+                    }
+                }
             }
             
             HStack {
@@ -36,8 +40,26 @@ struct CommentsView: View {
                 }.tint(Color.MyTheme.purple)
             }.padding(.all,15)
         }
+        .padding(.all, 10)
         .navigationTitle("Comments")
         .navigationBarTitleDisplayMode(.large)
+        .onAppear {
+            getComments()
+        }
+     
+    }
+    
+    //這應該另外寫成commentManager
+    func getComments() {
+        print("Get comments from db")
+        
+        comments = [
+            .init(commentID: "", userID: "", username: "Mike", content: "Het cool!", dateCreated: Date()),
+            .init(commentID: "", userID: "", username: "Mike", content: "I have second thought about you.", dateCreated: Date()),
+            .init(commentID: "", userID: "", username: "Nancy", content: "Cool Dog, 3Q~!", dateCreated: Date()),
+            .init(commentID: "", userID: "", username: "Tasha Burnum", content: "Every cellphone comes with compass app, alright?!", dateCreated: Date())
+        ]
+        
     }
 }
 

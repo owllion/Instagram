@@ -37,10 +37,14 @@ struct PostView: View {
             
             //MARK: - FOOTER
             HStack(alignment: .center, spacing: 20) {
-                Image(systemName: "heart")
+                Image(systemName: "heart").font(.title3)
                 
-                Image(systemName: "bubble.middle.bottom")
-                Image(systemName: "paperplane")
+                //MARK: - COMMENTS ICON
+                NavigationLink(
+                    destination: CommentsView()) {
+                        Image(systemName: "bubble.middle.bottom").foregroundColor(.primary)
+                }
+                Image(systemName: "paperplane").font(.title3)
                 
                 Spacer()
             }.padding(.all,10)
