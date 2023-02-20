@@ -10,7 +10,7 @@ import SwiftUI
 struct BrowseView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            Text("Placeholder")
+            CarouselView()
         }.navigationTitle("Browse").navigationBarTitleDisplayMode(.large)
     }
 }

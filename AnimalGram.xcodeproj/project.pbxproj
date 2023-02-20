@@ -22,6 +22,7 @@
 		256B181F29A372A900087828 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181E29A372A900087828 /* CommentModel.swift */; };
 		256B182129A3796200087828 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182029A3796200087828 /* BrowseView.swift */; };
 		256B182329A379EE00087828 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182229A379EE00087828 /* CarouselView.swift */; };
+		256B182529A3BEF100087828 /* ImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182429A3BEF100087828 /* ImageGridView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		256B181E29A372A900087828 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		256B182029A3796200087828 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
 		256B182229A379EE00087828 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
+		256B182429A3BEF100087828 /* ImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGridView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				256B181329A34B9100087828 /* PostView.swift */,
 				256B181C29A36EBF00087828 /* MessageView.swift */,
 				256B182229A379EE00087828 /* CarouselView.swift */,
+				256B182429A3BEF100087828 /* ImageGridView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				256B181D29A36EBF00087828 /* MessageView.swift in Sources */,
 				256B181029A3496700087828 /* colors.swift in Sources */,
 				256B181929A35A0C00087828 /* PostArrayObject.swift in Sources */,
+				256B182529A3BEF100087828 /* ImageGridView.swift in Sources */,
 				256B181429A34B9100087828 /* PostView.swift in Sources */,
 				256B182129A3796200087828 /* BrowseView.swift in Sources */,
 				256B181F29A372A900087828 /* CommentModel.swift in Sources */,
