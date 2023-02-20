@@ -29,21 +29,24 @@ struct CommentsView: View {
                 
                 TextField("Add a comment here ...", text: $submissionText)
                 Button {
-                    <#code#>
+                    print("Oh yes it works!")
                 } label: {
                     Image(systemName: "paperplane.fill")
                         .font(.title2)
-                }.tint(.red)
-
-                
-               
+                }.tint(Color.MyTheme.purple)
             }.padding(.all,15)
         }
+        .navigationTitle("Comments")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 
 struct CommentsView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentsView()
+        NavigationView {
+            //加上這個，上面的navigation設定才會有效，因為他們就是必須存在於navigationView裡面
+            CommentsView()
+
+        }
     }
 }
