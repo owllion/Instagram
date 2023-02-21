@@ -6,14 +6,23 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct UploadView: View {
+    
+    @State var showImagePicker: Bool = false
+    @State var imageSelected: UIImage = UIImage(imageLiteralResourceName: "logo")
+    @State var sourceType:UIImagePickerController.SourceType = .camera
+    
     var body: some View {
         ZStack {
+            //MARK: - VSTack
             VStack {
                 
                 Button {
-                    print("ff")
+                    sourceType = UIImagePickerController.SourceType.camera
+                    //設定好之後就顯示imagePicker screen
+                    showImagePicker.toggle()
                 } label: {
                     Text("Take photo".uppercased())
                         .font(.largeTitle)
@@ -26,7 +35,8 @@ struct UploadView: View {
                 ).background(Color.MyTheme.purple)
                 
                 Button {
-                    print("ff")
+                    sourceType = UIImagePickerController.SourceType.photoLibrary
+                    showImagePicker.toggle()
                 } label: {
                     Text("import photo".uppercased())
                         .font(.largeTitle)
@@ -37,6 +47,8 @@ struct UploadView: View {
                     maxHeight: .infinity,
                     alignment: .center
                 ).background(Color.MyTheme.yellow)
+            }.sheet(isPresented: $showImagePicker) {
+                ImagePicker(sourceType: $sourceType, imageSelected: $imageSelected)
             }
             
             Image("logo.transparent")
