@@ -36,27 +36,50 @@ struct SettingsView: View {
                 //MARK: - SECTION 2: PROFILE
                 GroupBox {
                     NavigationLink {
-                        Text("WoW!")
+                        SettingsEditTextView(submissionText: "Current display name", title: "Display Name", description: "You can edit your display name here.", placeholder: "Your displat name here.")
                     } label: {
                         SettingsRowView(iconName: "pencil", settingName: "Display Name", iconColor: Color.MyTheme.purple)
                     }
-
-                   
                     
-                    SettingsRowView(iconName: "text.quote", settingName: "Bio", iconColor: Color.MyTheme.purple)
+                    NavigationLink {
+                        SettingsEditTextView(submissionText: "Your bio here", title: "Profile Bio", description: "Your bio is a great place to let other users know a little about you.", placeholder: "Your bio here..")
+                    } label: {
+                        SettingsRowView(iconName: "text.quote", settingName: "Bio", iconColor: Color.MyTheme.purple)
+                    }
+                    
+                    
+                    NavigationLink {
+                        SettingsEditImageView(title: "Profile Picture", description: "Your profile picture will be shown on your profile and on your posts.", selectedImage: UIImage(named: "dog4")!)
+                    } label: {
+                        SettingsRowView(iconName: "photo", settingName: "Profile Picture", iconColor: Color.MyTheme.purple)
+                    }
                     
                     SettingsRowView(iconName: "figure.walk", settingName: "Sign out", iconColor: Color.MyTheme.purple)
-                } label: {
-                    SettingsLabelView(labelText: "Profile", labelImage: "person.fill")
+                    
+                    
                 }.padding()
                 
                 //MARK: - SECTION 3: APPLICATION
                 GroupBox {
-                    SettingsRowView(iconName: "hand.raised.square.fill", settingName: "Privacy Policy", iconColor: Color.MyTheme.yellow)
+                    Button {
+                         openCustomURL(urlString: "https://forum.gamer.com.tw/C.php?bsn=7650&snA=1024380")
+                    } label: {
+                        SettingsRowView(iconName: "hand.raised.square.fill", settingName: "Privacy Policy", iconColor: Color.MyTheme.yellow)
+                    }
                     
-                    SettingsRowView(iconName: "eye", settingName: "Terms & Conditions", iconColor: Color.MyTheme.yellow)
                     
-                    SettingsRowView(iconName: "globe", settingName: "Animal", iconColor: Color.MyTheme.yellow)
+                    Button {
+                       openCustomURL(urlString: "https://forum.gamer.com.tw/A.php?bsn=7650")
+                    } label: {
+                        SettingsRowView(iconName: "eye", settingName: "Terms & Conditions", iconColor: Color.MyTheme.yellow)
+                    }
+                    
+                    Button {
+                        openCustomURL(urlString: "https://github.com/owllion")
+                    } label: {
+                        SettingsRowView(iconName: "globe", settingName: "Animal", iconColor: Color.MyTheme.yellow)
+                    }
+                    
                 } label: {
                     SettingsLabelView(labelText: "Application", labelImage: "apps.iphone")
                 }.padding()
@@ -69,7 +92,7 @@ struct SettingsView: View {
                         .frame(maxWidth: .infinity)
                 }.padding()
                     .padding(.bottom,70)
-
+                
             }.navigationTitle("Settings")
                 .navigationBarTitleDisplayMode(.large)
                 .toolbar {
@@ -79,13 +102,21 @@ struct SettingsView: View {
                         } label: {
                             Image(systemName: "xmark")
                         }.tint(Color.MyTheme.purple)
-                            
-
+                        
+                        
                     }
                 }
         }
-
+        
     }
+    func openCustomURL(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    
 }
 
 struct SettingsView_Previews: PreviewProvider {

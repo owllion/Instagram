@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State var showSettings: Bool = false
+    
     var isMyProfile: Bool
     //true => show the setting bar,otherwise do not show.
     
@@ -29,13 +31,15 @@ struct ProfileView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        print("f")
+                        showSettings.toggle()
                     } label: {
                         Image(systemName: "line.horizontal.3")
                     }.tint(Color.MyTheme.purple)
                         .opacity(isMyProfile ? 1.0 : 0.0)
 
                 }
+            }.sheet(isPresented: $showSettings) {
+                SettingsView()
             }
     }
 }
