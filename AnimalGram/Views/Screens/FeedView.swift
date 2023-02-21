@@ -10,8 +10,8 @@ import SwiftUI
 struct FeedView: View {
     
     //subscirbe for the change of the data list.
-    @ObservedObject var data:PostArrayObject
-    var title:String
+    @ObservedObject var data: PostArrayObject
+    var title: String
     
     var body: some View {
         ScrollView (.vertical, showsIndicators: false) {

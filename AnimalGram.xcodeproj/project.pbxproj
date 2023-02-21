@@ -27,7 +27,7 @@
 		256B182929A464E300087828 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182829A464E300087828 /* ImagePicker.swift */; };
 		256B182B29A4860100087828 /* PostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182A29A4860100087828 /* PostImageView.swift */; };
 		256B182D29A49E4200087828 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182C29A49E4200087828 /* ProfileView.swift */; };
-		256B183129A4A49200087828 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183029A4A49200087828 /* ProfileHeader.swift */; };
+		256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183029A4A49200087828 /* ProfileHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +52,7 @@
 		256B182829A464E300087828 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		256B182A29A4860100087828 /* PostImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageView.swift; sourceTree = "<group>"; };
 		256B182C29A49E4200087828 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		256B183029A4A49200087828 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		256B183029A4A49200087828 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +135,7 @@
 				256B182229A379EE00087828 /* CarouselView.swift */,
 				256B182429A3BEF100087828 /* ImageGridView.swift */,
 				256B182829A464E300087828 /* ImagePicker.swift */,
-				256B183029A4A49200087828 /* ProfileHeader.swift */,
+				256B183029A4A49200087828 /* ProfileHeaderView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -237,7 +237,7 @@
 				256B181029A3496700087828 /* colors.swift in Sources */,
 				256B181929A35A0C00087828 /* PostArrayObject.swift in Sources */,
 				256B182529A3BEF100087828 /* ImageGridView.swift in Sources */,
-				256B183129A4A49200087828 /* ProfileHeader.swift in Sources */,
+				256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */,
 				256B181429A34B9100087828 /* PostView.swift in Sources */,
 				256B182D29A49E4200087828 /* ProfileView.swift in Sources */,
 				256B182129A3796200087828 /* BrowseView.swift in Sources */,

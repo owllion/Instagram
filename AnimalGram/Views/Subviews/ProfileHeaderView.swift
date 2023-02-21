@@ -7,18 +7,22 @@
 
 import SwiftUI
 
-struct ProfileHeader: View {
+struct ProfileHeaderView: View {
+    
+    @Binding var profileDisplayName: String
+//    @Binding var imageSelected: UIImage
+    
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             //MARK: - PROFILE PICTURE
-            Image("dog5")
+            Image("dog2")
                 .resizable()
                 .scaledToFill()
                 .frame(width: 120, height: 120, alignment: .center)
                 .cornerRadius(60)
             
             //MARK: - USER NAME
-            Text("USER NAME HERE")
+            Text(profileDisplayName)
             
             
             //MARK: - BIO
@@ -68,7 +72,9 @@ struct ProfileHeader: View {
 }
 
 struct ProfileHeader_Previews: PreviewProvider {
+    
+    @State static var name: String = "Mike"
     static var previews: some View {
-        ProfileHeader().previewLayout(.sizeThatFits)
+        ProfileHeaderView(profileDisplayName: $name).previewLayout(.sizeThatFits)
     }
 }

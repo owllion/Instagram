@@ -30,12 +30,13 @@ struct ContentView: View {
                 Image(systemName: "square.and.arrow.up.fill")
                 Text("Upload")
             }
-
-            Text("Screen 4")
-                .tabItem {
-                    Image(systemName: "person.fill")
-                    Text("Profile")
-                }
+            NavigationView {
+                ProfileView(isMyProfile: true, profileDisplayName: "My Profile", profileUserID: "")
+            }
+            .tabItem {
+                Image(systemName: "person.fill")
+                Text("Profile")
+            }
         }.tint(Color.MyTheme.purple)
     }
 }

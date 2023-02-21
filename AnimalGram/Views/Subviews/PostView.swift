@@ -10,6 +10,7 @@ import SwiftUI
 struct PostView: View {
     
     @State var post: PostModel
+    
     var showHeaderAndFooter: Bool
     //not showing header &footer version is for ImageGrid
     
@@ -20,12 +21,25 @@ struct PostView: View {
             //MARK: - HEADER
             if showHeaderAndFooter {
                 HStack {
-                    Image("dog1").resizable()
-                        .scaledToFill().frame(width: 30,height: 30,alignment: .center).cornerRadius(15)
-                    Text(post.username)
-                        .font(.callout)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
+                    
+                    //WE can use this is because we're in th navigationView
+                    NavigationLink {
+                        
+                        
+                        //isMyProfile = false => 因為這邊是貼文串，點進去當然是別人的
+                        ProfileView(isMyProfile: false, profileDisplayName: post.username, profileUserID: post.userID)
+                    } label: {
+                        Image("dog1").resizable()
+                            .scaledToFill().frame(width: 30,height: 30,alignment: .center).cornerRadius(15)
+                        Text(post.username)
+                            .font(.callout)
+                            .fontWeight(.medium)
+                            .foregroundColor(.primary)
+                    }
+
+                    
+                    
+                   
                     
                     Spacer()
                     
