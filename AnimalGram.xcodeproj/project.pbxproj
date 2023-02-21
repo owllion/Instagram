@@ -25,6 +25,7 @@
 		256B182529A3BEF100087828 /* ImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182429A3BEF100087828 /* ImageGridView.swift */; };
 		256B182729A3C6DB00087828 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182629A3C6DB00087828 /* UploadView.swift */; };
 		256B182929A464E300087828 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182829A464E300087828 /* ImagePicker.swift */; };
+		256B182B29A4860100087828 /* PostImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182A29A4860100087828 /* PostImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		256B182429A3BEF100087828 /* ImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGridView.swift; sourceTree = "<group>"; };
 		256B182629A3C6DB00087828 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
 		256B182829A464E300087828 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		256B182A29A4860100087828 /* PostImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				256B181A29A36A9600087828 /* CommentsView.swift */,
 				256B182029A3796200087828 /* BrowseView.swift */,
 				256B182629A3C6DB00087828 /* UploadView.swift */,
+				256B182A29A4860100087828 /* PostImageView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			files = (
 				256B181229A34A8600087828 /* FeedView.swift in Sources */,
 				256B181729A355E900087828 /* PostModel.swift in Sources */,
+				256B182B29A4860100087828 /* PostImageView.swift in Sources */,
 				256B17FE29A330E900087828 /* ContentView.swift in Sources */,
 				256B181D29A36EBF00087828 /* MessageView.swift in Sources */,
 				256B181029A3496700087828 /* colors.swift in Sources */,

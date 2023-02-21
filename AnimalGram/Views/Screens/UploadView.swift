@@ -11,6 +11,7 @@ import UIKit
 struct UploadView: View {
     
     @State var showImagePicker: Bool = false
+    @State var showPostImageView: Bool = false
     @State var imageSelected: UIImage = UIImage(imageLiteralResourceName: "logo")
     @State var sourceType:UIImagePickerController.SourceType = .camera
     
@@ -47,17 +48,34 @@ struct UploadView: View {
                     maxHeight: .infinity,
                     alignment: .center
                 ).background(Color.MyTheme.yellow)
-            }.sheet(isPresented: $showImagePicker) {
+            }
+            .sheet(isPresented: $showImagePicker) {
+                segueToPostImageView()
+            } content: {
                 ImagePicker(sourceType: $sourceType, imageSelected: $imageSelected)
             }
+
             
             Image("logo.transparent")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100,height: 100,alignment: .center)
                 .shadow(radius: 12)
+                .fullScreenCover(isPresented: $showPostImageView) {
+                    PostImageView(imageSelected: $imageSelected )
+                }
+
         }.edgesIgnoringSafeArea(.top)
         //top is bacause we have tab at the bottom,so no need to ignore the bottom
+    }
+    
+    //MARK: - segueToPostImageVie
+    func segueToPostImageView() {
+        //need to delay the appear timing,that seems more reasonable
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            showPostImageView.toggle()
+        }
+        
     }
 }
 

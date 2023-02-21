@@ -64,6 +64,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         /*
             Everytime users pick some media within the imagePicker,this fn gets called after they pick it.
             And we can use the info variable to access that media.
+            (總之就是選擇照片之後就會被觸發)
          */
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             
