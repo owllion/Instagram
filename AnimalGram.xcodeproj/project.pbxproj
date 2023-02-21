@@ -24,6 +24,7 @@
 		256B182329A379EE00087828 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182229A379EE00087828 /* CarouselView.swift */; };
 		256B182529A3BEF100087828 /* ImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182429A3BEF100087828 /* ImageGridView.swift */; };
 		256B182729A3C6DB00087828 /* UploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182629A3C6DB00087828 /* UploadView.swift */; };
+		256B182929A464E300087828 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182829A464E300087828 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		256B182229A379EE00087828 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		256B182429A3BEF100087828 /* ImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGridView.swift; sourceTree = "<group>"; };
 		256B182629A3C6DB00087828 /* UploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadView.swift; sourceTree = "<group>"; };
+		256B182829A464E300087828 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				256B181C29A36EBF00087828 /* MessageView.swift */,
 				256B182229A379EE00087828 /* CarouselView.swift */,
 				256B182429A3BEF100087828 /* ImageGridView.swift */,
+				256B182829A464E300087828 /* ImagePicker.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				256B181F29A372A900087828 /* CommentModel.swift in Sources */,
 				256B181B29A36A9600087828 /* CommentsView.swift in Sources */,
 				256B182729A3C6DB00087828 /* UploadView.swift in Sources */,
+				256B182929A464E300087828 /* ImagePicker.swift in Sources */,
 				256B182329A379EE00087828 /* CarouselView.swift in Sources */,
 				256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */,
 			);

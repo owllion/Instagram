@@ -9,36 +9,43 @@ import SwiftUI
 
 struct UploadView: View {
     var body: some View {
-        VStack {
+        ZStack {
+            VStack {
+                
+                Button {
+                    print("ff")
+                } label: {
+                    Text("Take photo".uppercased())
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.MyTheme.yellow)
+                }.frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: .center
+                ).background(Color.MyTheme.purple)
+                
+                Button {
+                    print("ff")
+                } label: {
+                    Text("import photo".uppercased())
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.MyTheme.purple)
+                }.frame(
+                    maxWidth: .infinity,
+                    maxHeight: .infinity,
+                    alignment: .center
+                ).background(Color.MyTheme.yellow)
+            }
             
-            Button {
-                print("ff")
-            } label: {
-                Text("Take photo".uppercased())
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.MyTheme.yellow)
-            }.frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity,
-                alignment: .center
-            ).background(Color.MyTheme.purple)
-            
-            Button {
-                print("ff")
-            } label: {
-                Text("Take photo".uppercased())
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.MyTheme.purple)
-            }.frame(
-                maxWidth: .infinity,
-                maxHeight: .infinity,
-                alignment: .center
-            ).background(Color.MyTheme.yellow)
-
-            
-        }.edgesIgnoringSafeArea(.all)
+            Image("logo.transparent")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100,height: 100,alignment: .center)
+                .shadow(radius: 12)
+        }.edgesIgnoringSafeArea(.top)
+        //top is bacause we have tab at the bottom,so no need to ignore the bottom
     }
 }
 
