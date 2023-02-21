@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     var isMyProfile: Bool
-    //true => show the setting bar,toehrwise do not show.
+    //true => show the setting bar,otherwise do not show.
     
     @State var profileDisplayName: String
     //Make it State is bacause there are instances where the profile display name might change.例如去編輯名稱之後這裡的名稱也應該要跟著一起變

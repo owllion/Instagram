@@ -31,6 +31,7 @@
 		256B183329A4C67E00087828 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183229A4C67E00087828 /* SettingsView.swift */; };
 		256B183529A4C9B100087828 /* SettingsLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183429A4C9B100087828 /* SettingsLabelView.swift */; };
 		256B183729A4CFE000087828 /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183629A4CFE000087828 /* SettingsRowView.swift */; };
+		256B183929A500D800087828 /* SettingsEditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183829A500D800087828 /* SettingsEditTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		256B183229A4C67E00087828 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		256B183429A4C9B100087828 /* SettingsLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabelView.swift; sourceTree = "<group>"; };
 		256B183629A4CFE000087828 /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
+		256B183829A500D800087828 /* SettingsEditTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEditTextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 				256B182A29A4860100087828 /* PostImageView.swift */,
 				256B182C29A49E4200087828 /* ProfileView.swift */,
 				256B183229A4C67E00087828 /* SettingsView.swift */,
+				256B183829A500D800087828 /* SettingsEditTextView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				256B182329A379EE00087828 /* CarouselView.swift in Sources */,
 				256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */,
 				256B183329A4C67E00087828 /* SettingsView.swift in Sources */,
+				256B183929A500D800087828 /* SettingsEditTextView.swift in Sources */,
 				256B183729A4CFE000087828 /* SettingsRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

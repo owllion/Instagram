@@ -16,7 +16,6 @@ struct SettingsRowView: View {
         HStack {
             
             ZStack {
-                
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
                     .fill(iconColor)
                 Image(systemName: iconName)
@@ -26,10 +25,11 @@ struct SettingsRowView: View {
             .frame(width: 36, height: 36, alignment: .center)
             
             Text(settingName)
+                .padding(.leading,10)
+                .foregroundColor(.primary)
             Spacer()
-           
             Image(systemName: "chevron.right")
-            
+                .foregroundColor(.primary)
             
         }
         .padding(.all,6)

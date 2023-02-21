@@ -35,7 +35,13 @@ struct SettingsView: View {
                 
                 //MARK: - SECTION 2: PROFILE
                 GroupBox {
-                    SettingsRowView(iconName: "pencil", settingName: "Display Name", iconColor: Color.MyTheme.purple)
+                    NavigationLink {
+                        Text("WoW!")
+                    } label: {
+                        SettingsRowView(iconName: "pencil", settingName: "Display Name", iconColor: Color.MyTheme.purple)
+                    }
+
+                   
                     
                     SettingsRowView(iconName: "text.quote", settingName: "Bio", iconColor: Color.MyTheme.purple)
                     
