@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            Text("Placegolder")
+           ProfileHeader()
         }.navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
