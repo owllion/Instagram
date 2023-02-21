@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    var currentUserID: String? = nil
+    //logged in -> has value / otherwise nil
+    
     var body: some View {
         TabView {
             //NavigationView is for the top title & link
@@ -30,13 +34,25 @@ struct ContentView: View {
                 Image(systemName: "square.and.arrow.up.fill")
                 Text("Upload")
             }
-            NavigationView {
-                ProfileView(isMyProfile: true, profileDisplayName: "My Profile", profileUserID: "")
-            }
-            .tabItem {
+            
+            
+            ZStack {
+            //using ZStack is because if you change the view that's connected to a tabItem(which is ProfileView here),the entire tab migh crash. To avoid that, we're gonna have our 'tabItem' always connected to a ZStack, 然後我們在裡面去change for showing the profileView or ant other newView
+                
+                if currentUserID != nil {
+                    NavigationView {
+                        ProfileView(isMyProfile: true, profileDisplayName: "My Profile", profileUserID: "")
+                    }
+                } else {
+                    SignUpView()
+                }
+              
+               
+            } .tabItem {
                 Image(systemName: "person.fill")
                 Text("Profile")
             }
+           
         }.tint(Color.MyTheme.purple)
     }
 }
