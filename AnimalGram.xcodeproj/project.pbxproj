@@ -40,6 +40,8 @@
 		256B184629A5C34500087828 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184529A5C34500087828 /* ViewExtension.swift */; };
 		256B184829A5CD9C00087828 /* LikeAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184729A5CD9C00087828 /* LikeAnimationView.swift */; };
 		256B184A29A6189700087828 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184929A6189700087828 /* ActivityView.swift */; };
+		256B184C29A66F5900087828 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 256B184B29A66F5900087828 /* GoogleService-Info.plist */; };
+		F99D7F03ACB47933B29CA3AA /* Pods_AnimalGram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B31E87545773D8F7B064FA /* Pods_AnimalGram.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +79,10 @@
 		256B184529A5C34500087828 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		256B184729A5CD9C00087828 /* LikeAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeAnimationView.swift; sourceTree = "<group>"; };
 		256B184929A6189700087828 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		256B184B29A66F5900087828 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		462FF1EDD5F06C659D596C42 /* Pods-AnimalGram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalGram.debug.xcconfig"; path = "Target Support Files/Pods-AnimalGram/Pods-AnimalGram.debug.xcconfig"; sourceTree = "<group>"; };
+		91808F260236296DC3F41681 /* Pods-AnimalGram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalGram.release.xcconfig"; path = "Target Support Files/Pods-AnimalGram/Pods-AnimalGram.release.xcconfig"; sourceTree = "<group>"; };
+		B0B31E87545773D8F7B064FA /* Pods_AnimalGram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimalGram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F99D7F03ACB47933B29CA3AA /* Pods_AnimalGram.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +102,8 @@
 			children = (
 				256B17FA29A330E900087828 /* AnimalGram */,
 				256B17F929A330E900087828 /* Products */,
+				641F29B5FC811435460BA1C1 /* Pods */,
+				9E903C8F48D264C418DB5850 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,9 +118,11 @@
 		256B17FA29A330E900087828 /* AnimalGram */ = {
 			isa = PBXGroup;
 			children = (
+				256B184B29A66F5900087828 /* GoogleService-Info.plist */,
 				256B184429A5C32E00087828 /* Helper */,
 				256B181529A355DD00087828 /* Model */,
 				256B180E29A3494600087828 /* Constants */,
+				256B17FB29A330E900087828 /* AnimalGramApp.swift */,
 				256B180B29A346D200087828 /* Views */,
 				256B17FF29A330EA00087828 /* Assets.xcassets */,
 				256B180929A337D900087828 /* LaunchScreen.storyboard */,
@@ -142,7 +153,6 @@
 			children = (
 				256B181129A34A8600087828 /* FeedView.swift */,
 				256B17FD29A330E900087828 /* ContentView.swift */,
-				256B17FB29A330E900087828 /* AnimalGramApp.swift */,
 				256B181A29A36A9600087828 /* CommentsView.swift */,
 				256B182029A3796200087828 /* BrowseView.swift */,
 				256B182629A3C6DB00087828 /* UploadView.swift */,
@@ -202,6 +212,23 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		641F29B5FC811435460BA1C1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				462FF1EDD5F06C659D596C42 /* Pods-AnimalGram.debug.xcconfig */,
+				91808F260236296DC3F41681 /* Pods-AnimalGram.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		9E903C8F48D264C418DB5850 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0B31E87545773D8F7B064FA /* Pods_AnimalGram.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -209,9 +236,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 256B180629A330EA00087828 /* Build configuration list for PBXNativeTarget "AnimalGram" */;
 			buildPhases = (
+				11EB2B57BD228BEEA6A30025 /* [CP] Check Pods Manifest.lock */,
 				256B17F429A330E900087828 /* Sources */,
 				256B17F529A330E900087828 /* Frameworks */,
 				256B17F629A330E900087828 /* Resources */,
+				9385B5C621B570AE12C19FE2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -261,12 +290,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				256B180A29A337D900087828 /* LaunchScreen.storyboard in Resources */,
+				256B184C29A66F5900087828 /* GoogleService-Info.plist in Resources */,
 				256B180329A330EA00087828 /* Preview Assets.xcassets in Resources */,
 				256B180029A330EA00087828 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11EB2B57BD228BEEA6A30025 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AnimalGram-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9385B5C621B570AE12C19FE2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AnimalGram/Pods-AnimalGram-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AnimalGram/Pods-AnimalGram-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AnimalGram/Pods-AnimalGram-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		256B17F429A330E900087828 /* Sources */ = {
@@ -425,6 +497,7 @@
 		};
 		256B180729A330EA00087828 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 462FF1EDD5F06C659D596C42 /* Pods-AnimalGram.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -457,6 +530,7 @@
 		};
 		256B180829A330EA00087828 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91808F260236296DC3F41681 /* Pods-AnimalGram.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

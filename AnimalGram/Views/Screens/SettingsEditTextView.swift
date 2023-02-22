@@ -18,15 +18,12 @@ struct SettingsEditTextView: View {
         VStack(alignment: .leading,spacing: 10) {
             
             Text(description)
+                .font(.system(size: 20))
+                .padding(.bottom,20)
             
-            TextField(placeholder, text: $submissionText )
-                .padding()
-                .frame(height: 60)
-                .frame(maxWidth: .infinity)
-                .background(Color.MyTheme.beige)
-                .cornerRadius(12)
-                .font(.headline)
-                .textInputAutocapitalization(.sentences)
+            TextField("",text: $submissionText, prompt:Text(placeholder).foregroundColor(Color.gray)
+            )
+                .customTextField(background: Color.MyTheme.beige)
             
             Button {
                 print("save")

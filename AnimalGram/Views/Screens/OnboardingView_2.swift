@@ -21,7 +21,12 @@ struct OnboardingView_2: View {
                 .fontWeight(.bold)
                 .foregroundColor(Color.MyTheme.yellow)
             
-            TextField("Add your name here...", text: $displayName).customTextField(background: Color.MyTheme.beige)
+            TextField(
+                "",
+                text: $displayName,
+                prompt: Text("Add your name here...")
+                    .foregroundColor(.gray)
+            ).customTextField(background: Color.MyTheme.beige)
             
             Button {
                 showImagePicker.toggle()

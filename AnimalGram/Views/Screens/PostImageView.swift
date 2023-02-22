@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PostImageView: View {
     
+    
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     @State var captionText: String = ""
     @Binding var imageSelected: UIImage
@@ -43,15 +45,8 @@ struct PostImageView: View {
                         Text("Add your caption here...")
                         .foregroundColor(.gray)
                 )
-                    .padding()
-                    .frame(height: 60)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(.red)
-                    .background(Color.MyTheme.beige)
-                    .cornerRadius(12)
-                    .font(.headline)
-                    .padding(.horizontal)
-                    .textInputAutocapitalization(.sentences)
+                .customTextField(background: Color.MyTheme.beige)
+                .padding(.horizontal)
                    
                     
                 

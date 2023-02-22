@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @Environment(\.colorScheme) var colorScheme
-    var currentUserID: String? = nil
+    var currentUserID: String? = ""
     //logged in -> has value / otherwise nil
     
     var body: some View {

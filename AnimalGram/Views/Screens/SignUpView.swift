@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct SignUpView: View {
+    
+    @Environment(\.colorScheme) var colorScheme
     @State var showOnboarding: Bool  = false
+    
+    
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             Image("logo.transparent")
@@ -22,7 +26,7 @@ struct SignUpView: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
                 //downsize the font if it needs to be downsized to fit the one line.
-                .foregroundColor(Color.MyTheme.purple)
+                .foregroundColor( colorScheme == .light ? Color.MyTheme.purple : Color.MyTheme.beige)
             
             Text("Click the button below to create an acount and join the fun!")
                 .font(.headline)

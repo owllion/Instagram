@@ -29,11 +29,11 @@ extension View {
         self.padding()
         .frame(height: 60)
         .frame(maxWidth: .infinity)
+        .foregroundColor(Color.MyTheme.purple)
         .background(background)
         .cornerRadius(12)
         .font(.headline)
         .textInputAutocapitalization(.sentences)
-        .padding(.horizontal)
     }
 
 }
