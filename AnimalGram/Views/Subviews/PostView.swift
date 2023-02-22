@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PostView: View {
+    @State var postImage:UIImage  = UIImage(named: "dog1")!
     
     @State var post: PostModel
     @State var animateLike: Bool = false
@@ -103,7 +104,7 @@ struct PostView: View {
             
             //MARK: - IMAGE
             ZStack {
-                Image("dog2")
+                Image(uiImage:postImage)
                     .resizable()
                     .scaledToFit()
                 
@@ -180,7 +181,26 @@ struct PostView: View {
         print("report!!")
     }
     func sharePost() {
-       
+        let defaultText = "Just checking in at \(post.username)'s post"
+        
+        let image = postImage
+        let link = URL(string: "https://www.youtube.com/watch?v=x5ZeAfz4G3s&list=RDx5ZeAfz4G3s&start_radio=1")!
+        
+        let activityViewController = UIActivityViewController(activityItems:[defaultText,image,link], applicationActivities: nil)
+        
+        //get the background view controller
+        //grabbing the first key window that is found in the whole application,
+        guard let firstScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return
+        }
+
+        guard let firstWindow = firstScene.windows.first else {
+            return
+        }
+
+        let viewController = firstWindow.rootViewController
+        
+        viewController?.present(activityViewController, animated: true, completion: nil)
     }
 
     

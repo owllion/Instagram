@@ -10,6 +10,8 @@ import UIKit
 
 struct UploadView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State var showImagePicker: Bool = false
     @State var showPostImageView: Bool = false
     @State var imageSelected: UIImage = UIImage(imageLiteralResourceName: "logo")
@@ -53,6 +55,7 @@ struct UploadView: View {
                 segueToPostImageView()
             } content: {
                 ImagePicker(sourceType: $sourceType, imageSelected: $imageSelected)
+                    .tint(colorScheme == .light ? Color.MyTheme.purple : Color.MyTheme.yellow )
             }
 
             
@@ -63,6 +66,7 @@ struct UploadView: View {
                 .shadow(radius: 12)
                 .fullScreenCover(isPresented: $showPostImageView) {
                     PostImageView(imageSelected: $imageSelected )
+                        .preferredColorScheme(colorScheme)
                 }
 
         }.edgesIgnoringSafeArea(.top)

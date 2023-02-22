@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CommentsView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     @State var submissionText:String = ""
     //textField changes the text -> this variable will also change.
     @State var comments = [CommentModel]()
@@ -37,7 +38,7 @@ struct CommentsView: View {
                 } label: {
                     Image(systemName: "paperplane.fill")
                         .font(.title2)
-                }.tint(Color.MyTheme.purple)
+                }
             }.padding(.all,15)
         }
         .padding(.all, 10)
@@ -68,6 +69,7 @@ struct CommentsView_Previews: PreviewProvider {
         NavigationView {
             //加上這個，上面的navigation設定才會有效，因為他們就是必須存在於navigationView裡面
             CommentsView()
+                .preferredColorScheme(.dark)
 
         }
     }

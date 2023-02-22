@@ -36,15 +36,24 @@ struct PostImageView: View {
                     .cornerRadius(20)
                     .clipped()
                 
-                TextField("Add your caption here...", text: $captionText)
+                TextField(
+                    "",
+                    text: $captionText,
+                    prompt:
+                        Text("Add your caption here...")
+                        .foregroundColor(.gray)
+                )
                     .padding()
                     .frame(height: 60)
                     .frame(maxWidth: .infinity)
+                    .foregroundColor(.red)
                     .background(Color.MyTheme.beige)
                     .cornerRadius(12)
                     .font(.headline)
                     .padding(.horizontal)
                     .textInputAutocapitalization(.sentences)
+                   
+                    
                 
                 Button {
                     postPicture()

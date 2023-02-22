@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     var currentUserID: String? = nil
     //logged in -> has value / otherwise nil
     
@@ -18,26 +19,27 @@ struct ContentView: View {
             NavigationView {
                 FeedView(data: PostArrayObject(), title: "Feed")
             }.tabItem {
-                    Image(systemName: "book.fill")
-                    Text("Feed")
-                }
-            NavigationView {
-               BrowseView()
-            } .tabItem {
-                Image(systemName: "magnifyingglass")
-                Text("Browse")
+                
+                
+                Label("Feed", systemImage: "book.fill")
             }
+            NavigationView {
+                BrowseView()
+            } .tabItem {
+                Label("Search", systemImage: "magnifyingglass")
+            }.toolbar(.visible, for: .tabBar)
+                .toolbarBackground(.red, for: .tabBar)
             NavigationView {
                 UploadView()
-                   
+                
             } .tabItem {
-                Image(systemName: "square.and.arrow.up.fill")
-                Text("Upload")
+                Label("Upload", systemImage: "square.and.arrow.up.fill")
+                    
             }
-            
+       
             
             ZStack {
-            //using ZStack is because if you change the view that's connected to a tabItem(which is ProfileView here),the entire tab migh crash. To avoid that, we're gonna have our 'tabItem' always connected to a ZStack, 然後我們在裡面去change for showing the profileView or ant other newView
+                //using ZStack is because if you change the view that's connected to a tabItem(which is ProfileView here),the entire tab migh crash. To avoid that, we're gonna have our 'tabItem' always connected to a ZStack, 然後我們在裡面去change for showing the profileView or ant other newView
                 
                 if currentUserID != nil {
                     NavigationView {
@@ -46,19 +48,26 @@ struct ContentView: View {
                 } else {
                     SignUpView()
                 }
-              
-               
+                
+                
             } .tabItem {
-                Image(systemName: "person.fill")
-                Text("Profile")
+                Label("Profile", systemImage: "person.fill")
+                
             }
-           
-        }.tint(Color.MyTheme.purple)
+            
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        
+        Group {
+            ContentView()
+            
+            ContentView()
+                .environment(\.colorScheme, .dark)
+        }
+       
     }
 }
