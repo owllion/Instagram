@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SignUpView: View {
+    @State var showOnboarding: Bool  = false
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             Image("logo.transparent")
@@ -29,7 +30,7 @@ struct SignUpView: View {
                 .multilineTextAlignment(.center)
             
             Button {
-                print("Sign up")
+                showOnboarding.toggle()
             } label: {
                 Text("Sign in / Sign up".uppercased())
                     .font(.headline)
@@ -42,6 +43,9 @@ struct SignUpView: View {
                     .shadow(radius: 7)
                     
             }.tint(Color.MyTheme.yellow)
+                .fullScreenCover(isPresented: $showOnboarding) {
+                    OnboardingView()
+                }
 
             
         }.padding(.all,40)

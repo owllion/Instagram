@@ -9,6 +9,10 @@ import SwiftUI
 
 struct OnboardingView_2: View {
     @State var displayName: String = ""
+    @State var showImagePicker: Bool = false
+    
+    @State var selectedImage: UIImage = UIImage(named: "logo")!
+    @State var sourceType: UIImagePickerController.SourceType  = .photoLibrary
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -20,7 +24,7 @@ struct OnboardingView_2: View {
             TextField("Add your name here...", text: $displayName).customTextField(background: Color.MyTheme.beige)
             
             Button {
-                print("ff")
+                showImagePicker.toggle()
             } label: {
                 Text("Finish: Add Profile picture").customLabel()
                 
@@ -31,6 +35,18 @@ struct OnboardingView_2: View {
         }.padding(.all,20)
             .frame(maxWidth: .infinity,maxHeight: .infinity)
             .background(Color.MyTheme.purple)
+            .edgesIgnoringSafeArea(.all)
+            .sheet(isPresented: $showImagePicker) {
+                createProfile()
+            } content: {
+                ImagePicker(sourceType: $sourceType, imageSelected: $selectedImage)
+            }
+
+    }
+    
+    //MARK: - CREATE PROFILE FUNCTION
+    func createProfile() {
+        print("create!")
     }
 }
 

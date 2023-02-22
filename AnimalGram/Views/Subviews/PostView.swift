@@ -10,6 +10,7 @@ import SwiftUI
 struct PostView: View {
     
     @State var post: PostModel
+    @State var animateLike: Bool = false
     
     var showHeaderAndFooter: Bool
     //not showing header &footer version is for ImageGrid
@@ -24,8 +25,6 @@ struct PostView: View {
                     
                     //WE can use this is because we're in th navigationView
                     NavigationLink {
-                        
-                        
                         //isMyProfile = false => 因為這邊是貼文串，點進去當然是別人的
                         ProfileView(isMyProfile: false, profileDisplayName: post.username, profileUserID: post.userID)
                     } label: {
@@ -36,13 +35,7 @@ struct PostView: View {
                             .fontWeight(.medium)
                             .foregroundColor(.primary)
                     }
-
-                    
-                    
-                   
-                    
                     Spacer()
-                    
                     Image(systemName: "ellipsis")
                         .font(.headline)
                 }.padding(.all, 6)
@@ -50,14 +43,27 @@ struct PostView: View {
             
             
             //MARK: - IMAGE
-            Image("dog2")
-                .resizable()
-                .scaledToFit()
+            ZStack {
+                Image("dog2")
+                    .resizable()
+                    .scaledToFit()
+                
+                LikeAnimationView(animate: $animateLike)
+            }
             
             //MARK: - FOOTER
             if showHeaderAndFooter {
                 HStack(alignment: .center, spacing: 20) {
-                    Image(systemName: "heart").font(.title3)
+                    Image(systemName: post.likedByUser ? "heart.fill" : "heart")
+                        .font(.title3)
+                        .onTapGesture {
+                            if post.likedByUser {
+                                unlikePost()
+                            } else {
+                                likePost()
+                                
+                            }
+                        }.foregroundColor(post.likedByUser ? Color.red : Color.primary)
                     
                     //MARK: - COMMENTS ICON
                     NavigationLink(
@@ -80,6 +86,28 @@ struct PostView: View {
             
         }
     }
+    
+    func likePost() {
+        
+        let updatedPost = PostModel(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreate: post.dateCreate, likeCount: post.likeCount + 1, likedByUser: true)
+        
+        self.post = updatedPost
+        
+        animateLike = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            animateLike = false
+        }
+    }
+    
+    func unlikePost() {
+        
+        let updatedPost = PostModel(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreate: post.dateCreate, likeCount: post.likeCount - 1, likedByUser: false)
+        
+        self.post = updatedPost
+        
+    }
+    
+    
 }
 
 struct PostView_Previews: PreviewProvider {

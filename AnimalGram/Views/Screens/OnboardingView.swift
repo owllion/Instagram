@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    
+    @Environment(\.dismiss) var dismiss
+    @State var showOnboardingTwo : Bool = false
+    
     var body: some View {
         
         VStack(alignment: .center, spacing: 20) {
@@ -29,7 +33,7 @@ struct OnboardingView: View {
                 .padding()
             
             Button {
-                print("Sign up")
+                showOnboardingTwo.toggle()
             } label: {
                 SignInWithAppleButtonCustom()
                     .frame(height: 60)
@@ -37,7 +41,7 @@ struct OnboardingView: View {
             }
             
             Button {
-                print("Sign up")
+                showOnboardingTwo.toggle()
             } label: {
                 HStack {
                    
@@ -55,12 +59,25 @@ struct OnboardingView: View {
                     .font(.system(size: 23, weight: .medium, design: .default))
                     
             }.tint(.gray)
+            
+            Button {
+                dismiss()
+            } label: {
+                Text("Continue as huest".uppercased())
+                    .font(.headline)
+                    .fontWeight(.medium)
+                    .padding()
+            }.foregroundColor(.accentColor)
+
 
             
         }.padding(.all,20)
-            .edgesIgnoringSafeArea(.all)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.MyTheme.beige)
+            .edgesIgnoringSafeArea(.all)
+            .fullScreenCover(isPresented: $showOnboardingTwo) {
+                OnboardingView_2()
+            }
     }
 }
 
