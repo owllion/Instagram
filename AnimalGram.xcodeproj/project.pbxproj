@@ -39,6 +39,7 @@
 		256B184329A5BE9D00087828 /* OnboardingView_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184229A5BE9D00087828 /* OnboardingView_2.swift */; };
 		256B184629A5C34500087828 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184529A5C34500087828 /* ViewExtension.swift */; };
 		256B184829A5CD9C00087828 /* LikeAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184729A5CD9C00087828 /* LikeAnimationView.swift */; };
+		256B184A29A6189700087828 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184929A6189700087828 /* ActivityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		256B184229A5BE9D00087828 /* OnboardingView_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView_2.swift; sourceTree = "<group>"; };
 		256B184529A5C34500087828 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		256B184729A5CD9C00087828 /* LikeAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeAnimationView.swift; sourceTree = "<group>"; };
+		256B184929A6189700087828 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				256B182229A379EE00087828 /* CarouselView.swift */,
 				256B182429A3BEF100087828 /* ImageGridView.swift */,
 				256B182829A464E300087828 /* ImagePicker.swift */,
+				256B184929A6189700087828 /* ActivityView.swift */,
 				256B183029A4A49200087828 /* ProfileHeaderView.swift */,
 				256B183429A4C9B100087828 /* SettingsLabelView.swift */,
 				256B183629A4CFE000087828 /* SettingsRowView.swift */,
@@ -293,6 +296,7 @@
 				256B182729A3C6DB00087828 /* UploadView.swift in Sources */,
 				256B183F29A5B4C000087828 /* OnboardingView.swift in Sources */,
 				256B182929A464E300087828 /* ImagePicker.swift in Sources */,
+				256B184A29A6189700087828 /* ActivityView.swift in Sources */,
 				256B182329A379EE00087828 /* CarouselView.swift in Sources */,
 				256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */,
 				256B183329A4C67E00087828 /* SettingsView.swift in Sources */,

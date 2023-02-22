@@ -87,6 +87,8 @@ struct PostView: View {
                                     Text("It made me uncomfortable")
                                 }
                                 
+                                
+                                //Need to write the btn like this or it will keep asking you to add LocationLocalizedStringKey
                                 Button("Cancel", role: .cancel) {
                                     self.dialogType = .general
                                 }
@@ -127,10 +129,20 @@ struct PostView: View {
                         destination: CommentsView()) {
                             Image(systemName: "bubble.middle.bottom").foregroundColor(.primary)
                         }
-                    Image(systemName: "paperplane").font(.title3)
+                    
+
+                    Image(systemName: "paperplane")
+                        .font(.title3)
+                        .foregroundColor(.primary)
+                        .onTapGesture {
+                            sharePost()
+                        }
                     
                     Spacer()
+                    
                 }.padding(.all,10)
+                
+                
                 if let caption = post.caption {
                     HStack {
                         Text(caption)
@@ -166,6 +178,9 @@ struct PostView: View {
     
     func reportPost(reason: String) {
         print("report!!")
+    }
+    func sharePost() {
+       
     }
 
     
