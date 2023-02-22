@@ -34,6 +34,7 @@
 		256B183929A500D800087828 /* SettingsEditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183829A500D800087828 /* SettingsEditTextView.swift */; };
 		256B183B29A5058F00087828 /* SettingsEditImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183A29A5058F00087828 /* SettingsEditImageView.swift */; };
 		256B183D29A516CF00087828 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183C29A516CF00087828 /* SignUpView.swift */; };
+		256B183F29A5B4C000087828 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183E29A5B4C000087828 /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		256B183829A500D800087828 /* SettingsEditTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEditTextView.swift; sourceTree = "<group>"; };
 		256B183A29A5058F00087828 /* SettingsEditImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEditImageView.swift; sourceTree = "<group>"; };
 		256B183C29A516CF00087828 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		256B183E29A5B4C000087828 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				256B183829A500D800087828 /* SettingsEditTextView.swift */,
 				256B183A29A5058F00087828 /* SettingsEditImageView.swift */,
 				256B183C29A516CF00087828 /* SignUpView.swift */,
+				256B183E29A5B4C000087828 /* OnboardingView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				256B181F29A372A900087828 /* CommentModel.swift in Sources */,
 				256B181B29A36A9600087828 /* CommentsView.swift in Sources */,
 				256B182729A3C6DB00087828 /* UploadView.swift in Sources */,
+				256B183F29A5B4C000087828 /* OnboardingView.swift in Sources */,
 				256B182929A464E300087828 /* ImagePicker.swift in Sources */,
 				256B182329A379EE00087828 /* CarouselView.swift in Sources */,
 				256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */,
