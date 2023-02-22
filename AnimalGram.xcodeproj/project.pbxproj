@@ -35,6 +35,7 @@
 		256B183B29A5058F00087828 /* SettingsEditImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183A29A5058F00087828 /* SettingsEditImageView.swift */; };
 		256B183D29A516CF00087828 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183C29A516CF00087828 /* SignUpView.swift */; };
 		256B183F29A5B4C000087828 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183E29A5B4C000087828 /* OnboardingView.swift */; };
+		256B184129A5B75D00087828 /* SignInWithAppleButtonCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184029A5B75D00087828 /* SignInWithAppleButtonCustom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		256B183A29A5058F00087828 /* SettingsEditImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEditImageView.swift; sourceTree = "<group>"; };
 		256B183C29A516CF00087828 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		256B183E29A5B4C000087828 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		256B184029A5B75D00087828 /* SignInWithAppleButtonCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButtonCustom.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				256B183029A4A49200087828 /* ProfileHeaderView.swift */,
 				256B183429A4C9B100087828 /* SettingsLabelView.swift */,
 				256B183629A4CFE000087828 /* SettingsRowView.swift */,
+				256B184029A5B75D00087828 /* SignInWithAppleButtonCustom.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				256B181229A34A8600087828 /* FeedView.swift in Sources */,
+				256B184129A5B75D00087828 /* SignInWithAppleButtonCustom.swift in Sources */,
 				256B181729A355E900087828 /* PostModel.swift in Sources */,
 				256B183529A4C9B100087828 /* SettingsLabelView.swift in Sources */,
 				256B182B29A4860100087828 /* PostImageView.swift in Sources */,

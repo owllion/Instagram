@@ -16,36 +16,51 @@ struct OnboardingView: View {
                 .scaledToFit()
                 .frame(width: 100, height: 100, alignment: .center)
             
-            Text("You are not signed in!")
-                .font(.title)
+            Text("Welcome!")
+                .font(.largeTitle)
                 .fontWeight(.bold)
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-                //downsize the font if it needs to be downsized to fit the one line.
                 .foregroundColor(Color.MyTheme.purple)
             
-            Text("Click the button below to create an acount and join the fun!")
-                .font(.headline)
+            Text("AnimalGram is the #1 app for posting pictures of your animal and sharing them across the world.")
+                .font(.title3)
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
+                .foregroundColor(Color.MyTheme.purple)
+                .padding()
             
             Button {
                 print("Sign up")
             } label: {
-                Text("Sign in / Sign up".uppercased())
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .padding()
+                SignInWithAppleButtonCustom()
                     .frame(height: 60)
                     .frame(maxWidth: .infinity)
-                    .background(Color.MyTheme.purple)
-                    .cornerRadius(12)
-                    .shadow(radius: 7)
+            }
+            
+            Button {
+                print("Sign up")
+            } label: {
+                HStack {
+                   
+                    Image("g")
+                        .frame(maxWidth: 1,maxHeight: 1)
+                        .padding(.trailing,5)
+                        .padding(.leading,20)
                     
-            }.tint(Color.MyTheme.yellow)
+                    Text("Sign in with Google")
+                    
+                }.frame(height: 60)
+                    .frame(maxWidth: .infinity)
+                    .background(.white)
+                    .cornerRadius(9)
+                    .font(.system(size: 23, weight: .medium, design: .default))
+                    
+            }.tint(.gray)
 
             
-        }.padding(.all,40)
+        }.padding(.all,20)
+            .edgesIgnoringSafeArea(.all)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.MyTheme.beige)
        
     }
 }
