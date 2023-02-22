@@ -20,4 +20,15 @@ extension View {
             .cornerRadius(12)
             .padding(.horizontal)
     }
+    
+    func customTextField(background: Color) -> some View {
+        self.padding()
+        .frame(height: 60)
+        .frame(maxWidth: .infinity)
+        .background(background)
+        .cornerRadius(12)
+        .font(.headline)
+        .textInputAutocapitalization(.sentences)
+        .padding(.horizontal)
+    }
 }
