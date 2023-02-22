@@ -11,9 +11,17 @@ struct PostView: View {
     
     @State var post: PostModel
     @State var animateLike: Bool = false
+    @State var showConfirmation: Bool  = false
+    @State var dialogType: PostConfirmationOption = .general
     
     var showHeaderAndFooter: Bool
     //not showing header &footer version is for ImageGrid
+    
+    
+    enum PostConfirmationOption {
+        case general,reporting
+    }
+    
     
     var body: some View {
         VStack(alignment: .center,
@@ -38,6 +46,55 @@ struct PostView: View {
                     Spacer()
                     Image(systemName: "ellipsis")
                         .font(.headline)
+                        .onTapGesture {
+                            showConfirmation.toggle()
+                        }.confirmationDialog(
+                            dialogType == .general ? "What would you like to do?" : "Why are you reporting this post?",
+                            isPresented: $showConfirmation,
+                            titleVisibility: .visible
+                        ) {
+                            if dialogType == .general {
+                                Button (role: .destructive){
+                                    self.dialogType = .reporting
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                        self.showConfirmation.toggle()
+                                    }
+                                } label: {
+                                    Text("Report")
+                                }
+                                
+                                Button {
+                                    print()
+                                } label: {
+                                    Text("Learn more..")
+                                }
+                            } else {
+                                Button (role: .destructive){
+                                    reportPost(reason: "This is inappropriate")
+                                } label: {
+                                    Text("This is inappropriate")
+                                }
+                                
+                                Button(role: .destructive) {
+                                    reportPost(reason: "This is spam")
+                                } label: {
+                                    Text("This is spam")
+                                }
+                                
+                                Button(role: .destructive) {
+                                    reportPost(reason: "It made me uncomfortable")
+                                } label: {
+                                    Text("It made me uncomfortable")
+                                }
+                                
+                                Button("Cancel", role: .cancel) {
+                                    self.dialogType = .general
+                                }
+                               
+                            }
+                          
+
+                        }
                 }.padding(.all, 6)
             }
             
@@ -69,7 +126,7 @@ struct PostView: View {
                     NavigationLink(
                         destination: CommentsView()) {
                             Image(systemName: "bubble.middle.bottom").foregroundColor(.primary)
-                    }
+                        }
                     Image(systemName: "paperplane").font(.title3)
                     
                     Spacer()
@@ -107,8 +164,14 @@ struct PostView: View {
         
     }
     
+    func reportPost(reason: String) {
+        print("report!!")
+    }
+
+    
     
 }
+
 
 struct PostView_Previews: PreviewProvider {
     static var post: PostModel = PostModel(postID: "", userID: "", username: "Tomothee", caption: "Test caption", dateCreate: Date(), likeCount: 0, likedByUser: false)

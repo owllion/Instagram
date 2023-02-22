@@ -8,6 +8,10 @@
 import Foundation
 import SwiftUI
 
+enum PostConfirmationOption {
+    case general,reporting
+}
+
 extension View {
     
     func customLabel() -> some View {
@@ -31,4 +35,5 @@ extension View {
         .textInputAutocapitalization(.sentences)
         .padding(.horizontal)
     }
+
 }
