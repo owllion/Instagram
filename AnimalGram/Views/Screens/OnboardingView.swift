@@ -41,7 +41,7 @@ struct OnboardingView: View {
             } label: {
                 HStack {
                    
-                    Image("g")
+                    Image("googleIcon")
                         .frame(maxWidth: 1,maxHeight: 1)
                         .padding(.trailing,5)
                         .padding(.leading,20)
@@ -61,7 +61,6 @@ struct OnboardingView: View {
             .edgesIgnoringSafeArea(.all)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.MyTheme.beige)
-       
     }
 }
 

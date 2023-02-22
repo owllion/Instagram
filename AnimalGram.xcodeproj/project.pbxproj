@@ -36,6 +36,8 @@
 		256B183D29A516CF00087828 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183C29A516CF00087828 /* SignUpView.swift */; };
 		256B183F29A5B4C000087828 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B183E29A5B4C000087828 /* OnboardingView.swift */; };
 		256B184129A5B75D00087828 /* SignInWithAppleButtonCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184029A5B75D00087828 /* SignInWithAppleButtonCustom.swift */; };
+		256B184329A5BE9D00087828 /* OnboardingView_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184229A5BE9D00087828 /* OnboardingView_2.swift */; };
+		256B184629A5C34500087828 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184529A5C34500087828 /* ViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		256B183C29A516CF00087828 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		256B183E29A5B4C000087828 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		256B184029A5B75D00087828 /* SignInWithAppleButtonCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleButtonCustom.swift; sourceTree = "<group>"; };
+		256B184229A5BE9D00087828 /* OnboardingView_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView_2.swift; sourceTree = "<group>"; };
+		256B184529A5C34500087828 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 		256B17FA29A330E900087828 /* AnimalGram */ = {
 			isa = PBXGroup;
 			children = (
+				256B184429A5C32E00087828 /* Helper */,
 				256B181529A355DD00087828 /* Model */,
 				256B180E29A3494600087828 /* Constants */,
 				256B180B29A346D200087828 /* Views */,
@@ -144,6 +149,7 @@
 				256B183A29A5058F00087828 /* SettingsEditImageView.swift */,
 				256B183C29A516CF00087828 /* SignUpView.swift */,
 				256B183E29A5B4C000087828 /* OnboardingView.swift */,
+				256B184229A5BE9D00087828 /* OnboardingView_2.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -180,6 +186,14 @@
 				256B181E29A372A900087828 /* CommentModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		256B184429A5C32E00087828 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				256B184529A5C34500087828 /* ViewExtension.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,9 +277,11 @@
 				256B181D29A36EBF00087828 /* MessageView.swift in Sources */,
 				256B181029A3496700087828 /* colors.swift in Sources */,
 				256B181929A35A0C00087828 /* PostArrayObject.swift in Sources */,
+				256B184629A5C34500087828 /* ViewExtension.swift in Sources */,
 				256B182529A3BEF100087828 /* ImageGridView.swift in Sources */,
 				256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */,
 				256B181429A34B9100087828 /* PostView.swift in Sources */,
+				256B184329A5BE9D00087828 /* OnboardingView_2.swift in Sources */,
 				256B182D29A49E4200087828 /* ProfileView.swift in Sources */,
 				256B182129A3796200087828 /* BrowseView.swift in Sources */,
 				256B183B29A5058F00087828 /* SettingsEditImageView.swift in Sources */,
