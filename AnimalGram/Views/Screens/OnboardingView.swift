@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    
+    @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.dismiss) var dismiss
     @State var showOnboardingTwo : Bool = false
+    @State var showError : Bool = false
     
     var body: some View {
         
@@ -32,19 +33,19 @@ struct OnboardingView: View {
                 .foregroundColor(Color.MyTheme.purple)
                 .padding()
             
-            Button {
-                showOnboardingTwo.toggle()
-            } label: {
-                SignInWithAppleButtonCustom()
-                    .frame(height: 60)
-                    .frame(maxWidth: .infinity)
-            }
+//            Button {
+//                showOnboardingTwo.toggle()
+//            } label: {
+//                SignInWithAppleButtonCustom()
+//                    .frame(height: 60)
+//                    .frame(maxWidth: .infinity)
+//            }
             
             Button {
-                showOnboardingTwo.toggle()
+                loginViewModel.signIn()
+//                showOnboardingTwo.toggle()
             } label: {
                 HStack {
-                   
                     Image("googleIcon")
                         .frame(maxWidth: 1,maxHeight: 1)
                         .padding(.trailing,5)
@@ -77,6 +78,8 @@ struct OnboardingView: View {
             .edgesIgnoringSafeArea(.all)
             .fullScreenCover(isPresented: $showOnboardingTwo) {
                 OnboardingView_2()
+            }.alert(isPresented: $showError) {
+                return Alert(title: Text("Error signing in!"))
             }
     }
 }
