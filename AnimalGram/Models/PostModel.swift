@@ -4,8 +4,6 @@
 //
 //  Created by Zheng yu hsin on 2023/2/20.
 //
-
-import Foundation
 import SwiftUI
 
 struct PostModel: Identifiable, Hashable {
@@ -22,7 +20,5 @@ struct PostModel: Identifiable, Hashable {
         hasher.combine(id)
         //compare two instance's id
     }
-    
-    
     
 }

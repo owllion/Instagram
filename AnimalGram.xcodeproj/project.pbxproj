@@ -42,6 +42,8 @@
 		256B184A29A6189700087828 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184929A6189700087828 /* ActivityView.swift */; };
 		256B185029A72BBA00087828 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184F29A72BBA00087828 /* LoginViewModel.swift */; };
 		256B185229A7603300087828 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 256B184B29A66F5900087828 /* GoogleService-Info.plist */; };
+		256B185529A7A7CF00087828 /* AnimalGramRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B185429A7A7CF00087828 /* AnimalGramRepository.swift */; };
+		256B185729A7ABC100087828 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B185629A7ABC100087828 /* constants.swift */; };
 		F99D7F03ACB47933B29CA3AA /* Pods_AnimalGram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B31E87545773D8F7B064FA /* Pods_AnimalGram.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,9 +82,11 @@
 		256B184529A5C34500087828 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		256B184729A5CD9C00087828 /* LikeAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeAnimationView.swift; sourceTree = "<group>"; };
 		256B184929A6189700087828 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
-		256B184B29A66F5900087828 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		256B184B29A66F5900087828 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "AnimalGram/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		256B184D29A715A800087828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		256B184F29A72BBA00087828 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		256B185429A7A7CF00087828 /* AnimalGramRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalGramRepository.swift; sourceTree = "<group>"; };
+		256B185629A7ABC100087828 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		462FF1EDD5F06C659D596C42 /* Pods-AnimalGram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalGram.debug.xcconfig"; path = "Target Support Files/Pods-AnimalGram/Pods-AnimalGram.debug.xcconfig"; sourceTree = "<group>"; };
 		91808F260236296DC3F41681 /* Pods-AnimalGram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalGram.release.xcconfig"; path = "Target Support Files/Pods-AnimalGram/Pods-AnimalGram.release.xcconfig"; sourceTree = "<group>"; };
 		B0B31E87545773D8F7B064FA /* Pods_AnimalGram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimalGram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				256B17FA29A330E900087828 /* AnimalGram */,
+				256B184D29A715A800087828 /* Info.plist */,
+				256B184B29A66F5900087828 /* GoogleService-Info.plist */,
 				256B17F929A330E900087828 /* Products */,
 				641F29B5FC811435460BA1C1 /* Pods */,
 				9E903C8F48D264C418DB5850 /* Frameworks */,
@@ -121,13 +127,12 @@
 		256B17FA29A330E900087828 /* AnimalGram */ = {
 			isa = PBXGroup;
 			children = (
-				256B184D29A715A800087828 /* Info.plist */,
-				256B184B29A66F5900087828 /* GoogleService-Info.plist */,
-				256B184E29A71B0B00087828 /* ViewModel */,
-				256B184429A5C32E00087828 /* Helper */,
-				256B181529A355DD00087828 /* Model */,
-				256B180E29A3494600087828 /* Constants */,
+				256B185329A7A7A600087828 /* Repository */,
+				256B181529A355DD00087828 /* Models */,
 				256B180B29A346D200087828 /* Views */,
+				256B184E29A71B0B00087828 /* ViewModel */,
+				256B184429A5C32E00087828 /* Utility */,
+				256B180E29A3494600087828 /* Constants */,
 				256B17FF29A330EA00087828 /* Assets.xcassets */,
 				256B180929A337D900087828 /* LaunchScreen.storyboard */,
 				256B180129A330EA00087828 /* Preview Content */,
@@ -195,26 +200,27 @@
 			isa = PBXGroup;
 			children = (
 				256B180F29A3496700087828 /* colors.swift */,
+				256B185629A7ABC100087828 /* constants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		256B181529A355DD00087828 /* Model */ = {
+		256B181529A355DD00087828 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				256B181629A355E900087828 /* PostModel.swift */,
 				256B181829A35A0C00087828 /* PostArrayObject.swift */,
 				256B181E29A372A900087828 /* CommentModel.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		256B184429A5C32E00087828 /* Helper */ = {
+		256B184429A5C32E00087828 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
 				256B184529A5C34500087828 /* ViewExtension.swift */,
 			);
-			path = Helper;
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		256B184E29A71B0B00087828 /* ViewModel */ = {
@@ -223,6 +229,14 @@
 				256B184F29A72BBA00087828 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		256B185329A7A7A600087828 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				256B185429A7A7CF00087828 /* AnimalGramRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		641F29B5FC811435460BA1C1 /* Pods */ = {
@@ -372,6 +386,7 @@
 				256B184629A5C34500087828 /* ViewExtension.swift in Sources */,
 				256B182529A3BEF100087828 /* ImageGridView.swift in Sources */,
 				256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */,
+				256B185529A7A7CF00087828 /* AnimalGramRepository.swift in Sources */,
 				256B181429A34B9100087828 /* PostView.swift in Sources */,
 				256B184329A5BE9D00087828 /* OnboardingView_2.swift in Sources */,
 				256B182D29A49E4200087828 /* ProfileView.swift in Sources */,
@@ -383,6 +398,7 @@
 				256B183F29A5B4C000087828 /* OnboardingView.swift in Sources */,
 				256B182929A464E300087828 /* ImagePicker.swift in Sources */,
 				256B184A29A6189700087828 /* ActivityView.swift in Sources */,
+				256B185729A7ABC100087828 /* constants.swift in Sources */,
 				256B182329A379EE00087828 /* CarouselView.swift in Sources */,
 				256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */,
 				256B183329A4C67E00087828 /* SettingsView.swift in Sources */,

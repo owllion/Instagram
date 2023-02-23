@@ -78,8 +78,8 @@ struct OnboardingView: View {
             .edgesIgnoringSafeArea(.all)
             .fullScreenCover(isPresented: $showOnboardingTwo) {
                 OnboardingView_2()
-            }.alert(isPresented: $showError) {
-                return Alert(title: Text("Error signing in!"))
+            }.alert(isPresented: $loginViewModel.showError) {
+                return Alert(title: Text(loginViewModel.errorMessage))
             }
     }
 }
