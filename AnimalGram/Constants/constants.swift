@@ -1,10 +1,6 @@
 
 struct K {
-    static let appName = "⚡️FlashChat"
-    static let cellIdentifier = "ReusableCell"
-    static let cellNibName = "MessageCell"
-    static let registerSegue = "RegisterToChat"
-    static let loginSegue = "LoginToChat"
+    static let appName = "AnimalGram"
     
     struct BrandColors {
         static let purple = "BrandPurple"
@@ -13,11 +9,25 @@ struct K {
         static let lighBlue = "BrandLightBlue"
     }
     
-    struct FStore {
-        static let collectionName = "messages"
-        static let senderField = "sender"
-        static let bodyField = "body"
-        static let dateField = "date"
+    struct FireStore {
+        
+        struct User {
+            static let collectionName = "users"
+            static let displayNameField = "displayName"
+            static let emailField = "email"
+            static let providerID = "providerID"
+            static let provider = "provider"
+            static let userID = "userID"
+            static let bio = "bio"
+            static let sateCreated = "dateCreated"
+        }
+        
+        struct Post {
+            static let collectionName = "posts"
+
+        }
+        
+        
     }
 }
 

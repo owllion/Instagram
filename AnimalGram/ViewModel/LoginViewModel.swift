@@ -83,11 +83,18 @@ class LoginViewModel: ObservableObject {
                 }
         }
 }
-
-
-
-
-
+    
+    func signOut() {
+      GIDSignIn.sharedInstance.signOut()
+      
+      do {
+        try Auth.auth().signOut()
+        
+        state = .signedOut
+      } catch {
+          self.handleError(error: error)
+      }
+    }
 
 }
 
