@@ -7,11 +7,11 @@
 
 import Foundation
 import SwiftUI
+import GoogleSignIn
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseAuth
-import GoogleSignIn
 
 
 private let store = Firestore.firestore()
@@ -29,7 +29,11 @@ class LoginViewModel: ObservableObject {
     //MARK: - User data
     @Published var displayName: String = ""
     @Published var email: String = ""
+    @Published var profileImage: UIImage = UIImage(named: "dog1")!
     
+    //MARK: - Post data
+    @Published var posts = [Post]()
+
     
     //MARK: - View Properties
     @Published var state: SignInState = .signedOut
@@ -81,8 +85,7 @@ class LoginViewModel: ObservableObject {
         
         guard let idToken = result?.user.idToken else { return }
         
-        let userProfile = result?.user.profile
-        //let familyName = user?.profile?.familyName
+        let profile = result?.user.profile
         
         
         let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,accessToken:(result?.user.accessToken.tokenString)!)
@@ -93,9 +96,9 @@ class LoginViewModel: ObservableObject {
                     self.handleError(error)
                 } else {
                     self.state = .signedIn
-                    self.email = userProfile!.email
-                    self.displayName = (userProfile!.givenName!) + (userProfile!.familyName ?? "") 
-                    
+                    self.email = profile!.email
+                    self.displayName = profile!.name
+                    profile!.imageURL(withDimension: 240)
                     self.createUser()
                     
                 }
@@ -114,14 +117,23 @@ class LoginViewModel: ObservableObject {
       }
     }
     
+    //MARK: - Firebase CRUD
+    
     func createUser() {
+        
+        let document = userCollection.document()
+        let userID = document.documentID
+        
+        ImageManager.instance.uploadProfileImage(userID: userID, image: self.profileImage)
+        
+        
         let userData: [String : Any] = [
             K.FireStore.User.displayNameField : self.displayName,
             K.FireStore.User.emailField : self.email,
-            K.FireStore.User.providerID : "0",
-            K.FireStore.User.provider : "google",
-            K.FireStore.User.userID : "123",
-            K.FireStore.User.bio : "no bio",
+            K.FireStore.User.providerID : "",
+            K.FireStore.User.provider : "",
+            K.FireStore.User.userID : userID,
+            K.FireStore.User.bio : "Introduce yourself!",
             K.FireStore.User.dateCreated : Date().timeIntervalSince1970
         ]
         
@@ -136,6 +148,59 @@ class LoginViewModel: ObservableObject {
             
             
     }
+    
+    func getUser() {
+        
+    }
+    
+    func createPost(_ post: Post) {
+        do {
+            try postCollection.addDocument(from: post)
+        } catch {
+            self.handleError(error)
+            
+        }
+    }
+    
+    func getPosts() {
+        postCollection.addSnapshotListener { snapshot, error in
+            if let error = error {
+                self.showError.toggle()
+                self.errorMessage = error.localizedDescription
+                return
+            }
+            
+            self.posts = (snapshot?.documents.compactMap {
+                try? $0.data(as: Post.self)
+            }) ?? []
+        }
+    }
+    
+    func updatePost(_ post: Post) {
+        do {
+            try postCollection.document(post.postID).setData(from: post)
+        } catch {
+            
+                self.handleError(error)
+            
+        }
+    }
+    
+    func deletePost(_ postId: String) {
+        
+        postCollection.document(postId).delete { error in
+            if let error = error {
+                print("Unable to remove the post: \(error.localizedDescription)")
+                self.handleError(error)
+            }
+            
+            
+        }
+    }
+    
+
+    
+    
     
 
 }
