@@ -29,7 +29,8 @@ class LoginViewModel: ObservableObject {
     //MARK: - User data
     @Published var displayName: String = ""
     @Published var email: String = ""
-    @Published var profileImage: UIImage = UIImage(named: "dog1")!
+    @Published var bio: String = ""
+    @Published var userID: String?
     
     //MARK: - Post data
     @Published var posts = [Post]()
@@ -55,7 +56,7 @@ class LoginViewModel: ObservableObject {
     
     
     //MARK: - google login
-    func signIn() {
+    func signIn() async {
         //      if GIDSignIn.sharedInstance.hasPreviousSignIn() {
         //        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
         //            authenticateUser(for: user, with: error)
@@ -68,41 +69,42 @@ class LoginViewModel: ObservableObject {
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.configuration = config
         
-        //Start login flow
-        GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController())  { signInResult, error in
-            self.authenticateUser(for: signInResult, with: error)
+        do {
+            //Start login flow
+            let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController())
+            //{ signInResult, error in
+            await self.authenticateUser(for: result)
+            //}
+        }catch {
+            print(error)
         }
-        
     }
     
+    @MainActor
     //Get user data and store into Firestore
-    func authenticateUser(for result: GIDSignInResult?, with error: Error?) {
-        
-        if let error = error {
-            self.handleError(error)
-            return
-        }
+    func authenticateUser(for result: GIDSignInResult?) async {
         
         guard let idToken = result?.user.idToken else { return }
         
         let profile = result?.user.profile
         
+        let credential = GoogleAuthProvider.credential(
+            withIDToken: idToken.tokenString,
+            accessToken: (result?.user.accessToken.tokenString)!
+        )
         
-        let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,accessToken:(result?.user.accessToken.tokenString)!)
-        
-        Auth.auth().signIn(with: credential) {
-            (_, error) in
-                if let error = error {
-                    self.handleError(error)
-                } else {
-                    self.state = .signedIn
-                    self.email = profile!.email
-                    self.displayName = profile!.name
-                    profile!.imageURL(withDimension: 240)
-                    self.createUser()
-                    
-                }
+        do {
+            try await Auth.auth().signIn(with: credential)
+            
+            self.state = .signedIn
+            self.email = profile!.email
+            self.displayName = profile!.name
+            profile!.imageURL(withDimension: 240)
+            
+        }catch {
+            print(error)
         }
+       
 }
     
     func signOut() {
@@ -110,7 +112,6 @@ class LoginViewModel: ObservableObject {
       
       do {
         try Auth.auth().signOut()
-        
         state = .signedOut
       } catch {
           self.handleError(error)
@@ -119,12 +120,12 @@ class LoginViewModel: ObservableObject {
     
     //MARK: - Firebase CRUD
     
-    func createUser() {
+    func createUser(_ selectedImage: UIImage) {
         
         let document = userCollection.document()
-        let userID = document.documentID
+        self.userID = document.documentID
         
-        ImageManager.instance.uploadProfileImage(userID: userID, image: self.profileImage)
+        ImageManager.instance.uploadProfileImage(userID: self.userID!, image: selectedImage)
         
         
         let userData: [String : Any] = [
@@ -132,7 +133,7 @@ class LoginViewModel: ObservableObject {
             K.FireStore.User.emailField : self.email,
             K.FireStore.User.providerID : "",
             K.FireStore.User.provider : "",
-            K.FireStore.User.userID : userID,
+            K.FireStore.User.userID : userID!,
             K.FireStore.User.bio : "Introduce yourself!",
             K.FireStore.User.dateCreated : Date().timeIntervalSince1970
         ]
@@ -149,8 +150,18 @@ class LoginViewModel: ObservableObject {
             
     }
     
-    func getUser() {
-        
+    func getUserData(with userID: String) {
+        userCollection.document(userID).getDocument { documentSnapshot, error in
+            if let document = documentSnapshot,
+               let displayName = document.get(K.FireStore.User.displayNameField) as? String,
+               let bio = document.get(K.FireStore.User.displayNameField) as? String {
+                   print("Successfully get the user info!")
+                    self.displayName = displayName
+                    self.bio = bio
+                
+               }
+                
+        }
     }
     
     func createPost(_ post: Post) {
@@ -161,6 +172,8 @@ class LoginViewModel: ObservableObject {
             
         }
     }
+    
+    func getSinglePost() {}
     
     func getPosts() {
         postCollection.addSnapshotListener { snapshot, error in

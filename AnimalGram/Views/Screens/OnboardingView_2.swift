@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct OnboardingView_2: View {
+    @EnvironmentObject var loginViewModel: LoginViewModel
+    
+    @Environment(\.dismiss) var dismiss
+    
     @State var displayName: String = ""
     @State var showImagePicker: Bool = false
     
@@ -42,7 +46,8 @@ struct OnboardingView_2: View {
             .background(Color.MyTheme.purple)
             .edgesIgnoringSafeArea(.all)
             .sheet(isPresented: $showImagePicker) {
-                createProfile()
+                loginViewModel.createUser(selectedImage)
+                self.dismiss()
             } content: {
                 ImagePicker(sourceType: $sourceType, imageSelected: $selectedImage)
             }

@@ -42,8 +42,11 @@ struct OnboardingView: View {
 //            }
             
             Button {
-                loginViewModel.signIn()
-//                showOnboardingTwo.toggle()
+                Task {
+                    await loginViewModel.signIn()
+                    showOnboardingTwo.toggle()
+                }
+                
             } label: {
                 HStack {
                     Image("googleIcon")
@@ -76,9 +79,14 @@ struct OnboardingView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.MyTheme.beige)
             .edgesIgnoringSafeArea(.all)
-            .fullScreenCover(isPresented: $showOnboardingTwo) {
+            .fullScreenCover(
+                isPresented: $showOnboardingTwo,
+                onDismiss: { self.dismiss()
+                    //當註冊完成 on2 dismiss後 -> 回到這畫面 -> 他也會馬上被dismiss
+            },content: {
                 OnboardingView_2()
-            }.alert(isPresented: $loginViewModel.showError) {
+            })
+            .alert(isPresented: $loginViewModel.showError) {
                 return Alert(title: Text(loginViewModel.errorMessage))
             }
     }
