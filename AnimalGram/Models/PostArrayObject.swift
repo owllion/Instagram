@@ -5,6 +5,9 @@
 //  Created by Zheng yu hsin on 2023/2/20.
 //
 
+import Foundation
+import Combine
+
 class PostArrayObject: ObservableObject {
     
     @Published var posts = [PostModel]() //blank array of postModel

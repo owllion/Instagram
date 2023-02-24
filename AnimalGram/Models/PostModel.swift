@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct PostModel: Identifiable, Hashable {
+struct PostModel: Identifiable, Decodable ,Hashable {
     var id = UUID()
     var postID: String
     var userID: String
@@ -16,9 +16,9 @@ struct PostModel: Identifiable, Hashable {
     var likeCount: Int
     var likedByUser: Bool
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        //compare two instance's id
-    }
+//    func hash(into hasher: inout Hasher) {
+//        hasher.combine(id)
+//        //compare two instance's id
+//    }
     
 }

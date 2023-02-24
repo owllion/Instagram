@@ -82,7 +82,7 @@
 		256B184529A5C34500087828 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		256B184729A5CD9C00087828 /* LikeAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeAnimationView.swift; sourceTree = "<group>"; };
 		256B184929A6189700087828 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
-		256B184B29A66F5900087828 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "AnimalGram/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		256B184B29A66F5900087828 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		256B184D29A715A800087828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		256B184F29A72BBA00087828 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		256B185429A7A7CF00087828 /* AnimalGramRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalGramRepository.swift; sourceTree = "<group>"; };
@@ -108,8 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				256B17FA29A330E900087828 /* AnimalGram */,
-				256B184D29A715A800087828 /* Info.plist */,
-				256B184B29A66F5900087828 /* GoogleService-Info.plist */,
 				256B17F929A330E900087828 /* Products */,
 				641F29B5FC811435460BA1C1 /* Pods */,
 				9E903C8F48D264C418DB5850 /* Frameworks */,
@@ -127,6 +125,8 @@
 		256B17FA29A330E900087828 /* AnimalGram */ = {
 			isa = PBXGroup;
 			children = (
+				256B184D29A715A800087828 /* Info.plist */,
+				256B184B29A66F5900087828 /* GoogleService-Info.plist */,
 				256B185329A7A7A600087828 /* Repository */,
 				256B181529A355DD00087828 /* Models */,
 				256B180B29A346D200087828 /* Views */,
