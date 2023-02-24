@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct PostModel: Identifiable, Decodable ,Hashable {
+struct Post: Identifiable, Decodable ,Hashable {
     var id = UUID()
     var postID: String
     var userID: String

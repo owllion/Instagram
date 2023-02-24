@@ -10,7 +10,7 @@ import SwiftUI
 struct PostView: View {
     @State var postImage:UIImage  = UIImage(named: "dog1")!
     
-    @State var post: PostModel
+    @State var post: Post
     @State var animateLike: Bool = false
     @State var showConfirmation: Bool  = false
     @State var dialogType: PostConfirmationOption = .general
@@ -159,7 +159,7 @@ struct PostView: View {
     
     func likePost() {
         
-        let updatedPost = PostModel(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreate: post.dateCreate, likeCount: post.likeCount + 1, likedByUser: true)
+        let updatedPost = Post(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreate: post.dateCreate, likeCount: post.likeCount + 1, likedByUser: true)
         
         self.post = updatedPost
         
@@ -171,7 +171,7 @@ struct PostView: View {
     
     func unlikePost() {
         
-        let updatedPost = PostModel(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreate: post.dateCreate, likeCount: post.likeCount - 1, likedByUser: false)
+        let updatedPost = Post(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreate: post.dateCreate, likeCount: post.likeCount - 1, likedByUser: false)
         
         self.post = updatedPost
         
@@ -209,7 +209,7 @@ struct PostView: View {
 
 
 struct PostView_Previews: PreviewProvider {
-    static var post: PostModel = PostModel(postID: "", userID: "", username: "Tomothee", caption: "Test caption", dateCreate: Date(), likeCount: 0, likedByUser: false)
+    static var post: Post = Post(postID: "", userID: "", username: "Tomothee", caption: "Test caption", dateCreate: Date(), likeCount: 0, likedByUser: false)
     
     static var previews: some View {
         PostView(post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)

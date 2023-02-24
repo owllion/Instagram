@@ -19,7 +19,7 @@ struct K {
             static let provider = "provider"
             static let userID = "userID"
             static let bio = "bio"
-            static let sateCreated = "dateCreated"
+            static let dateCreated = "dateCreated"
         }
         
         struct Post {

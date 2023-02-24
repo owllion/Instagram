@@ -10,7 +10,7 @@ import Combine
 
 class PostArrayObject: ObservableObject {
     
-    @Published var posts = [PostModel]() //blank array of postModel
+    @Published var posts = [Post]() //blank array of postModel
     
     
     init() {
@@ -23,7 +23,7 @@ class PostArrayObject: ObservableObject {
         ]
     }
     /// use for single post selection
-    init(post: PostModel) {
+    init(post: Post) {
         posts = [post]
     }
 }
