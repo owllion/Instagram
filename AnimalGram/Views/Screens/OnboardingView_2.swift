@@ -41,11 +41,11 @@ struct OnboardingView_2: View {
             .frame(maxWidth: .infinity,maxHeight: .infinity)
             .background(Color.MyTheme.purple)
             .edgesIgnoringSafeArea(.all)
-            .sheet(isPresented: $showImagePicker) {
-                loginViewModel.createUser(selectedImage)
-            } content: {
-                ImagePicker(sourceType: $sourceType, imageSelected: $selectedImage)
-            }
+//            .sheet(isPresented: $showImagePicker) {
+//                loginViewModel.createUser()
+//            } content: {
+//                ImagePicker(sourceType: $sourceType, imageSelected: )
+//            }
 
     }
     

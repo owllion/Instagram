@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @StateObject var loginViewModel = LoginViewModel()
+    @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
     @State var showOnboarding: Bool  = false
     
@@ -32,25 +32,49 @@ struct SignUpView: View {
                 .font(.headline)
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
-            
-            Button {
-                showOnboarding.toggle()
+           
+            NavigationLink {
+                OnboardingView()
             } label: {
                 Text("Sign in / Sign up".uppercased())
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .padding()
-                    .frame(height: 60)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.MyTheme.purple)
-                    .cornerRadius(12)
-                    .shadow(radius: 7)
-                    
-            }.tint(Color.MyTheme.yellow)
-                .fullScreenCover(isPresented: $showOnboarding) {
-                } content: {
-                    OnboardingView()
-                }
+                                       .font(.headline)
+                                       .fontWeight(.bold)
+                                       .padding()
+                                       .frame(height: 60)
+                                       .frame(maxWidth: .infinity)
+                                       .background(Color.MyTheme.purple).foregroundColor(Color.MyTheme.yellow)
+        
+                                       .cornerRadius(12)
+                                       .shadow(radius: 7)
+//                Button {
+//                    loginViewModel.showLoginScreen.toggle()
+//                } label: {
+//                    Text("Sign in / Sign up".uppercased())
+//                        .font(.headline)
+//                        .fontWeight(.bold)
+//                        .padding()
+//                        .frame(height: 60)
+//                        .frame(maxWidth: .infinity)
+//                        .background(Color.MyTheme.purple)
+//                        .cornerRadius(12)
+//                        .shadow(radius: 7)
+//
+//                }
+//                .tint(Color.MyTheme.yellow)
+            }
+
+         
+               
+                
+            
+           
+            
+
+            
+//                .fullScreenCover(isPresented: $loginViewModel.showLoginScreen) {
+//                } content: {
+//                    OnboardingView()
+//                }
 
                   
 

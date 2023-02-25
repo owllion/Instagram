@@ -13,6 +13,8 @@ import GoogleSignIn
 
 @main
 struct AnimalGramApp: App {
+    @StateObject private var loginViewModel = LoginViewModel()
+
     init() {
        setupAuthentication()
      }
@@ -20,7 +22,7 @@ struct AnimalGramApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(LoginViewModel())
+                .environmentObject(loginViewModel)
                 .onOpenURL { url in
                GIDSignIn.sharedInstance.handle(url) //For google sign in
 

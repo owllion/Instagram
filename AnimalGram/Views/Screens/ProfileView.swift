@@ -25,7 +25,7 @@ struct ProfileView: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            ProfileHeaderView( profileDisplayName: $profileDisplayName)
+            ProfileHeaderView()
             Divider()
             ImageGridView(data: posts)
         }.navigationTitle("Profile")

@@ -1,9 +1,3 @@
-//
-//  GoogleLoginVM.swift
-//  AnimalGram
-//
-//  Created by Zheng yu hsin on 2023/2/23.
-//
 
 import Foundation
 import SwiftUI
@@ -18,6 +12,10 @@ private let store = Firestore.firestore()
 
 class LoginViewModel: ObservableObject {
     @Published var close: Bool = false
+    
+    enum LoginError: Error {
+        case userCancel(String)
+    }
     enum SignInState {
         case signedIn
         case signedOut
@@ -27,10 +25,14 @@ class LoginViewModel: ObservableObject {
     private var postCollection = store.collection(K.FireStore.Post.collectionName)
     private var userCollection = store.collection(K.FireStore.User.collectionName)
     
+    //MARK: - Control SignUp View
+    @Published var showLoginScreen: Bool = false
+    
     //MARK: - User data
     @Published var displayName: String = ""
     @Published var email: String = ""
     @Published var bio: String = ""
+    @Published var imageURL: String = ""
     @Published var userID: String?
     
     //MARK: - Post data
@@ -59,7 +61,7 @@ class LoginViewModel: ObservableObject {
     
     //MARK: - google login
     @MainActor
-    func signIn() async {
+    func signIn() async throws {
         //      if GIDSignIn.sharedInstance.hasPreviousSignIn() {
         //        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
         //            authenticateUser(for: user, with: error)
@@ -75,11 +77,11 @@ class LoginViewModel: ObservableObject {
         do {
             //Start login flow
             let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController())
-            //{ signInResult, error in
             await self.authenticateUser(for: result)
-            //}
+            
         }catch {
             self.handleError(error)
+            throw LoginError.userCancel("user cancel the login flow.")
             
         }
     }
@@ -90,7 +92,7 @@ class LoginViewModel: ObservableObject {
     func authenticateUser(for result: GIDSignInResult?) async {
         
         guard let idToken = result?.user.idToken else { return }
-        
+        print(result?.user.idToken,"idToken")
         let profile = result?.user.profile
         
         let credential = GoogleAuthProvider.credential(
@@ -100,11 +102,18 @@ class LoginViewModel: ObservableObject {
         
         do {
             try await Auth.auth().signIn(with: credential)
-            
+            print("try await ")
             self.state = .signedIn
             self.email = profile!.email
             self.displayName = profile!.name
-            print(profile!.imageURL(withDimension: 240) as Any)
+            
+            if profile!.hasImage {
+                self.imageURL = getConvertedURL(profile!.imageURL(withDimension: 240)!)
+            } else {
+                self.imageURL = "https://res.cloudinary.com/azainseong/image/upload/v1662517415/mij3ogxe5cqxitevri9z.png"
+            }
+            print("createUser之前")
+            self.createUser()
             
         }catch {
             self.handleError(error)
@@ -125,31 +134,29 @@ class LoginViewModel: ObservableObject {
     
     //MARK: - Firebase CRUD
     
-    func createUser(_ selectedImage: UIImage) {
-        
+    func createUser() {
         let document = userCollection.document()
         self.userID = document.documentID
-        
-        ImageManager.instance.uploadProfileImage(userID: self.userID!, image: selectedImage)
+//
+//        ImageManager.instance.uploadProfileImage(userID: self.userID!, image: selectedImage)
         
         
         let userData: [String : Any] = [
             K.FireStore.User.displayNameField : self.displayName,
             K.FireStore.User.emailField : self.email,
-            K.FireStore.User.providerID : "",
-            K.FireStore.User.provider : "",
+            K.FireStore.User.imageURLField: self.imageURL ,
             K.FireStore.User.userID : userID!,
             K.FireStore.User.bio : "Introduce yourself!",
             K.FireStore.User.dateCreated : Date().timeIntervalSince1970
         ]
-        
+        print(userData,"This is user data")
         userCollection.addDocument(data: userData) { error in
             if let error = error {
                 self.handleError(error)
                 return
             } else {
                 print("Success create user")
-                self.close = true
+                self.state = .signedIn
             }
         }
     }
@@ -214,13 +221,13 @@ class LoginViewModel: ObservableObject {
             
         }
     }
-    
-
-    
-    
-    
-
 }
+
+    //MARK: - Utility method
+    func getConvertedURL(_ url: URL) -> String {
+        return url.absoluteString
+
+    }
 
 //MARK: - Extensions
 extension UIApplication {

@@ -1,16 +1,8 @@
-//
-//  ProfileHeader.swift
-//  AnimalGram
-//
-//  Created by Zheng yu hsin on 2023/2/21.
-//
-
 import SwiftUI
 
 struct ProfileHeaderView: View {
     
-    @Binding var profileDisplayName: String
-//    @Binding var imageSelected: UIImage
+    @EnvironmentObject var loginVM: LoginViewModel
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -22,8 +14,7 @@ struct ProfileHeaderView: View {
                 .cornerRadius(60)
             
             //MARK: - USER NAME
-            Text(profileDisplayName)
-            
+            Text(loginVM.displayName)
             
             //MARK: - BIO
             Text("Area where the user can add a bio to their profile!")
@@ -75,6 +66,6 @@ struct ProfileHeader_Previews: PreviewProvider {
     
     @State static var name: String = "Mike"
     static var previews: some View {
-        ProfileHeaderView(profileDisplayName: $name).previewLayout(.sizeThatFits)
+        ProfileHeaderView().previewLayout(.sizeThatFits)
     }
 }
