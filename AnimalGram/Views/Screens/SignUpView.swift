@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpView: View {
-    
+    @StateObject var loginViewModel = LoginViewModel()
     @Environment(\.colorScheme) var colorScheme
     @State var showOnboarding: Bool  = false
     
@@ -48,8 +48,11 @@ struct SignUpView: View {
                     
             }.tint(Color.MyTheme.yellow)
                 .fullScreenCover(isPresented: $showOnboarding) {
+                } content: {
                     OnboardingView()
                 }
+
+                  
 
             
         }.padding(.all,40)

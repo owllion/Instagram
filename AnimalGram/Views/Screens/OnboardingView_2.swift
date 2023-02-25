@@ -9,12 +9,8 @@ import SwiftUI
 
 struct OnboardingView_2: View {
     @EnvironmentObject var loginViewModel: LoginViewModel
-    
-    @Environment(\.dismiss) var dismiss
-    
-    @State var displayName: String = ""
+
     @State var showImagePicker: Bool = false
-    
     @State var selectedImage: UIImage = UIImage(named: "logo")!
     @State var sourceType: UIImagePickerController.SourceType  = .photoLibrary
     
@@ -27,7 +23,7 @@ struct OnboardingView_2: View {
             
             TextField(
                 "",
-                text: $displayName,
+                text: $loginViewModel.displayName,
                 prompt: Text("Add your name here...")
                     .foregroundColor(.gray)
             ).customTextField(background: Color.MyTheme.beige)
@@ -38,8 +34,8 @@ struct OnboardingView_2: View {
                 Text("Finish: Add Profile picture").customLabel()
                 
             }.tint(Color.MyTheme.purple)
-                .opacity(displayName.isEmpty ? 0 : 1 )
-                .animation(.easeOut(duration: 1.0), value: displayName.isEmpty)
+                .opacity(loginViewModel.displayName.isEmpty ? 0 : 1 )
+                .animation(.easeOut(duration: 1.0), value: loginViewModel.displayName.isEmpty)
             
         }.padding(.all,20)
             .frame(maxWidth: .infinity,maxHeight: .infinity)
@@ -47,7 +43,6 @@ struct OnboardingView_2: View {
             .edgesIgnoringSafeArea(.all)
             .sheet(isPresented: $showImagePicker) {
                 loginViewModel.createUser(selectedImage)
-                self.dismiss()
             } content: {
                 ImagePicker(sourceType: $sourceType, imageSelected: $selectedImage)
             }

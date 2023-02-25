@@ -74,7 +74,7 @@ class ImageManager {
             if let error = error {
                 print("Error uploading image. \(error)")
             } else {
-                print("success!")
+                print("upload miage success!")
             }
         }
     }

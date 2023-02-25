@@ -17,6 +17,7 @@ import FirebaseAuth
 private let store = Firestore.firestore()
 
 class LoginViewModel: ObservableObject {
+    @Published var close: Bool = false
     enum SignInState {
         case signedIn
         case signedOut
@@ -55,7 +56,9 @@ class LoginViewModel: ObservableObject {
     }
     
     
+    
     //MARK: - google login
+    @MainActor
     func signIn() async {
         //      if GIDSignIn.sharedInstance.hasPreviousSignIn() {
         //        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
@@ -76,12 +79,14 @@ class LoginViewModel: ObservableObject {
             await self.authenticateUser(for: result)
             //}
         }catch {
-            print(error)
+            self.handleError(error)
+            
         }
     }
     
-    @MainActor
+   
     //Get user data and store into Firestore
+    @MainActor
     func authenticateUser(for result: GIDSignInResult?) async {
         
         guard let idToken = result?.user.idToken else { return }
@@ -99,20 +104,20 @@ class LoginViewModel: ObservableObject {
             self.state = .signedIn
             self.email = profile!.email
             self.displayName = profile!.name
-            profile!.imageURL(withDimension: 240)
+            print(profile!.imageURL(withDimension: 240) as Any)
             
         }catch {
-            print(error)
+            self.handleError(error)
         }
        
 }
     
-    func signOut() {
+    @MainActor func signOut() {
       GIDSignIn.sharedInstance.signOut()
       
       do {
-        try Auth.auth().signOut()
-        state = .signedOut
+          try Auth.auth().signOut()
+          self.state = .signedOut
       } catch {
           self.handleError(error)
       }
@@ -141,35 +146,34 @@ class LoginViewModel: ObservableObject {
         userCollection.addDocument(data: userData) { error in
             if let error = error {
                 self.handleError(error)
+                return
             } else {
-                print("Success create!")
+                print("Success create user")
+                self.close = true
             }
         }
-               
-            
-            
     }
-    
-    func getUserData(with userID: String) {
-        userCollection.document(userID).getDocument { documentSnapshot, error in
-            if let document = documentSnapshot,
-               let displayName = document.get(K.FireStore.User.displayNameField) as? String,
-               let bio = document.get(K.FireStore.User.displayNameField) as? String {
-                   print("Successfully get the user info!")
-                    self.displayName = displayName
-                    self.bio = bio
-                
-               }
-                
+    @MainActor
+    func getUserData(with userID: String) async {
+        do {
+            let document = try await userCollection.document(userID).getDocument()
+            
+            let displayName = document.get(K.FireStore.User.displayNameField) as? String
+            let bio = document.get(K.FireStore.User.displayNameField) as? String
+            
+            self.displayName = displayName!
+            self.bio = bio!
+            
+        }catch {
+            self.handleError(error)
         }
     }
-    
-    func createPost(_ post: Post) {
+        
+    @MainActor func createPost(_ post: Post) {
         do {
             try postCollection.addDocument(from: post)
         } catch {
             self.handleError(error)
-            
         }
     }
     
