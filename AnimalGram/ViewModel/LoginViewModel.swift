@@ -107,7 +107,30 @@ class LoginViewModel: ObservableObject {
             } else {
                 self.imageURL = "https://res.cloudinary.com/azainseong/image/upload/v1662517415/mij3ogxe5cqxitevri9z.png"
             }
+            let document = userCollection.document()
+            self.userID = document.documentID
+    //
+    //        ImageManager.instance.uploadProfileImage(userID: self.userID!, image: selectedImage)
             
+            
+            let userData: [String : Any] = [
+                K.FireStore.User.displayNameField : self.displayName,
+                K.FireStore.User.emailField : self.email,
+                K.FireStore.User.imageURLField: self.imageURL ,
+                K.FireStore.User.userID : userID!,
+                K.FireStore.User.bio : "Introduce yourself!",
+                K.FireStore.User.dateCreated : Date().timeIntervalSince1970
+            ]
+            print(userData,"This is user data")
+            userCollection.addDocument(data: userData) { error in
+                if let error = error {
+                    self.handleError(error)
+                    return
+                } else {
+                    print("Success create user")
+                    self.state = .signedIn
+                }
+            }
             
         }catch {
             self.handleError(error)
