@@ -11,12 +11,12 @@ struct ContentView: View {
     
     @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
-    
+    @State var test: Bool = true
     var body: some View {
-        switch loginViewModel.state {
-        case .signedOut:
+        switch test {
+        case false:
             NavigationView { SignUpView() }
-        case .signedIn:
+        case true:
             MainTabView()
         }
     }
