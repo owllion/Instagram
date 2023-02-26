@@ -3,15 +3,38 @@ import SwiftUI
 struct ProfileHeaderView: View {
     
     //@Binding var userName: String
-    
+    @EnvironmentObject var loginVM: LoginViewModel
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             //MARK: - PROFILE PICTURE
-            Image("dog2")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 120, height: 120, alignment: .center)
-                .cornerRadius(60)
+            AsyncImage(url: URL(string: loginVM.imageURL)){ image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .cornerRadius(15)
+                    
+            } placeholder: {
+                Color.gray.cornerRadius(15)
+            }
+            
+            
+            
+            
+//            { phase in
+//                if let image = phase.image {
+//                    image // Displays the loaded image.
+//                } else if phase.error != nil {
+//                    Color.red // Indicates an error.
+//                } else {
+//                    Color.blue // Acts as a placeholder.
+//                }
+//            }
+
+                .frame(width: 120,height: 120)
+//                .resizable()
+//                .scaledToFill()
+//                .frame(width: 120, height: 120, alignment: .center)
+//                .cornerRadius(60)
             
             //MARK: - USER NAME
             Text("123NameHere")

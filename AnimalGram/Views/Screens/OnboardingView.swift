@@ -46,8 +46,7 @@ struct OnboardingView: View {
                     Task {
                         do {
                             try await loginViewModel.signIn()
-                            loginViewModel.state = .signedIn
-                            self.dismiss()
+                            dismiss()
                             
                         }catch {
                             print(error)

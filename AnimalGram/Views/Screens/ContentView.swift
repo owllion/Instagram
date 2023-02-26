@@ -12,17 +12,17 @@ struct ContentView: View {
     @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
     
-//    var body: some View {
-//        switch loginViewModel.state {
-//        case .signedOut:
-//            NavigationView { SignUpView() }
-//        case .signedIn:
-//            mainContent
-//        }
-//    }
     var body: some View {
-        NavigationView { SignUpView() }
+        switch loginViewModel.state {
+        case .signedOut:
+            NavigationView { SignUpView() }
+        case .signedIn:
+            ProfileView(isMyProfile: true, profileDisplayName: "In", profileUserID: "fhh")
+        }
     }
+//    var body: some View {
+//        NavigationView { SignUpView() }
+//    }
         
     var mainContent: some View {
         TabView {
