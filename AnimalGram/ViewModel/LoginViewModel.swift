@@ -127,7 +127,7 @@ class LoginViewModel: ObservableObject {
                     self.handleError(error)
                     return
                 } else {
-                    print("Success create user")
+                    print("Successfully create user")
                     self.state = .signedIn
                 }
             }

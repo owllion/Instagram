@@ -17,43 +17,7 @@ struct ContentView: View {
         case .signedOut:
             NavigationView { SignUpView() }
         case .signedIn:
-            ProfileView(isMyProfile: true, profileDisplayName: "In", profileUserID: "fhh")
-        }
-    }
-//    var body: some View {
-//        NavigationView { SignUpView() }
-//    }
-        
-    var mainContent: some View {
-        TabView {
-            //NavigationView is for the top title & link
-            NavigationView {
-                FeedView(data: PostArrayObject(), title: "Feed")
-            }.tabItem {
-                
-                Label("Feed", systemImage: "book.fill")
-            }
-            
-            NavigationView {
-                BrowseView()
-            } .tabItem {
-                Label("Search", systemImage: "magnifyingglass")
-            }.toolbar(.visible, for: .tabBar)
-                .toolbarBackground(.red, for: .tabBar)
-            
-            
-            NavigationView {
-                UploadView()
-                
-            } .tabItem {
-                Label("Upload", systemImage: "square.and.arrow.up.fill")
-            }
-            
-            NavigationView {
-                ProfileView(isMyProfile: true, profileDisplayName: "My Profile", profileUserID: "")
-            }.tabItem {
-                Label("Profile", systemImage: "person.fill")
-            }
+            MainTabView()
         }
     }
 }
