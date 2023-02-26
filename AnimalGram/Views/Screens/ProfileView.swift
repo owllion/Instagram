@@ -8,20 +8,13 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @StateObject private var loginViewModel = LoginViewModel()
-
-    //@EnvironmentObject var loginViewModel: LoginViewModel
+    
+    @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
     @State var showSettings: Bool = false
     
     var isMyProfile: Bool
     //true => show the setting bar,otherwise do not show.
-    
-    @State var profileDisplayName: String
-    //Make it State is bacause there are instances where the profile display name might change.例如去編輯名稱之後這裡的名稱也應該要跟著一起變
-    
-    var profileUserID: String
-    //not change,so no need to use state
     
     var posts = PostArrayObject()
     
@@ -51,7 +44,7 @@ struct ProfileView: View {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ProfileView(isMyProfile: true, profileDisplayName: "Anng", profileUserID: "123456")
+            ProfileView(isMyProfile: true)
         }
         
         

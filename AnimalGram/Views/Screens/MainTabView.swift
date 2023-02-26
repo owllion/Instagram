@@ -34,7 +34,7 @@ struct MainTabView: View {
             }
             
             NavigationView {
-                ProfileView(isMyProfile: true, profileDisplayName: "My Profile", profileUserID: "")
+                ProfileView(isMyProfile: true)
             }.tabItem {
                 Label("Profile", systemImage: "person.fill")
             }

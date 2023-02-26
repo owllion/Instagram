@@ -28,8 +28,6 @@ struct SettingsView: View {
                             .cornerRadius(12)
                         Text("AnimalGram is the #1 app for posting pictures of your animal and sharing them across the world. We are a animal-loving community and we're happy to have you!")
                             .font(.footnote)
-                        Text(loginViewModel.displayName).font(.largeTitle)
-                        Text("有無取到值？？")
                     }
                 } label: {
                     SettingsLabelView(labelText: "AnimalGram", labelImage: "dot.radiowaves.left.and.right")
@@ -112,7 +110,7 @@ struct SettingsView: View {
                             dismiss()
                         } label: {
                             Image(systemName: "xmark")
-                        }.tint(Color.MyTheme.purple)
+                        }.tint(Color.primary)
                         
                         
                     }

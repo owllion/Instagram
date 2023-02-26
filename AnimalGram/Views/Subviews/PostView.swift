@@ -35,7 +35,7 @@ struct PostView: View {
                     //WE can use this is because we're in th navigationView
                     NavigationLink {
                         //isMyProfile = false => 因為這邊是貼文串，點進去當然是別人的
-                        ProfileView(isMyProfile: false, profileDisplayName: post.username, profileUserID: post.userID)
+                        ProfileView(isMyProfile: false)
                     } label: {
                         Image("dog1").resizable()
                             .scaledToFill().frame(width: 30,height: 30,alignment: .center).cornerRadius(15)
