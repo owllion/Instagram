@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
-    
+    @StateObject private var loginViewModel = LoginViewModel()
+
     //@EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
     @State var showSettings: Bool = false
@@ -42,7 +43,7 @@ struct ProfileView: View {
 
                 }
             }.sheet(isPresented: $showSettings) {
-                SettingsView()
+                SettingsView().environmentObject(loginViewModel)
             }
     }
 }

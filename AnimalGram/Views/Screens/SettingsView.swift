@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
+    @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -27,6 +28,8 @@ struct SettingsView: View {
                             .cornerRadius(12)
                         Text("AnimalGram is the #1 app for posting pictures of your animal and sharing them across the world. We are a animal-loving community and we're happy to have you!")
                             .font(.footnote)
+                        Text(loginViewModel.displayName).font(.largeTitle)
+                        Text("有無取到值？？")
                     }
                 } label: {
                     SettingsLabelView(labelText: "AnimalGram", labelImage: "dot.radiowaves.left.and.right")
@@ -54,7 +57,15 @@ struct SettingsView: View {
                         SettingsRowView(iconName: "photo", settingName: "Profile Picture", iconColor: Color.MyTheme.purple)
                     }
                     
-                    SettingsRowView(iconName: "figure.walk", settingName: "Sign out", iconColor: Color.MyTheme.purple)
+                    Button {
+                        loginViewModel.signOut()
+                    } label: {
+                        SettingsRowView(iconName: "figure.walk", settingName: "Sign out", iconColor: Color.MyTheme.purple)
+                    }.alert(isPresented: $loginViewModel.showError) {
+                        Alert(title: Text("Error signing out"))
+                    }
+                    
+                    
                     
                     
                 }.padding()

@@ -122,13 +122,14 @@ class LoginViewModel: ObservableObject {
                 K.FireStore.User.dateCreated : Date().timeIntervalSince1970
             ]
             print(userData,"This is user data")
-            userCollection.addDocument(data: userData) { error in
+            userCollection.addDocument(data: userData) { [self] error in
                 if let error = error {
                     self.handleError(error)
                     return
                 } else {
                     print("Successfully create user")
                     self.state = .signedIn
+                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
                 }
             }
             
@@ -142,7 +143,8 @@ class LoginViewModel: ObservableObject {
       GIDSignIn.sharedInstance.signOut()
       do {
           try Auth.auth().signOut()
-          self.state = .signedOut
+          UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+          print("log out successfully")
       } catch {
           self.handleError(error)
       }

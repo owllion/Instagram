@@ -11,15 +11,31 @@ struct ContentView: View {
     
     @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
-    @State var test: Bool = true
+    //@State var test: Bool = false
+//    @AppStorage("state") var state: String = "signedOut"
+        @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+
+//    
+//    init() {
+//        state = "signedOut"
+//    }
     var body: some View {
-        switch test {
-        case false:
-            NavigationView { SignUpView() }
-        case true:
+        if isLoggedIn {
             MainTabView()
+            
+        }else {
+            NavigationView { SignUpView() }
+
+            
         }
     }
+//        switch state {
+//        case "signedOut":
+//            NavigationView { SignUpView() }
+//        case "signedIn":
+//            MainTabView()
+//       
+//    }
 }
 
 struct ContentView_Previews: PreviewProvider {
