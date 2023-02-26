@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     
+    //@EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
     @State var showSettings: Bool = false
     

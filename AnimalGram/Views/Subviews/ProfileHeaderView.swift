@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     
-    @EnvironmentObject var loginVM: LoginViewModel
+    //@Binding var userName: String
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
@@ -14,7 +14,7 @@ struct ProfileHeaderView: View {
                 .cornerRadius(60)
             
             //MARK: - USER NAME
-            Text(loginVM.displayName)
+            Text("123NameHere")
             
             //MARK: - BIO
             Text("Area where the user can add a bio to their profile!")

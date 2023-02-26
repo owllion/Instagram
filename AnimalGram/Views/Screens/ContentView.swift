@@ -12,13 +12,16 @@ struct ContentView: View {
     @EnvironmentObject var loginViewModel: LoginViewModel
     @Environment(\.colorScheme) var colorScheme
     
+//    var body: some View {
+//        switch loginViewModel.state {
+//        case .signedOut:
+//            NavigationView { SignUpView() }
+//        case .signedIn:
+//            mainContent
+//        }
+//    }
     var body: some View {
-        switch loginViewModel.state {
-        case .signedOut:
-            NavigationView { SignUpView() }
-        case .signedIn:
-            mainContent
-        }
+        NavigationView { SignUpView() }
     }
         
     var mainContent: some View {
@@ -44,7 +47,6 @@ struct ContentView: View {
                 
             } .tabItem {
                 Label("Upload", systemImage: "square.and.arrow.up.fill")
-                    
             }
             
             NavigationView {

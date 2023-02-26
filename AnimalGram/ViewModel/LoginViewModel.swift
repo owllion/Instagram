@@ -11,8 +11,6 @@ import FirebaseAuth
 private let store = Firestore.firestore()
 
 class LoginViewModel: ObservableObject {
-    @Published var close: Bool = false
-    
     enum LoginError: Error {
         case userCancel(String)
     }
@@ -25,8 +23,6 @@ class LoginViewModel: ObservableObject {
     private var postCollection = store.collection(K.FireStore.Post.collectionName)
     private var userCollection = store.collection(K.FireStore.User.collectionName)
     
-    //MARK: - Control SignUp View
-    @Published var showLoginScreen: Bool = false
     
     //MARK: - User data
     @Published var displayName: String = ""
@@ -92,7 +88,6 @@ class LoginViewModel: ObservableObject {
     func authenticateUser(for result: GIDSignInResult?) async {
         
         guard let idToken = result?.user.idToken else { return }
-        print(result?.user.idToken,"idToken")
         let profile = result?.user.profile
         
         let credential = GoogleAuthProvider.credential(
@@ -102,7 +97,7 @@ class LoginViewModel: ObservableObject {
         
         do {
             try await Auth.auth().signIn(with: credential)
-            print("try await ")
+            
             self.state = .signedIn
             self.email = profile!.email
             self.displayName = profile!.name
@@ -112,8 +107,7 @@ class LoginViewModel: ObservableObject {
             } else {
                 self.imageURL = "https://res.cloudinary.com/azainseong/image/upload/v1662517415/mij3ogxe5cqxitevri9z.png"
             }
-            print("createUser之前")
-            self.createUser()
+            
             
         }catch {
             self.handleError(error)
@@ -123,7 +117,6 @@ class LoginViewModel: ObservableObject {
     
     @MainActor func signOut() {
       GIDSignIn.sharedInstance.signOut()
-      
       do {
           try Auth.auth().signOut()
           self.state = .signedOut
@@ -160,6 +153,8 @@ class LoginViewModel: ObservableObject {
             }
         }
     }
+    
+    
     @MainActor
     func getUserData(with userID: String) async {
         do {
@@ -204,14 +199,11 @@ class LoginViewModel: ObservableObject {
         do {
             try postCollection.document(post.postID).setData(from: post)
         } catch {
-            
-                self.handleError(error)
-            
+            self.handleError(error)
         }
     }
     
     func deletePost(_ postId: String) {
-        
         postCollection.document(postId).delete { error in
             if let error = error {
                 print("Unable to remove the post: \(error.localizedDescription)")
