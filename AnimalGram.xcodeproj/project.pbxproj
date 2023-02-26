@@ -45,6 +45,7 @@
 		256B185529A7A7CF00087828 /* AnimalGramRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B185429A7A7CF00087828 /* AnimalGramRepository.swift */; };
 		256B185729A7ABC100087828 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B185629A7ABC100087828 /* constants.swift */; };
 		256B185929A864DD00087828 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B185829A864DD00087828 /* ImageManager.swift */; };
+		25FCF39829AB314300D8C8F1 /* CircularProgressDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FCF39729AB314300D8C8F1 /* CircularProgressDemoView.swift */; };
 		F99D7F03ACB47933B29CA3AA /* Pods_AnimalGram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B31E87545773D8F7B064FA /* Pods_AnimalGram.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		256B185429A7A7CF00087828 /* AnimalGramRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalGramRepository.swift; sourceTree = "<group>"; };
 		256B185629A7ABC100087828 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		256B185829A864DD00087828 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		25FCF39729AB314300D8C8F1 /* CircularProgressDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressDemoView.swift; sourceTree = "<group>"; };
 		462FF1EDD5F06C659D596C42 /* Pods-AnimalGram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalGram.debug.xcconfig"; path = "Target Support Files/Pods-AnimalGram/Pods-AnimalGram.debug.xcconfig"; sourceTree = "<group>"; };
 		91808F260236296DC3F41681 /* Pods-AnimalGram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalGram.release.xcconfig"; path = "Target Support Files/Pods-AnimalGram/Pods-AnimalGram.release.xcconfig"; sourceTree = "<group>"; };
 		B0B31E87545773D8F7B064FA /* Pods_AnimalGram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimalGram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,6 +224,7 @@
 			children = (
 				256B184529A5C34500087828 /* ViewExtension.swift */,
 				256B185829A864DD00087828 /* ImageManager.swift */,
+				25FCF39729AB314300D8C8F1 /* CircularProgressDemoView.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				256B183F29A5B4C000087828 /* OnboardingView.swift in Sources */,
 				256B182929A464E300087828 /* ImagePicker.swift in Sources */,
 				256B184A29A6189700087828 /* ActivityView.swift in Sources */,
+				25FCF39829AB314300D8C8F1 /* CircularProgressDemoView.swift in Sources */,
 				256B185729A7ABC100087828 /* constants.swift in Sources */,
 				256B182329A379EE00087828 /* CarouselView.swift in Sources */,
 				256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */,
