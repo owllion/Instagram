@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2562954829AC581C00BE59CB /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954729AC581C00BE59CB /* PostViewModel.swift */; };
+		2562954A29AC583C00BE59CB /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954929AC583C00BE59CB /* UserViewModel.swift */; };
 		256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FB29A330E900087828 /* AnimalGramApp.swift */; };
 		256B17FE29A330E900087828 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FD29A330E900087828 /* ContentView.swift */; };
 		256B180029A330EA00087828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 256B17FF29A330EA00087828 /* Assets.xcassets */; };
@@ -51,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2562954729AC581C00BE59CB /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		2562954929AC583C00BE59CB /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		256B17F829A330E900087828 /* AnimalGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimalGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256B17FB29A330E900087828 /* AnimalGramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalGramApp.swift; sourceTree = "<group>"; };
 		256B17FD29A330E900087828 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -236,6 +240,8 @@
 			isa = PBXGroup;
 			children = (
 				256B184F29A72BBA00087828 /* LoginViewModel.swift */,
+				2562954729AC581C00BE59CB /* PostViewModel.swift */,
+				2562954929AC583C00BE59CB /* UserViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -394,6 +400,7 @@
 				256B181029A3496700087828 /* colors.swift in Sources */,
 				25FCF39A29AB357300D8C8F1 /* MainTabView.swift in Sources */,
 				256B181929A35A0C00087828 /* PostArrayObject.swift in Sources */,
+				2562954A29AC583C00BE59CB /* UserViewModel.swift in Sources */,
 				256B184629A5C34500087828 /* ViewExtension.swift in Sources */,
 				256B182529A3BEF100087828 /* ImageGridView.swift in Sources */,
 				256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */,
@@ -405,6 +412,7 @@
 				256B183B29A5058F00087828 /* SettingsEditImageView.swift in Sources */,
 				256B181F29A372A900087828 /* CommentModel.swift in Sources */,
 				256B181B29A36A9600087828 /* CommentsView.swift in Sources */,
+				2562954829AC581C00BE59CB /* PostViewModel.swift in Sources */,
 				256B182729A3C6DB00087828 /* UploadView.swift in Sources */,
 				256B183F29A5B4C000087828 /* OnboardingView.swift in Sources */,
 				256B182929A464E300087828 /* ImagePicker.swift in Sources */,

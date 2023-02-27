@@ -19,10 +19,8 @@ class LoginViewModel: ObservableObject {
         case signedOut
     }
     
-    //MARK: - Data collections
-    private var postCollection = store.collection(K.FireStore.Post.collectionName)
+    //MARK: - Data collection
     private var userCollection = store.collection(K.FireStore.User.collectionName)
-    
     
     //MARK: - User data
     @Published var displayName: String = ""
@@ -30,10 +28,6 @@ class LoginViewModel: ObservableObject {
     @Published var bio: String = ""
     @Published var imageURL: String = ""
     @Published var userID: String?
-    
-    //MARK: - Post data
-    @Published var posts = [Post]()
-    
     
     //MARK: - View Properties
     @Published var state: SignInState = .signedOut
@@ -52,7 +46,6 @@ class LoginViewModel: ObservableObject {
         showError.toggle()
         
     }
-    
     
     
     //MARK: - google login
@@ -78,12 +71,8 @@ class LoginViewModel: ObservableObject {
             let userInDB = await self.checkIfUserExistsInDB(with: self.email)
             
             if userInDB {
-//                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-//                print("userDefault下面")
                 self.state = .signedIn
             } else {
-                print("不存在在資料庫")
-                //UserDefaults.standard.set(true, forKey: "isLoggedIn")
                 self.state = .signedIn
                 self.createUser()
                 
@@ -122,16 +111,16 @@ class LoginViewModel: ObservableObject {
                 self.imageURL = "https://res.cloudinary.com/azainseong/image/upload/v1662517415/mij3ogxe5cqxitevri9z.png"
             }
             
-//            let userInDB = await self.checkIfUserExistsInDB(with: self.email)
-//
-//            if userInDB {
-//                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-//                print("userDefault下面")
-//            } else {
-//                print("不存在在資料庫")
-//                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-//                //self.createUser()
-//            }
+            //            let userInDB = await self.checkIfUserExistsInDB(with: self.email)
+            //
+            //            if userInDB {
+            //                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+            //                print("userDefault下面")
+            //            } else {
+            //                print("不存在在資料庫")
+            //                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+            //                //self.createUser()
+            //            }
             
         }catch {
             self.handleError(error)
@@ -151,7 +140,7 @@ class LoginViewModel: ObservableObject {
         }
     }
     
-
+    
     func generateUserID() {
         let document = userCollection.document()
         self.userID = document.documentID
@@ -161,22 +150,20 @@ class LoginViewModel: ObservableObject {
         do {
             let snapshot = try await userCollection.whereField(K.FireStore.User.emailField, isEqualTo: email).getDocuments()
             return snapshot.count > 0 ? true : false
-
+            
             
         }catch {
             print("check user error")
             self.handleError(error)
         }
         return false
-     
+        
     }
-    
-    //MARK: - Firebase CRUD
     
     func createUser() {
         
-//
-//        ImageManager.instance.uploadProfileImage(userID: self.userID!, image: selectedImage)
+        //
+        //        ImageManager.instance.uploadProfileImage(userID: self.userID!, image: selectedImage)
         
         
         self.generateUserID()
@@ -205,71 +192,14 @@ class LoginViewModel: ObservableObject {
     }
     
     
-    @MainActor
-    func getUserData(with userID: String) async {
-        do {
-            let document = try await userCollection.document(userID).getDocument()
-            
-            let displayName = document.get(K.FireStore.User.displayNameField) as? String
-            let bio = document.get(K.FireStore.User.displayNameField) as? String
-            
-            self.displayName = displayName!
-            self.bio = bio!
-            
-        }catch {
-            self.handleError(error)
-        }
-    }
-        
-    @MainActor func createPost(_ post: Post) {
-        do {
-            try postCollection.addDocument(from: post)
-        } catch {
-            self.handleError(error)
-        }
-    }
     
-    func getSinglePost() {}
-    
-    func getPosts() {
-        postCollection.addSnapshotListener { snapshot, error in
-            if let error = error {
-                self.showError.toggle()
-                self.errorMessage = error.localizedDescription
-                return
-            }
-            
-            self.posts = (snapshot?.documents.compactMap {
-                try? $0.data(as: Post.self)
-            }) ?? []
-        }
-    }
-    
-    func updatePost(_ post: Post) {
-        do {
-            try postCollection.document(post.postID).setData(from: post)
-        } catch {
-            self.handleError(error)
-        }
-    }
-    
-    func deletePost(_ postId: String) {
-        postCollection.document(postId).delete { error in
-            if let error = error {
-                print("Unable to remove the post: \(error.localizedDescription)")
-                self.handleError(error)
-            }
-            
-            
-        }
-    }
-}
-
     //MARK: - Utility method
     func getConvertedURL(_ url: URL) -> String {
         return url.absoluteString
-
+        
     }
+    
+}
 
 //MARK: - Extensions
 extension UIApplication {
