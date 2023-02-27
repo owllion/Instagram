@@ -18,6 +18,23 @@ class ImageManager {
     
     
     //MARK: - Public functions
+    
+    func downloadImage(path: StorageReference) -> Data {
+        var finalData: Data?
+        path.getData(maxSize: 27 * 1024 * 1024) { returnedImageData, error in
+            if let data = returnedImageData, let res = UIImage(data: data) {
+                //image = res
+                finalData = data
+                
+            } else {
+                print("Error gettgin data from path for image")
+                return
+            }
+        }
+        return finalData!
+        
+    }
+
     func uploadProfileImage(userID: String, image: UIImage) {
         
         //get the path where we will save the image
@@ -36,8 +53,7 @@ class ImageManager {
         
     }
     
-    //MARK: - Private functions
-    private func getProfileImagePath(_ userID: String) -> StorageReference {
+    func getProfileImagePath(_ userID: String) -> StorageReference {
         
         let userPath = "users/\(userID)/profile"
         let storagePath = ref.reference(withPath: userPath)
@@ -45,12 +61,14 @@ class ImageManager {
         //return the exact spot where we want our profileImage for this user to be.
     }
     
-    private func getPostImagePath(postID: String) -> StorageReference {
+    func getPostImagePath(postID: String) -> StorageReference {
         let postPath = "posts/\(postID)/1"
         let storagePath = ref.reference(withPath: postPath)
         return storagePath
     }
     
+    
+    //MARK: - Private functions
     private func uploadImage(path: StorageReference,image: UIImage) {
         
         var compression: CGFloat = 1.0
@@ -94,24 +112,6 @@ class ImageManager {
             }
         }
     }
-    
-    
-    func downloadImage(path: StorageReference) -> UIImage {
-        var image: UIImage?
-        path.getData(maxSize: 27 * 1024 * 1024) { returnedImageData, error in
-            if let data = returnedImageData, let res = UIImage(data: data) {
-                image = res
-                print(image,"這是image喔！")
-                
-            } else {
-                print("Error gettgin data from path for image")
-                return
-            }
-        }
-        return image!
-        
-    }
-    
         
     
 }

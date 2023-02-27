@@ -65,10 +65,12 @@ class AuthenticationViewModel: ObservableObject {
             let userInDB = await self.checkIfUserExistsInDB(with: self.email)
             
             if userInDB {
+                await getUserID(with: self.email)
+                print(self.userID,"This is userID")
                 self.state = .signedIn
             } else {
-                self.state = .signedIn
                 self.createUser()
+                self.state = .signedIn
             }
             
         }catch {
@@ -132,16 +134,15 @@ class AuthenticationViewModel: ObservableObject {
         
     }
     
+    
     @MainActor
-    func getUserData(with userID: String) async {
+    func getUserID(with email: String) async {
+        print(email,"收到的email")
         do {
-            let document = try await userCollection.document(userID).getDocument()
+            let document = try await userCollection.document(email).getDocument()
             
-            let displayName = document.get(K.FireStore.User.displayNameField) as? String
-            let bio = document.get(K.FireStore.User.displayNameField) as? String
-            
-//            self.displayName = displayName!
-//            self.bio = bio!
+            print(document.get(K.FireStore.User.userIDField),"This is doc.get")
+            self.userID = document.get(K.FireStore.User.userIDField) as? String
             
         }catch {
             self.handleError(error)
@@ -149,32 +150,31 @@ class AuthenticationViewModel: ObservableObject {
     }
     
     func createUser() {
-        //
-        //        ImageManager.instance.uploadProfileImage(userID: self.userID!, image: selectedImage)
+        let id = generateUserIDForCreatingUserData()
         
-        self.generateUserIDForCreatingUserData()
+        self.userID = id
         
         let userData: [String : Any] = [
-            K.FireStore.User.displayNameField : self.displayName,
-            K.FireStore.User.emailField : self.email,
-            K.FireStore.User.imageURLField: self.imageURL ,
-            K.FireStore.User.userIDField : self.userID!,
+            K.FireStore.User.displayNameField : displayName,
+            K.FireStore.User.emailField : email,
+            K.FireStore.User.imageURLField: imageURL ,
+            K.FireStore.User.userIDField : id,
             K.FireStore.User.bioField : "Introduce yourself!",
             K.FireStore.User.dateCreated : Date().timeIntervalSince1970
         ]
         
-        print(userData,"This is user data")
-        
-        userCollection.addDocument(data: userData) { error in
-            if let error = error {
-                self.handleError(error)
-                return
-            } else {
-                print("Success create user")
-                self.state = .signedIn
-                //UserDefaults.standard.set(true, forKey: "isLoggedIn")
-            }
-        }
+        userCollection.document(self.email).setData(userData)
+        print("Successfullt create user")
+//        userCollection.addDocument(data: userData) { error in
+//            if let error = error {
+//                self.handleError(error)
+//                return
+//            } else {
+//                print("Success create user")
+//                self.state = .signedIn
+//                //UserDefaults.standard.set(true, forKey: "isLoggedIn")
+//            }
+//        }
     }
     
     
@@ -185,9 +185,8 @@ class AuthenticationViewModel: ObservableObject {
         
     }
     
-    func generateUserIDForCreatingUserData() {
-        let document = userCollection.document()
-        self.userID = document.documentID
+    func generateUserIDForCreatingUserData() -> String {
+        return userCollection.document().documentID
     }
     
 }

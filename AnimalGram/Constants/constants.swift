@@ -28,6 +28,7 @@ struct K {
             
             //FieldName
             static let postIDField = "postID"
+            static let postImageURLField = "postImageURL"
             static let userIDField = "userID"
             static let displayNameField = "displayName"
             static let captionField = "caption"

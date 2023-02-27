@@ -57,7 +57,7 @@ struct PostImageView: View {
                 
                 
                 Button {
-                    postPicture(image: "test")
+                    postPicture(image: imageSelected)
                 } label: {
                     Text("Post Picture".uppercased())
                         .font(.title3)
@@ -84,7 +84,7 @@ struct PostImageView: View {
         }
     }
     
-    func postPicture(image: String) {
+    func postPicture(image: UIImage) {
         postViewModel.createPost(
             with: captionText,
             and: image,

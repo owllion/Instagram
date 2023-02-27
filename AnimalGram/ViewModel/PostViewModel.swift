@@ -12,6 +12,7 @@ import SwiftUI
 private let store = Firestore.firestore()
 
 class PostViewModel: ObservableObject {
+    
     private var postCollection = store.collection(K.FireStore.Post.collectionName)
     
     enum PostConfirmationOption {
@@ -89,14 +90,24 @@ class PostViewModel: ObservableObject {
         viewController?.present(activityViewController, animated: true, completion: nil)
     }
 
-    @MainActor func createPost(with caption: String, and image: String, by userID: String, named userName: String) {
-        //post img to storage
-        //get the path(has to be of type String)
+    @MainActor func createPost(with caption: String, and image: UIImage, by userID: String, named userName: String) {
         
+        let postID = generatePostIDForCreatingPost()
+        
+        //post img to storage
+        ImageManager.instance.uploadPostImage(postID: postID, image: image)
+        //get the path(has to be of type String)
+        let path = ImageManager.instance.getPostImagePath(postID: postID)
+        let finalImage = ImageManager.instance.downloadImage(path: path)
+        
+        let imageURL = String(data: finalImage, encoding: .utf8)
+        
+        print(imageURL,"this is URL")
         let postData: [String: Any] = [
-            K.FireStore.Post.postIDField: generatePostIDForCreatingPost(),
+            K.FireStore.Post.postIDField: postID,
             K.FireStore.Post.userIDField: userID,
             K.FireStore.Post.displayNameField: userName,
+            K.FireStore.Post.postImageURLField: imageURL,
             K.FireStore.Post.captionField: caption,
             K.FireStore.Post.dataCreated: Date().timeIntervalSince1970
         ]
