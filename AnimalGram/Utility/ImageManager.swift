@@ -17,13 +17,21 @@ class ImageManager {
     private var ref = Storage.storage()
     
     //MARK: - Public functions
-    func uploadProfileImage(userID: String, image:UIImage) {
+    func uploadProfileImage(userID: String, image: UIImage) {
         
         //get the path where we will save the image
         let path = self.getProfileImagePath(userID)
         
         //save image to the path
-        uploadImage(path: path, image: image) {(_) in}
+        uploadImage(path: path, image: image)
+        
+    }
+    
+    func uploadPostImage(postID: String, image: UIImage) {
+        
+        let path = getPostImagePath(postID: postID)
+        
+        uploadImage(path: path, image: image)
         
     }
     
@@ -36,7 +44,13 @@ class ImageManager {
         //return the exact spot where we want our profileImage for this user to be.
     }
     
-    private func uploadImage(path: StorageReference,image:UIImage, handler: @escaping (_ success: Bool) -> ()) {
+    private func getPostImagePath(postID: String) -> StorageReference {
+        let postPath = "posts/\(postID)/1"
+        let storagePath = ref.reference(withPath: postPath)
+        return storagePath
+    }
+    
+    private func uploadImage(path: StorageReference,image: UIImage) {
         
         var compression: CGFloat = 1.0
         let maxFileSize:Int = 240 * 240 //Maximum file size that we want to save
@@ -70,7 +84,8 @@ class ImageManager {
         metaData.contentType = "image/jpeg"
         
         //save data to path
-        path.putData(finalData, metadata: metaData) { _, error in
+        path.putData(finalData, metadata: metaData)
+        { _, error in
             if let error = error {
                 print("Error uploading image. \(error)")
             } else {
@@ -78,6 +93,8 @@ class ImageManager {
             }
         }
     }
+    
+    
     
         
     

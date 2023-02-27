@@ -8,22 +8,11 @@
 import SwiftUI
 
 struct PostView: View {
-    @State var postImage:UIImage  = UIImage(named: "dog1")!
     
+    @StateObject var postViewModel = PostViewModel()
     @State var post: Post
-    @State var animateLike: Bool = false
-    @State var showConfirmation: Bool  = false
-    @State var dialogType: PostConfirmationOption = .general
-    
-    var showHeaderAndFooter: Bool
-    //not showing header &footer version is for ImageGrid
-    
-    
-    enum PostConfirmationOption {
-        case general,reporting
-    }
-    
-    
+    var showHeaderAndFooter: Bool //not showing header &footer version is for ImageGrid
+
     var body: some View {
         VStack(alignment: .center,
                spacing: 0) {
@@ -48,17 +37,17 @@ struct PostView: View {
                     Image(systemName: "ellipsis")
                         .font(.headline)
                         .onTapGesture {
-                            showConfirmation.toggle()
+                            postViewModel.showConfirmation.toggle()
                         }.confirmationDialog(
-                            dialogType == .general ? "What would you like to do?" : "Why are you reporting this post?",
-                            isPresented: $showConfirmation,
+                            postViewModel.dialogType == .general ? "What would you like to do?" : "Why are you reporting this post?",
+                            isPresented: $postViewModel.showConfirmation,
                             titleVisibility: .visible
                         ) {
-                            if dialogType == .general {
+                            if postViewModel.dialogType == .general {
                                 Button (role: .destructive){
-                                    self.dialogType = .reporting
+                                    self.postViewModel.dialogType = .reporting
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                        self.showConfirmation.toggle()
+                                        self.postViewModel.showConfirmation.toggle()
                                     }
                                 } label: {
                                     Text("Report")
@@ -91,7 +80,7 @@ struct PostView: View {
                                 
                                 //Need to write the btn like this or it will keep asking you to add LocationLocalizedStringKey
                                 Button("Cancel", role: .cancel) {
-                                    self.dialogType = .general
+                                    self.postViewModel.dialogType = .general
                                 }
                                
                             }
@@ -104,11 +93,12 @@ struct PostView: View {
             
             //MARK: - IMAGE
             ZStack {
-                Image(uiImage:postImage)
+                //這邊之後是要改成從每個post自己的欄位裡面去取值
+                Image(uiImage:postViewModel.postImage)
                     .resizable()
                     .scaledToFit()
                 
-                LikeAnimationView(animate: $animateLike)
+                LikeAnimationView(animate: $postViewModel.animateLike)
             }
             
             //MARK: - FOOTER
@@ -163,9 +153,9 @@ struct PostView: View {
         
         self.post = updatedPost
         
-        animateLike = true
+        postViewModel.animateLike = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            animateLike = false
+                    postViewModel.animateLike = false
         }
     }
     
@@ -183,7 +173,7 @@ struct PostView: View {
     func sharePost() {
         let defaultText = "Just checking in at \(post.username)'s post"
         
-        let image = postImage
+        let image = postViewModel.postImage
         let link = URL(string: "https://www.youtube.com/watch?v=x5ZeAfz4G3s&list=RDx5ZeAfz4G3s&start_radio=1")!
         
         let activityViewController = UIActivityViewController(activityItems:[defaultText,image,link], applicationActivities: nil)

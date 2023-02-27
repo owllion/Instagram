@@ -13,15 +13,23 @@ private let store = Firestore.firestore()
 class PostViewModel: ObservableObject {
     private var postCollection = store.collection(K.FireStore.Post.collectionName)
     
+    enum PostConfirmationOption {
+        case general,reporting
+    }
+    
     @Published var posts = [Post]()
+    @Published var postImage:UIImage  = UIImage(named: "dog1")!
+    @Published var animateLike: Bool = false
+    @Published var showConfirmation: Bool  = false
+    @Published var dialogType: PostConfirmationOption = .general
     
     //MARK: - Error Properties
     @Published var showPostVMError: Bool = false
-    @Published var errorMessage: String = ""
+    @Published var alertMessage: String = ""
     
     //MARK: - Handle Error
     func handleError(_ error: Error){
-        errorMessage = error.localizedDescription
+        alertMessage = error.localizedDescription
         showPostVMError.toggle()
         
     }
@@ -29,6 +37,8 @@ class PostViewModel: ObservableObject {
     //MARK: - FIrebase CRUD
     
     @MainActor func createPost(with caption: String, and image: String, by userID: String, named userName: String) {
+        //post img to storage
+        //get the path(has to be of type String)
         
         let postData: [String: Any] = [
             K.FireStore.Post.postIDField: generatePostIDForCreatingPost(),
@@ -44,6 +54,7 @@ class PostViewModel: ObservableObject {
                 return
             } else {
                 print("Successfully post!")
+                self.alertMessage = "Successfully post!"
             }
         }
         
@@ -57,7 +68,7 @@ class PostViewModel: ObservableObject {
         postCollection.addSnapshotListener { snapshot, error in
             if let error = error {
                 self.showPostVMError.toggle()
-                self.errorMessage = error.localizedDescription
+                self.alertMessage = error.localizedDescription
                 return
             }
             

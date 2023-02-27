@@ -25,7 +25,7 @@ struct PostImageView: View {
         VStack(alignment: .center, spacing: 0) {
             HStack {
                 Button {
-                   dismiss()
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark")
                         .font(.title)
@@ -53,8 +53,8 @@ struct PostImageView: View {
                 )
                 .customTextField(background: Color.MyTheme.beige)
                 .padding(.horizontal)
-                   
-                    
+                
+                
                 
                 Button {
                     postPicture(image: "test")
@@ -69,6 +69,17 @@ struct PostImageView: View {
                         .cornerRadius(12)
                         .padding(.horizontal)
                 } .tint(Color.MyTheme.yellow)
+                    .alert(isPresented: $postViewModel.showPostVMError) {
+                        Alert(
+                            title: Text(postViewModel.alertMessage),
+                           message: nil,
+                            primaryButton: .default(Text("OK")) {
+                                self.dismiss()
+                            },
+                           secondaryButton: .cancel()
+                        )
+                    }
+                
             }
         }
     }
@@ -80,13 +91,14 @@ struct PostImageView: View {
             by: authViewModel.userID!,
             named: authViewModel.displayName
         )
-       
+        
     }
     
 }
 
 struct PostImageView_Previews: PreviewProvider {
     @State static var image = UIImage(named: "dog3")!
+    
     static var previews: some View {
         PostImageView(imageSelected: $image)
     }
