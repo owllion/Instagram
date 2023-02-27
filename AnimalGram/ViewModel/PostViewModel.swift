@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import SwiftUI
 
 private let store = Firestore.firestore()
 
@@ -17,7 +18,7 @@ class PostViewModel: ObservableObject {
         case general,reporting
     }
     
-    @Published var posts = [Post]()
+    
     @Published var postImage:UIImage  = UIImage(named: "dog1")!
     @Published var animateLike: Bool = false
     @Published var showConfirmation: Bool  = false
@@ -34,8 +35,60 @@ class PostViewModel: ObservableObject {
         
     }
     
-    //MARK: - FIrebase CRUD
     
+    //MARK: - PostView's methods
+    
+    func updatePost(with postID: String,and post: Post) {
+        do {
+            try postCollection.document(postID).setData(from: post)
+        } catch {
+            self.handleError(error)
+        }
+    }
+    
+    func likePost(with postID: String) {
+        
+//        let updatedPost = Post(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreate: post.dateCreate, likeCount: post.likeCount + 1, likedByUser: true)
+        
+        //self.post = updatedPost
+        
+        animateLike = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                animateLike = false
+        }
+    }
+    
+    func unlikePost(with postID: String) {
+        
+    }
+    
+    func reportPost(reason: String) {
+        print("report!!")
+    }
+    func sharePost(_ post: Post) {
+        let defaultText = "Just checking in at \(post.username)'s post"
+        
+        //let image = post.postImage
+        let image = Image("dog1")
+        let link = URL(string: "https://www.youtube.com/watch?v=x5ZeAfz4G3s&list=RDx5ZeAfz4G3s&start_radio=1")!
+        
+        let activityViewController = UIActivityViewController(activityItems:[defaultText,image,link], applicationActivities: nil)
+        
+        //get the background view controller
+        //grabbing the first key window that is found in the whole application,
+        guard let firstScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return
+        }
+
+        guard let firstWindow = firstScene.windows.first else {
+            return
+        }
+
+        let viewController = firstWindow.rootViewController
+        
+        viewController?.present(activityViewController, animated: true, completion: nil)
+    }
+
     @MainActor func createPost(with caption: String, and image: String, by userID: String, named userName: String) {
         //post img to storage
         //get the path(has to be of type String)
@@ -60,31 +113,8 @@ class PostViewModel: ObservableObject {
         
     }
     
-    func getSinglePost(with postID: String) {
-        
-    }
     
-    func getPosts() {
-        postCollection.addSnapshotListener { snapshot, error in
-            if let error = error {
-                self.showPostVMError.toggle()
-                self.alertMessage = error.localizedDescription
-                return
-            }
-            
-            self.posts = (snapshot?.documents.compactMap {
-                try? $0.data(as: Post.self)
-            }) ?? []
-        }
-    }
-    
-    func updatePost(_ post: Post) {
-        do {
-            try postCollection.document(post.postID).setData(from: post)
-        } catch {
-            self.handleError(error)
-        }
-    }
+   
     
     func deletePost(_ postID: String) {
         postCollection.document(postID).delete { error in

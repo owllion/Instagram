@@ -16,6 +16,7 @@ class ImageManager {
     static let instance = ImageManager()
     private var ref = Storage.storage()
     
+    
     //MARK: - Public functions
     func uploadProfileImage(userID: String, image: UIImage) {
         
@@ -95,6 +96,21 @@ class ImageManager {
     }
     
     
+    func downloadImage(path: StorageReference) -> UIImage {
+        var image: UIImage?
+        path.getData(maxSize: 27 * 1024 * 1024) { returnedImageData, error in
+            if let data = returnedImageData, let res = UIImage(data: data) {
+                image = res
+                print(image,"這是image喔！")
+                
+            } else {
+                print("Error gettgin data from path for image")
+                return
+            }
+        }
+        return image!
+        
+    }
     
         
     

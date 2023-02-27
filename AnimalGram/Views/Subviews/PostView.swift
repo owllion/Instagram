@@ -60,19 +60,19 @@ struct PostView: View {
                                 }
                             } else {
                                 Button (role: .destructive){
-                                    reportPost(reason: "This is inappropriate")
+                                    postViewModel.reportPost(reason: "This is inappropriate")
                                 } label: {
                                     Text("This is inappropriate")
                                 }
                                 
                                 Button(role: .destructive) {
-                                    reportPost(reason: "This is spam")
+                                                            postViewModel.reportPost(reason: "This is spam")
                                 } label: {
                                     Text("This is spam")
                                 }
                                 
                                 Button(role: .destructive) {
-                                    reportPost(reason: "It made me uncomfortable")
+                                                                        postViewModel.reportPost(reason: "It made me uncomfortable")
                                 } label: {
                                     Text("It made me uncomfortable")
                                 }
@@ -108,9 +108,9 @@ struct PostView: View {
                         .font(.title3)
                         .onTapGesture {
                             if post.likedByUser {
-                                unlikePost()
+                                postViewModel.unlikePost(with: post.postID)
                             } else {
-                                likePost()
+                                postViewModel.likePost(with: post.postID)
                                 
                             }
                         }.foregroundColor(post.likedByUser ? Color.red : Color.primary)
@@ -126,7 +126,7 @@ struct PostView: View {
                         .font(.title3)
                         .foregroundColor(.primary)
                         .onTapGesture {
-                            sharePost()
+                            postViewModel.sharePost(post)
                         }
                     
                     Spacer()
@@ -146,55 +146,6 @@ struct PostView: View {
             
         }
     }
-    
-    func likePost() {
-        
-        let updatedPost = Post(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreate: post.dateCreate, likeCount: post.likeCount + 1, likedByUser: true)
-        
-        self.post = updatedPost
-        
-        postViewModel.animateLike = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    postViewModel.animateLike = false
-        }
-    }
-    
-    func unlikePost() {
-        
-        let updatedPost = Post(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreate: post.dateCreate, likeCount: post.likeCount - 1, likedByUser: false)
-        
-        self.post = updatedPost
-        
-    }
-    
-    func reportPost(reason: String) {
-        print("report!!")
-    }
-    func sharePost() {
-        let defaultText = "Just checking in at \(post.username)'s post"
-        
-        let image = postViewModel.postImage
-        let link = URL(string: "https://www.youtube.com/watch?v=x5ZeAfz4G3s&list=RDx5ZeAfz4G3s&start_radio=1")!
-        
-        let activityViewController = UIActivityViewController(activityItems:[defaultText,image,link], applicationActivities: nil)
-        
-        //get the background view controller
-        //grabbing the first key window that is found in the whole application,
-        guard let firstScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
-            return
-        }
-
-        guard let firstWindow = firstScene.windows.first else {
-            return
-        }
-
-        let viewController = firstWindow.rootViewController
-        
-        viewController?.present(activityViewController, animated: true, completion: nil)
-    }
-
-    
-    
 }
 
 

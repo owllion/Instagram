@@ -33,4 +33,8 @@ class ProfileViewModel: ObservableObject {
     }
     
     
+    func getSinglePost(with postID: String) {
+        
+    }
+    
 }
