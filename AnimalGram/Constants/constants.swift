@@ -16,8 +16,8 @@ struct K {
             static let displayNameField = "displayName"
             static let emailField = "email"
             static let imageURLField = "imageURL"
-            static let userID = "userID"
-            static let bio = "bio"
+            static let userIDField = "userID"
+            static let bioField = "bio"
             static let dateCreated = "dateCreated"
         }
         

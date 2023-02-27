@@ -9,36 +9,38 @@ import SwiftUI
 
 struct MainTabView: View {
     var body: some View {
-        TabView {
-            //NavigationView is for the top title & link
-            NavigationView {
-                FeedView(data: PostArrayObject(), title: "Feed")
-            }.tabItem {
+            TabView {
+                //NavigationView is for the top title & link
+                NavigationView {
+                    FeedView(data: PostArrayObject(), title: "Feed")
+                }.tabItem {
+                    
+                    Label("Feed", systemImage: "book.fill")
+                }
                 
-                Label("Feed", systemImage: "book.fill")
-            }
-            
-            NavigationView {
-                BrowseView()
-            } .tabItem {
-                Label("Search", systemImage: "magnifyingglass")
-            }.toolbar(.visible, for: .tabBar)
-                .toolbarBackground(.red, for: .tabBar)
-            
-            
-            NavigationView {
-                UploadView()
+                NavigationView {
+                    BrowseView()
+                } .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }.toolbar(.visible, for: .tabBar)
+                    .toolbarBackground(.red, for: .tabBar)
                 
-            } .tabItem {
-                Label("Upload", systemImage: "square.and.arrow.up.fill")
+                
+                NavigationView {
+                    UploadView()
+                    
+                } .tabItem {
+                    Label("Upload", systemImage: "square.and.arrow.up.fill")
+                }
+                
+                NavigationView {
+                    ProfileView(isMyProfile: true)
+                }.tabItem {
+                    Label("Profile", systemImage: "person.fill")
+                }
             }
-            
-            NavigationView {
-                ProfileView(isMyProfile: true)
-            }.tabItem {
-                Label("Profile", systemImage: "person.fill")
-            }
-        }
+        
+        
     }
 }
 

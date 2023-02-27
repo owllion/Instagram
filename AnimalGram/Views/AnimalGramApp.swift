@@ -9,24 +9,22 @@ import SwiftUI
 import FirebaseCore
 import GoogleSignIn
 
-
-
 @main
 struct AnimalGramApp: App {
     @StateObject private var loginViewModel = LoginViewModel()
 
     init() {
-       setupAuthentication()
+        FirebaseApp.configure()
      }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(loginViewModel)
-                .onOpenURL { url in
-               GIDSignIn.sharedInstance.handle(url) //For google sign in
+//                .onOpenURL { url in
+//               GIDSignIn.sharedInstance.handle(url) //For google sign in
 
-            }
+            //}
         }
     }
 }

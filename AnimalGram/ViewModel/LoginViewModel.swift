@@ -33,7 +33,7 @@ class LoginViewModel: ObservableObject {
     
     //MARK: - Post data
     @Published var posts = [Post]()
-
+    
     
     //MARK: - View Properties
     @Published var state: SignInState = .signedOut
@@ -44,10 +44,10 @@ class LoginViewModel: ObservableObject {
     
     //MARK: - Handle Error
     func handleError(_ error: Error){
-//        await MainActor.run(body: {
-//            errorMessage = error.localizedDescription
-//            showError.toggle()
-//        })
+        //        await MainActor.run(body: {
+        //            errorMessage = error.localizedDescription
+        //            showError.toggle()
+        //        })
         errorMessage = error.localizedDescription
         showError.toggle()
         
@@ -75,6 +75,20 @@ class LoginViewModel: ObservableObject {
             let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController())
             await self.authenticateUser(for: result)
             
+            let userInDB = await self.checkIfUserExistsInDB(with: self.email)
+            
+            if userInDB {
+//                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+//                print("userDefault下面")
+                self.state = .signedIn
+            } else {
+                print("不存在在資料庫")
+                //UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                self.state = .signedIn
+                self.createUser()
+                
+            }
+            
         }catch {
             self.handleError(error)
             throw LoginError.userCancel("user cancel the login flow.")
@@ -82,7 +96,7 @@ class LoginViewModel: ObservableObject {
         }
     }
     
-   
+    
     //Get user data and store into Firestore
     @MainActor
     func authenticateUser(for result: GIDSignInResult?) async {
@@ -107,74 +121,85 @@ class LoginViewModel: ObservableObject {
             } else {
                 self.imageURL = "https://res.cloudinary.com/azainseong/image/upload/v1662517415/mij3ogxe5cqxitevri9z.png"
             }
-            let document = userCollection.document()
-            self.userID = document.documentID
-    //
-    //        ImageManager.instance.uploadProfileImage(userID: self.userID!, image: selectedImage)
             
-            
-            let userData: [String : Any] = [
-                K.FireStore.User.displayNameField : self.displayName,
-                K.FireStore.User.emailField : self.email,
-                K.FireStore.User.imageURLField: self.imageURL ,
-                K.FireStore.User.userID : userID!,
-                K.FireStore.User.bio : "Introduce yourself!",
-                K.FireStore.User.dateCreated : Date().timeIntervalSince1970
-            ]
-            print(userData,"This is user data")
-            userCollection.addDocument(data: userData) { [self] error in
-                if let error = error {
-                    self.handleError(error)
-                    return
-                } else {
-                    print("Successfully create user")
-                    self.state = .signedIn
-                    UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                }
-            }
+//            let userInDB = await self.checkIfUserExistsInDB(with: self.email)
+//
+//            if userInDB {
+//                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+//                print("userDefault下面")
+//            } else {
+//                print("不存在在資料庫")
+//                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+//                //self.createUser()
+//            }
             
         }catch {
             self.handleError(error)
         }
-       
-}
+        
+    }
     
     @MainActor func signOut() {
-      GIDSignIn.sharedInstance.signOut()
-      do {
-          try Auth.auth().signOut()
-          UserDefaults.standard.removeObject(forKey: "isLoggedIn")
-          print("log out successfully")
-      } catch {
-          self.handleError(error)
-      }
+        GIDSignIn.sharedInstance.signOut()
+        do {
+            try Auth.auth().signOut()
+            //UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+            state = .signedOut
+            print("log out successfully")
+        } catch {
+            self.handleError(error)
+        }
+    }
+    
+
+    func generateUserID() {
+        let document = userCollection.document()
+        self.userID = document.documentID
+    }
+    
+    @MainActor func checkIfUserExistsInDB(with email: String) async -> Bool {
+        do {
+            let snapshot = try await userCollection.whereField(K.FireStore.User.emailField, isEqualTo: email).getDocuments()
+            return snapshot.count > 0 ? true : false
+
+            
+        }catch {
+            print("check user error")
+            self.handleError(error)
+        }
+        return false
+     
     }
     
     //MARK: - Firebase CRUD
     
     func createUser() {
-        let document = userCollection.document()
-        self.userID = document.documentID
+        
 //
 //        ImageManager.instance.uploadProfileImage(userID: self.userID!, image: selectedImage)
         
+        
+        self.generateUserID()
         
         let userData: [String : Any] = [
             K.FireStore.User.displayNameField : self.displayName,
             K.FireStore.User.emailField : self.email,
             K.FireStore.User.imageURLField: self.imageURL ,
-            K.FireStore.User.userID : userID!,
-            K.FireStore.User.bio : "Introduce yourself!",
+            K.FireStore.User.userIDField : self.userID!,
+            K.FireStore.User.bioField : "Introduce yourself!",
             K.FireStore.User.dateCreated : Date().timeIntervalSince1970
         ]
+        
         print(userData,"This is user data")
+        
         userCollection.addDocument(data: userData) { error in
             if let error = error {
                 self.handleError(error)
                 return
             } else {
                 print("Success create user")
-                self.state = .signedIn
+                //self.state = .signedIn
+                UserDefaults.standard.set(true, forKey: "isLoggedIn")
             }
         }
     }
