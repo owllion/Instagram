@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     
-    @EnvironmentObject var loginVM: LoginViewModel
+    @EnvironmentObject var loginVM: AuthenticationViewModel
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {

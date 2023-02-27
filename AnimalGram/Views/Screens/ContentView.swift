@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var loginViewModel: AuthenticationViewModel
     @Environment(\.colorScheme) var colorScheme
     //@State var test: Bool = false
     //    @AppStorage("state") var state: String = "signedOut"

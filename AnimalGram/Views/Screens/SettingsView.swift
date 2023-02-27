@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @EnvironmentObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -56,10 +56,10 @@ struct SettingsView: View {
                     }
                     
                     Button {
-                        loginViewModel.signOut()
+                        authViewModel.signOut()
                     } label: {
                         SettingsRowView(iconName: "figure.walk", settingName: "Sign out", iconColor: Color.MyTheme.purple)
-                    }.alert(isPresented: $loginViewModel.showError) {
+                    }.alert(isPresented: $authViewModel.showError) {
                         Alert(title: Text("Error signing out"))
                     }
                     

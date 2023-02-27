@@ -28,15 +28,30 @@ class PostViewModel: ObservableObject {
     
     //MARK: - FIrebase CRUD
     
-    @MainActor func createPost(_ post: Post) {
-        do {
-            try postCollection.addDocument(from: post)
-        } catch {
-            self.handleError(error)
+    @MainActor func createPost(with caption: String, and image: String, by userID: String, named userName: String) {
+        
+        let postData: [String: Any] = [
+            K.FireStore.Post.postIDField: generatePostIDForCreatingPost(),
+            K.FireStore.Post.userIDField: userID,
+            K.FireStore.Post.displayNameField: userName,
+            K.FireStore.Post.captionField: caption,
+            K.FireStore.Post.dataCreated: Date().timeIntervalSince1970
+        ]
+        
+        postCollection.addDocument(data: postData) { error in
+            if let error = error {
+                self.handleError(error)
+                return
+            } else {
+                print("Successfully post!")
+            }
         }
+        
     }
     
-    func getSinglePost() {}
+    func getSinglePost(with postID: String) {
+        
+    }
     
     func getPosts() {
         postCollection.addSnapshotListener { snapshot, error in
@@ -60,8 +75,8 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    func deletePost(_ postId: String) {
-        postCollection.document(postId).delete { error in
+    func deletePost(_ postID: String) {
+        postCollection.document(postID).delete { error in
             if let error = error {
                 print("Unable to remove the post: \(error.localizedDescription)")
                 self.handleError(error)
@@ -69,6 +84,11 @@ class PostViewModel: ObservableObject {
             
             
         }
+    }
+    
+    //MARK: - Utility method
+    func generatePostIDForCreatingPost() -> String {
+        return postCollection.document().documentID
     }
     
     

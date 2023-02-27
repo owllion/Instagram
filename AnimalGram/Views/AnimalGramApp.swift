@@ -11,7 +11,7 @@ import GoogleSignIn
 
 @main
 struct AnimalGramApp: App {
-    @StateObject private var loginViewModel = LoginViewModel()
+    @StateObject private var authViewModel = AuthenticationViewModel()
 
     init() {
         FirebaseApp.configure()
@@ -20,7 +20,7 @@ struct AnimalGramApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(loginViewModel)
+                .environmentObject(authViewModel)
 //                .onOpenURL { url in
 //               GIDSignIn.sharedInstance.handle(url) //For google sign in
 

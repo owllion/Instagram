@@ -10,7 +10,7 @@ import FirebaseAuth
 
 private let store = Firestore.firestore()
 
-class LoginViewModel: ObservableObject {
+class AuthenticationViewModel: ObservableObject {
     enum LoginError: Error {
         case userCancel(String)
     }
@@ -51,13 +51,6 @@ class LoginViewModel: ObservableObject {
     //MARK: - google login
     @MainActor
     func signIn() async throws {
-        //      if GIDSignIn.sharedInstance.hasPreviousSignIn() {
-        //        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-        //            authenticateUser(for: user, with: error)
-        //        }
-        //      } else {
-        
-        
         //Must set the clientID to the GIDSignIn or app will crash
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let config = GIDConfiguration(clientID: clientID)
@@ -68,6 +61,7 @@ class LoginViewModel: ObservableObject {
             let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController())
             await self.authenticateUser(for: result)
             
+            
             let userInDB = await self.checkIfUserExistsInDB(with: self.email)
             
             if userInDB {
@@ -75,16 +69,13 @@ class LoginViewModel: ObservableObject {
             } else {
                 self.state = .signedIn
                 self.createUser()
-                
             }
             
         }catch {
             self.handleError(error)
             throw LoginError.userCancel("user cancel the login flow.")
-            
         }
     }
-    
     
     //Get user data and store into Firestore
     @MainActor
@@ -110,22 +101,9 @@ class LoginViewModel: ObservableObject {
             } else {
                 self.imageURL = "https://res.cloudinary.com/azainseong/image/upload/v1662517415/mij3ogxe5cqxitevri9z.png"
             }
-            
-            //            let userInDB = await self.checkIfUserExistsInDB(with: self.email)
-            //
-            //            if userInDB {
-            //                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-            //                print("userDefault下面")
-            //            } else {
-            //                print("不存在在資料庫")
-            //                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-            //                //self.createUser()
-            //            }
-            
         }catch {
             self.handleError(error)
         }
-        
     }
     
     @MainActor func signOut() {
@@ -138,12 +116,6 @@ class LoginViewModel: ObservableObject {
         } catch {
             self.handleError(error)
         }
-    }
-    
-    
-    func generateUserID() {
-        let document = userCollection.document()
-        self.userID = document.documentID
     }
     
     @MainActor func checkIfUserExistsInDB(with email: String) async -> Bool {
@@ -160,13 +132,27 @@ class LoginViewModel: ObservableObject {
         
     }
     
+    @MainActor
+    func getUserData(with userID: String) async {
+        do {
+            let document = try await userCollection.document(userID).getDocument()
+            
+            let displayName = document.get(K.FireStore.User.displayNameField) as? String
+            let bio = document.get(K.FireStore.User.displayNameField) as? String
+            
+//            self.displayName = displayName!
+//            self.bio = bio!
+            
+        }catch {
+            self.handleError(error)
+        }
+    }
+    
     func createUser() {
-        
         //
         //        ImageManager.instance.uploadProfileImage(userID: self.userID!, image: selectedImage)
         
-        
-        self.generateUserID()
+        self.generateUserIDForCreatingUserData()
         
         let userData: [String : Any] = [
             K.FireStore.User.displayNameField : self.displayName,
@@ -185,8 +171,8 @@ class LoginViewModel: ObservableObject {
                 return
             } else {
                 print("Success create user")
-                //self.state = .signedIn
-                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                self.state = .signedIn
+                //UserDefaults.standard.set(true, forKey: "isLoggedIn")
             }
         }
     }
@@ -197,6 +183,11 @@ class LoginViewModel: ObservableObject {
     func getConvertedURL(_ url: URL) -> String {
         return url.absoluteString
         
+    }
+    
+    func generateUserIDForCreatingUserData() {
+        let document = userCollection.document()
+        self.userID = document.documentID
     }
     
 }

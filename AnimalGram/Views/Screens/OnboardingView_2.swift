@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingView_2: View {
-    @EnvironmentObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var loginViewModel: AuthenticationViewModel
 
     @State var showImagePicker: Bool = false
     @State var selectedImage: UIImage = UIImage(named: "logo")!

@@ -13,6 +13,8 @@ struct K {
         
         struct User {
             static let collectionName = "users"
+            
+            //FieldName
             static let displayNameField = "displayName"
             static let emailField = "email"
             static let imageURLField = "imageURL"
@@ -23,7 +25,13 @@ struct K {
         
         struct Post {
             static let collectionName = "posts"
-
+            
+            //FieldName
+            static let postIDField = "postID"
+            static let userIDField = "userID"
+            static let displayNameField = "displayName"
+            static let captionField = "caption"
+            static let dataCreated = "dataCreated"
         }
         
         

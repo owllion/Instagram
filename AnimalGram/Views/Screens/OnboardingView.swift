@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
-    @EnvironmentObject var loginViewModel: LoginViewModel
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
     @Environment(\.dismiss) private var dismiss
     
     @State var showOnboardingTwo : Bool = false
@@ -45,7 +45,7 @@ struct OnboardingView: View {
                 Button {
                     Task {
                         do {
-                            try await loginViewModel.signIn()
+                            try await authViewModel.signIn()
                             dismiss()
                             
                         }catch {
@@ -91,8 +91,8 @@ struct OnboardingView: View {
                     content: {
                     OnboardingView_2()
                 })
-                .alert(isPresented: $loginViewModel.showError) {
-                    return Alert(title: Text(loginViewModel.errorMessage))
+                .alert(isPresented: $authViewModel.showError) {
+                    return Alert(title: Text(authViewModel.errorMessage))
                 }
         }
         
