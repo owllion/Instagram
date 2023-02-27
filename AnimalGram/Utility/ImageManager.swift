@@ -9,6 +9,7 @@ import Foundation
 import FirebaseStorage // holds images and videos
 
 class ImageManager {
+    typealias FireBaseUploadResHandler = (String? , String?) -> Void
     
     //MARK: - Properties
     
@@ -16,9 +17,7 @@ class ImageManager {
     static let instance = ImageManager()
     private var ref = Storage.storage()
     
-    
-    //MARK: - Public functions
-    
+        
     func downloadImage(path: StorageReference) -> Data {
         var finalData: Data?
         path.getData(maxSize: 27 * 1024 * 1024) { returnedImageData, error in
@@ -35,25 +34,33 @@ class ImageManager {
         
     }
 
-    func uploadProfileImage(userID: String, image: UIImage) {
+    func uploadProfileImage(userID: String, image: UIImage, done: @escaping (Bool) -> Void) {
         
         //get the path where we will save the image
-        let path = self.getProfileImagePath(userID)
-        
-        //save image to the path
-        uploadImage(path: path, image: image)
-        
+//        let path = self.getProfileImagePath(userID)
+//
+//        uploadImageAndGetURL(path: path, image: image) { url, error in
+//            if error != nil {
+//                done(false)
+//            }
+//            done()
+//
+//        }
     }
     
     func uploadPostImage(postID: String, image: UIImage) {
         
-        let path = getPostImagePath(postID: postID)
-        
-        uploadImage(path: path, image: image)
-        
+//        let path = self.getPostImagePath(postID: postID)
+//        print("這是path",path)
+//
+//        uploadImageAndGetURL(path: path, image: image) { url, error in
+//            <#code#>
+//
+//        }
+//
     }
     
-    func getProfileImagePath(_ userID: String) -> StorageReference {
+    func getProfileImagePath(with userID: String) -> StorageReference {
         
         let userPath = "users/\(userID)/profile"
         let storagePath = ref.reference(withPath: userPath)
@@ -61,15 +68,13 @@ class ImageManager {
         //return the exact spot where we want our profileImage for this user to be.
     }
     
-    func getPostImagePath(postID: String) -> StorageReference {
+    func getPostImagePath(with postID: String) -> StorageReference {
         let postPath = "posts/\(postID)/1"
         let storagePath = ref.reference(withPath: postPath)
         return storagePath
     }
     
-    
-    //MARK: - Private functions
-    private func uploadImage(path: StorageReference,image: UIImage) {
+    func uploadImageAndGetURL(type: String, id: String, image: UIImage, done: @escaping FireBaseUploadResHandler) {
         
         var compression: CGFloat = 1.0
         let maxFileSize:Int = 240 * 240 //Maximum file size that we want to save
@@ -79,6 +84,7 @@ class ImageManager {
             print("Error getting data from image")
             return
         }
+        print("original", originalData)
         
         
         //check maximum file size
@@ -92,7 +98,7 @@ class ImageManager {
         
         
         //get image data
-        guard let finalData = image.jpegData(compressionQuality: compression) else {
+        guard let uploadData = image.jpegData(compressionQuality: compression) else {
             print("Error getting data from image")
             return
         }
@@ -103,12 +109,20 @@ class ImageManager {
         metaData.contentType = "image/jpeg"
         
         //save data to path
-        path.putData(finalData, metadata: metaData)
+        let path = type == "post" ? self.getPostImagePath(with: id) : self.getProfileImagePath(with: id)
+
+        path.putData(uploadData, metadata: metaData)
         { _, error in
             if let error = error {
                 print("Error uploading image. \(error)")
+                return done(nil, error.localizedDescription)
             } else {
                 print("upload miage success!")
+                
+                path.downloadURL { url, error in
+                    guard let url = url else {return done(nil, error?.localizedDescription)}
+                    done(url.absoluteString, nil)
+                }
             }
         }
     }

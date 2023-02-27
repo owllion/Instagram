@@ -90,37 +90,37 @@ class PostViewModel: ObservableObject {
         viewController?.present(activityViewController, animated: true, completion: nil)
     }
 
-    @MainActor func createPost(with caption: String, and image: UIImage, by userID: String, named userName: String) {
+    func createPost(with caption: String, and image: UIImage, by userID: String, named userName: String) {
         
         let postID = generatePostIDForCreatingPost()
         
-        //post img to storage
-        ImageManager.instance.uploadPostImage(postID: postID, image: image)
-        //get the path(has to be of type String)
-        let path = ImageManager.instance.getPostImagePath(postID: postID)
-        let finalImage = ImageManager.instance.downloadImage(path: path)
-        
-        let imageURL = String(data: finalImage, encoding: .utf8)
-        
-        print(imageURL,"this is URL")
-        let postData: [String: Any] = [
-            K.FireStore.Post.postIDField: postID,
-            K.FireStore.Post.userIDField: userID,
-            K.FireStore.Post.displayNameField: userName,
-            K.FireStore.Post.postImageURLField: imageURL,
-            K.FireStore.Post.captionField: caption,
-            K.FireStore.Post.dataCreated: Date().timeIntervalSince1970
-        ]
-        
-        postCollection.addDocument(data: postData) { error in
+        ImageManager.instance.uploadImageAndGetURL(type: "post", id: postID, image: image) { [self] url, error in
             if let error = error {
-                self.handleError(error)
-                return
-            } else {
-                print("Successfully post!")
-                self.alertMessage = "Successfully post!"
+                self.alertMessage = error
+                self.showPostVMError = true
             }
+            let postData: [String: Any] = [
+                K.FireStore.Post.postIDField: postID,
+                K.FireStore.Post.userIDField: userID,
+                K.FireStore.Post.displayNameField: userName,
+                K.FireStore.Post.postImageURLField: url! as String,
+                K.FireStore.Post.captionField: caption,
+                K.FireStore.Post.dataCreated: Date().timeIntervalSince1970
+            ]
+            
+            postCollection.document(postID).setData(postData) { error in
+                if let error = error {
+                    self.handleError(error)
+                    return
+                } else {
+                    print("Successfully post!")
+                    self.alertMessage = "Successfully post!"
+                    self.showPostVMError = true
+                }
+            }
+            
         }
+        
         
     }
     

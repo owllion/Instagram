@@ -112,7 +112,6 @@ class AuthenticationViewModel: ObservableObject {
         GIDSignIn.sharedInstance.signOut()
         do {
             try Auth.auth().signOut()
-            //UserDefaults.standard.removeObject(forKey: "isLoggedIn")
             state = .signedOut
             print("log out successfully")
         } catch {
@@ -137,11 +136,11 @@ class AuthenticationViewModel: ObservableObject {
     
     @MainActor
     func getUserID(with email: String) async {
-        print(email,"收到的email")
         do {
             let document = try await userCollection.document(email).getDocument()
             
             print(document.get(K.FireStore.User.userIDField),"This is doc.get")
+            
             self.userID = document.get(K.FireStore.User.userIDField) as? String
             
         }catch {
