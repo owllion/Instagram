@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     
+    @ObservedObject var profileViewModel = ProfileViewModel()
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @Environment(\.colorScheme) var colorScheme
     @State var showSettings: Bool = false
@@ -21,7 +22,7 @@ struct ProfileView: View {
         ScrollView(.vertical, showsIndicators: false) {
             ProfileHeaderView()
             Divider()
-            ImageGridView()
+            ImageGridView(posts: $profileViewModel.userPosts)
         }.navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -34,13 +35,25 @@ struct ProfileView: View {
                         .opacity(isMyProfile ? 1.0 : 0.0)
 
                 }
-            }.sheet(isPresented: $showSettings) {
+            }
+            .onAppear {
+                Task {
+                    do {
+                        try await profileViewModel.getUserPosts(with: authViewModel.userID!)
+                    }catch {
+                        print(error)
+                    }
+                }
+              
+            }
+            .sheet(isPresented: $showSettings) {
                 SettingsView().environmentObject(authViewModel)
             }
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
+    
     static var previews: some View {
         NavigationView {
             ProfileView(isMyProfile: true)

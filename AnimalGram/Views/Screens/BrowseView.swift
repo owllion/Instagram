@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct BrowseView: View {
-    var posts = PostArrayObject()
+    
+    @ObservedObject var feedViewModel = FeedViewModel()
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             CarouselView()
-            ImageGridView()
+            ImageGridView(posts: $feedViewModel.posts)
         }.navigationTitle("Browse")
             .navigationBarTitleDisplayMode(.large)
+            .onAppear {
+                feedViewModel.getPosts()
+            }
     }
 }
 
