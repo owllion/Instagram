@@ -14,7 +14,7 @@ struct BrowseView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             CarouselView()
-            ImageGridView(posts: $feedViewModel.posts)
+            ImageGridView(posts: feedViewModel.posts)
         }.navigationTitle("Browse")
             .navigationBarTitleDisplayMode(.large)
             .onAppear {

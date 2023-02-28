@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImageGridView: View {
     
-    @Binding var posts: [Post]
+    var posts: [Post]
     
     var body: some View {
         LazyVGrid(
@@ -24,7 +24,7 @@ struct ImageGridView: View {
                 ForEach(posts, id: \.self) {
                     post in
                     NavigationLink {
-                        FeedView(title: "post")
+                        SinglePostView(post: post)
                     } label: {
                         PostView(post: post, showHeaderAndFooter: false)
                     }
@@ -45,9 +45,9 @@ struct ImageGridView: View {
 //                     likedByUser: false
 //                    )
 //                ]
-//       
-//    
-//    
+//
+//
+//
 ////    static var previews: some View {
 ////        ImageGridView(posts: $posts).previewLayout(.sizeThatFits)
 ////    }

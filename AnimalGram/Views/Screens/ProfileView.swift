@@ -22,7 +22,7 @@ struct ProfileView: View {
         ScrollView(.vertical, showsIndicators: false) {
             ProfileHeaderView()
             Divider()
-            ImageGridView(posts: $profileViewModel.userPosts)
+            ImageGridView(posts: profileViewModel.userPosts)
         }.navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {

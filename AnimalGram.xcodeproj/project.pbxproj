@@ -12,6 +12,7 @@
 		2562954E29AC931500BE59CB /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954D29AC931500BE59CB /* FeedViewModel.swift */; };
 		2562955429ADFBA400BE59CB /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562955329ADFBA400BE59CB /* LottieView.swift */; };
 		2562955D29AE231100BE59CB /* post-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2562955C29AE231100BE59CB /* post-loading.json */; };
+		2562955F29AE442000BE59CB /* SinglePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562955E29AE442000BE59CB /* SinglePostView.swift */; };
 		256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FB29A330E900087828 /* AnimalGramApp.swift */; };
 		256B17FE29A330E900087828 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FD29A330E900087828 /* ContentView.swift */; };
 		256B180029A330EA00087828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 256B17FF29A330EA00087828 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		2562954D29AC931500BE59CB /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		2562955329ADFBA400BE59CB /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		2562955C29AE231100BE59CB /* post-loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "post-loading.json"; path = "../../../../Downloads/post-loading.json"; sourceTree = "<group>"; };
+		2562955E29AE442000BE59CB /* SinglePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePostView.swift; sourceTree = "<group>"; };
 		256B17F829A330E900087828 /* AnimalGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimalGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256B17FB29A330E900087828 /* AnimalGramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalGramApp.swift; sourceTree = "<group>"; };
 		256B17FD29A330E900087828 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				256B183629A4CFE000087828 /* SettingsRowView.swift */,
 				256B184029A5B75D00087828 /* SignInWithAppleButtonCustom.swift */,
 				256B184729A5CD9C00087828 /* LikeAnimationView.swift */,
+				2562955E29AE442000BE59CB /* SinglePostView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				256B184629A5C34500087828 /* ViewExtension.swift in Sources */,
 				256B182529A3BEF100087828 /* ImageGridView.swift in Sources */,
 				256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */,
+				2562955F29AE442000BE59CB /* SinglePostView.swift in Sources */,
 				256B185529A7A7CF00087828 /* AnimalGramRepository.swift in Sources */,
 				256B181429A34B9100087828 /* PostView.swift in Sources */,
 				256B184329A5BE9D00087828 /* OnboardingView_2.swift in Sources */,
