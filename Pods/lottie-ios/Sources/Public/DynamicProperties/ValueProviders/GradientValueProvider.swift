@@ -9,7 +9,7 @@ import CoreGraphics
 import Foundation
 
 /// A `ValueProvider` that returns a Gradient Color Value.
-public final class GradientValueProvider: ValueProvider {
+public final class GradientValueProvider: AnyValueProvider {
 
   // MARK: Lifecycle
 
@@ -26,7 +26,7 @@ public final class GradientValueProvider: ValueProvider {
 
   /// Initializes with an array of colors.
   public init(
-    _ colors: [LottieColor],
+    _ colors: [Color],
     locations: [Double] = [])
   {
     self.colors = colors
@@ -37,13 +37,13 @@ public final class GradientValueProvider: ValueProvider {
 
   // MARK: Public
 
-  /// Returns a [LottieColor] for a CGFloat(Frame Time).
-  public typealias ColorsValueBlock = (CGFloat) -> [LottieColor]
+  /// Returns a [Color] for a CGFloat(Frame Time).
+  public typealias ColorsValueBlock = (CGFloat) -> [Color]
   /// Returns a [Double](Color locations) for a CGFloat(Frame Time).
   public typealias ColorLocationsBlock = (CGFloat) -> [Double]
 
   /// The colors values of the provider.
-  public var colors: [LottieColor] {
+  public var colors: [Color] {
     didSet {
       updateValueArray()
       hasUpdate = true
@@ -64,20 +64,6 @@ public final class GradientValueProvider: ValueProvider {
     [Double].self
   }
 
-  public var storage: ValueProviderStorage<[Double]> {
-    .closure { [self] frame in
-      hasUpdate = false
-
-      if let block = block {
-        let newColors = block(frame)
-        let newLocations = locationsBlock?(frame) ?? []
-        value = value(from: newColors, locations: newLocations)
-      }
-
-      return value
-    }
-  }
-
   public func hasUpdate(frame _: CGFloat) -> Bool {
     if block != nil || locationsBlock != nil {
       return true
@@ -85,25 +71,38 @@ public final class GradientValueProvider: ValueProvider {
     return hasUpdate
   }
 
+  public func value(frame: CGFloat) -> Any {
+    hasUpdate = false
+
+    if let block = block {
+      let newColors = block(frame)
+      let newLocations = locationsBlock?(frame) ?? []
+      value = value(from: newColors, locations: newLocations)
+    }
+
+    return value
+  }
+
   // MARK: Private
 
-  private var hasUpdate = true
+  private var hasUpdate: Bool = true
 
   private var block: ColorsValueBlock?
   private var locationsBlock: ColorLocationsBlock?
   private var value: [Double] = []
 
-  private func value(from colors: [LottieColor], locations: [Double]) -> [Double] {
+  private func value(from colors: [Color], locations: [Double]) -> [Double] {
+
     var colorValues = [Double]()
     var alphaValues = [Double]()
     var shouldAddAlphaValues = false
 
     for i in 0..<colors.count {
+
       if colors[i].a < 1 { shouldAddAlphaValues = true }
 
-      let location = locations.count > i
-        ? locations[i]
-        : (Double(i) / Double(colors.count - 1))
+      let location = locations.count > i ? locations[i] :
+        (Double(i) / Double(colors.count - 1))
 
       colorValues.append(location)
       colorValues.append(colors[i].r)

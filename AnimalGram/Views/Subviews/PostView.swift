@@ -95,15 +95,16 @@ struct PostView: View {
             
             //MARK: - IMAGE
             ZStack {
-                //這邊之後是要改成從每個post自己的欄位裡面去取值
                 AsyncImage(url: URL(string: post.postImageURL)) { image in
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                        
+
                     } placeholder: {
-                        ProgressView()
+                        LottieView(lottieFile: "post-loading")
+                     
                     }
+                
                 
                 LikeAnimationView(animate: $postViewModel.animateLike)
             }

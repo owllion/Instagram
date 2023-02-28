@@ -9,40 +9,30 @@ import CoreGraphics
 import Foundation
 
 /// A `ValueProvider` that returns a CGColor Value
-public final class ColorValueProvider: ValueProvider {
+public final class ColorValueProvider: AnyValueProvider {
 
   // MARK: Lifecycle
 
   /// Initializes with a block provider
   public init(block: @escaping ColorValueBlock) {
     self.block = block
-    color = LottieColor(r: 0, g: 0, b: 0, a: 1)
-    keyframes = nil
+    color = Color(r: 0, g: 0, b: 0, a: 1)
   }
 
   /// Initializes with a single color.
-  public init(_ color: LottieColor) {
+  public init(_ color: Color) {
     self.color = color
-    block = nil
-    keyframes = nil
-    hasUpdate = true
-  }
-
-  /// Initializes with multiple colors, with timing information
-  public init(_ keyframes: [Keyframe<LottieColor>]) {
-    self.keyframes = keyframes
-    color = LottieColor(r: 0, g: 0, b: 0, a: 1)
     block = nil
     hasUpdate = true
   }
 
   // MARK: Public
 
-  /// Returns a LottieColor for a CGColor(Frame Time)
-  public typealias ColorValueBlock = (CGFloat) -> LottieColor
+  /// Returns a Color for a CGColor(Frame Time)
+  public typealias ColorValueBlock = (CGFloat) -> Color
 
   /// The color value of the provider.
-  public var color: LottieColor {
+  public var color: Color {
     didSet {
       hasUpdate = true
     }
@@ -51,21 +41,7 @@ public final class ColorValueProvider: ValueProvider {
   // MARK: ValueProvider Protocol
 
   public var valueType: Any.Type {
-    LottieColor.self
-  }
-
-  public var storage: ValueProviderStorage<LottieColor> {
-    if let block = block {
-      return .closure { frame in
-        self.hasUpdate = false
-        return block(frame)
-      }
-    } else if let keyframes = keyframes {
-      return .keyframes(keyframes)
-    } else {
-      hasUpdate = false
-      return .singleValue(color)
-    }
+    Color.self
   }
 
   public func hasUpdate(frame _: CGFloat) -> Bool {
@@ -75,10 +51,20 @@ public final class ColorValueProvider: ValueProvider {
     return hasUpdate
   }
 
+  public func value(frame: CGFloat) -> Any {
+    hasUpdate = false
+    let newColor: Color
+    if let block = block {
+      newColor = block(frame)
+    } else {
+      newColor = color
+    }
+    return newColor
+  }
+
   // MARK: Private
 
-  private var hasUpdate = true
+  private var hasUpdate: Bool = true
 
   private var block: ColorValueBlock?
-  private var keyframes: [Keyframe<LottieColor>]?
 }

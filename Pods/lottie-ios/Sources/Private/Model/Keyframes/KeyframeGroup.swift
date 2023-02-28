@@ -7,15 +7,15 @@
 
 import Foundation
 
-// MARK: - KeyframeGroup
+/**
+ Used for coding/decoding a group of Keyframes by type.
 
-/// Used for coding/decoding a group of Keyframes by type.
-///
-/// Keyframe data is wrapped in a dictionary { "k" : KeyframeData }.
-/// The keyframe data can either be an array of keyframes or, if no animation is present, the raw value.
-/// This helper object is needed to properly decode the json.
+ Keyframe data is wrapped in a dictionary { "k" : KeyframeData }.
+ The keyframe data can either be an array of keyframes or, if no animation is present, the raw value.
+ This helper object is needed to properly decode the json.
+ */
 
-final class KeyframeGroup<T> {
+final class KeyframeGroup<T>: Codable where T: Codable, T: Interpolatable {
 
   // MARK: Lifecycle
 
@@ -27,38 +27,27 @@ final class KeyframeGroup<T> {
     keyframes = [Keyframe(value)]
   }
 
-  // MARK: Internal
-
-  enum KeyframeWrapperKey: String, CodingKey {
-    case keyframeData = "k"
-  }
-
-  let keyframes: ContiguousArray<Keyframe<T>>
-
-}
-
-// MARK: Decodable
-
-extension KeyframeGroup: Decodable where T: Decodable {
-  convenience init(from decoder: Decoder) throws {
+  required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: KeyframeWrapperKey.self)
 
     if let keyframeData: T = try? container.decode(T.self, forKey: .keyframeData) {
       /// Try to decode raw value; No keyframe data.
-      self.init(keyframes: [Keyframe<T>(keyframeData)])
+      keyframes = [Keyframe<T>(keyframeData)]
     } else {
-      // Decode and array of keyframes.
-      //
-      // Body Movin and Lottie deal with keyframes in different ways.
-      //
-      // A keyframe object in Body movin defines a span of time with a START
-      // and an END, from the current keyframe time to the next keyframe time.
-      //
-      // A keyframe object in Lottie defines a singular point in time/space.
-      // This point has an in-tangent and an out-tangent.
-      //
-      // To properly decode this we must iterate through keyframes while holding
-      // reference to the previous keyframe.
+      /**
+       Decode and array of keyframes.
+
+       Body Movin and Lottie deal with keyframes in different ways.
+
+       A keyframe object in Body movin defines a span of time with a START
+       and an END, from the current keyframe time to the next keyframe time.
+
+       A keyframe object in Lottie defines a singular point in time/space.
+       This point has an in-tangent and an out-tangent.
+
+       To properly decode this we must iterate through keyframes while holding
+       reference to the previous keyframe.
+       */
 
       var keyframesContainer = try container.nestedUnkeyedContainer(forKey: .keyframeData)
       var keyframes = ContiguousArray<Keyframe<T>>()
@@ -81,7 +70,7 @@ extension KeyframeGroup: Decodable where T: Decodable {
 
         keyframes.append(Keyframe<T>(
           value: value,
-          time: AnimationFrameTime(time),
+          time: time,
           isHold: keyframeData.isHold,
           inTangent: previousKeyframeData?.inTangent,
           outTangent: keyframeData.outTangent,
@@ -89,14 +78,14 @@ extension KeyframeGroup: Decodable where T: Decodable {
           spatialOutTangent: keyframeData.spatialOutTangent))
         previousKeyframeData = keyframeData
       }
-      self.init(keyframes: keyframes)
+      self.keyframes = keyframes
     }
   }
-}
 
-// MARK: Encodable
+  // MARK: Internal
 
-extension KeyframeGroup: Encodable where T: Encodable {
+  let keyframes: ContiguousArray<Keyframe<T>>
+
   func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: KeyframeWrapperKey.self)
 
@@ -112,7 +101,7 @@ extension KeyframeGroup: Encodable where T: Encodable {
         let keyframeData = KeyframeData<T>(
           startValue: keyframe.value,
           endValue: nextKeyframe.value,
-          time: keyframe.time,
+          time: Double(keyframe.time),
           hold: keyframe.isHold ? 1 : nil,
           inTangent: nextKeyframe.inTangent,
           outTangent: keyframe.outTangent,
@@ -122,108 +111,10 @@ extension KeyframeGroup: Encodable where T: Encodable {
       }
     }
   }
-}
 
-// MARK: DictionaryInitializable
+  // MARK: Private
 
-extension KeyframeGroup: DictionaryInitializable where T: AnyInitializable {
-  convenience init(dictionary: [String: Any]) throws {
-    var keyframes = ContiguousArray<Keyframe<T>>()
-    if
-      let rawValue = dictionary[KeyframeWrapperKey.keyframeData.rawValue],
-      let value = try? T(value: rawValue)
-    {
-      keyframes = [Keyframe<T>(value)]
-    } else {
-      var frameDictionaries: [[String: Any]]
-      if let singleFrameDictionary = dictionary[KeyframeWrapperKey.keyframeData.rawValue] as? [String: Any] {
-        frameDictionaries = [singleFrameDictionary]
-      } else {
-        frameDictionaries = try dictionary.value(for: KeyframeWrapperKey.keyframeData)
-      }
-      var previousKeyframeData: KeyframeData<T>?
-      for frameDictionary in frameDictionaries {
-        let data = try KeyframeData<T>(dictionary: frameDictionary)
-        guard
-          let value: T = data.startValue ?? previousKeyframeData?.endValue,
-          let time = data.time else
-        {
-          throw InitializableError.invalidInput
-        }
-        keyframes.append(Keyframe<T>(
-          value: value,
-          time: time,
-          isHold: data.isHold,
-          inTangent: previousKeyframeData?.inTangent,
-          outTangent: data.outTangent,
-          spatialInTangent: previousKeyframeData?.spatialInTangent,
-          spatialOutTangent: data.spatialOutTangent))
-        previousKeyframeData = data
-      }
-    }
-
-    self.init(keyframes: keyframes)
-  }
-}
-
-// MARK: Equatable
-
-extension KeyframeGroup: Equatable where T: Equatable {
-  static func == (_ lhs: KeyframeGroup<T>, _ rhs: KeyframeGroup<T>) -> Bool {
-    lhs.keyframes == rhs.keyframes
-  }
-}
-
-// MARK: Hashable
-
-extension KeyframeGroup: Hashable where T: Hashable {
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(keyframes)
-  }
-}
-
-extension Keyframe {
-  /// Creates a copy of this `Keyframe` with the same timing data, but a different value
-  func withValue<Value>(_ newValue: Value) -> Keyframe<Value> {
-    Keyframe<Value>(
-      value: newValue,
-      time: time,
-      isHold: isHold,
-      inTangent: inTangent,
-      outTangent: outTangent,
-      spatialInTangent: spatialInTangent,
-      spatialOutTangent: spatialOutTangent)
-  }
-}
-
-extension KeyframeGroup {
-  /// Maps the values of each individual keyframe in this group
-  func map<NewValue>(_ transformation: (T) throws -> NewValue) rethrows -> KeyframeGroup<NewValue> {
-    KeyframeGroup<NewValue>(keyframes: ContiguousArray(try keyframes.map { keyframe in
-      keyframe.withValue(try transformation(keyframe.value))
-    }))
-  }
-}
-
-// MARK: - AnyKeyframeGroup
-
-/// A type-erased wrapper for `KeyframeGroup`s
-protocol AnyKeyframeGroup {
-  /// An untyped copy of these keyframes
-  var untyped: KeyframeGroup<Any> { get }
-
-  /// An untyped `KeyframeInterpolator` for these keyframes
-  var interpolator: AnyValueProvider { get }
-}
-
-// MARK: - KeyframeGroup + AnyKeyframeGroup
-
-extension KeyframeGroup: AnyKeyframeGroup where T: AnyInterpolatable {
-  var untyped: KeyframeGroup<Any> {
-    map { $0 as Any }
-  }
-
-  var interpolator: AnyValueProvider {
-    KeyframeInterpolator(keyframes: keyframes)
+  private enum KeyframeWrapperKey: String, CodingKey {
+    case keyframeData = "k"
   }
 }

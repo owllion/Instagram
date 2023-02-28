@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class Asset: Codable, DictionaryInitializable {
+public class Asset: Codable {
 
   // MARK: Lifecycle
 
@@ -17,16 +17,6 @@ public class Asset: Codable, DictionaryInitializable {
       self.id = id
     } else {
       id = String(try container.decode(Int.self, forKey: .id))
-    }
-  }
-
-  required init(dictionary: [String: Any]) throws {
-    if let id = dictionary[CodingKeys.id.rawValue] as? String {
-      self.id = id
-    } else if let id = dictionary[CodingKeys.id.rawValue] as? Int {
-      self.id = String(id)
-    } else {
-      throw InitializableError.invalidInput
     }
   }
 

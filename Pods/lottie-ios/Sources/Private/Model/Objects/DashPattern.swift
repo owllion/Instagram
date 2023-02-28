@@ -17,21 +17,7 @@ enum DashElementType: String, Codable {
 
 // MARK: - DashElement
 
-final class DashElement: Codable, DictionaryInitializable {
-
-  // MARK: Lifecycle
-
-  init(dictionary: [String: Any]) throws {
-    let typeRawValue: String = try dictionary.value(for: CodingKeys.type)
-    guard let type = DashElementType(rawValue: typeRawValue) else {
-      throw InitializableError.invalidInput
-    }
-    self.type = type
-    let valueDictionary: [String: Any] = try dictionary.value(for: CodingKeys.value)
-    value = try KeyframeGroup<LottieVector1D>(dictionary: valueDictionary)
-  }
-
-  // MARK: Internal
+final class DashElement: Codable {
 
   enum CodingKeys: String, CodingKey {
     case type = "n"
@@ -39,6 +25,5 @@ final class DashElement: Codable, DictionaryInitializable {
   }
 
   let type: DashElementType
-  let value: KeyframeGroup<LottieVector1D>
-
+  let value: KeyframeGroup<Vector1D>
 }

@@ -5,7 +5,7 @@ target 'AnimalGram' do
 
   use_frameworks!
 
-  pod 'lottie-ios'
+  pod 'lottie-ios', ' ~> 3.3.0'
 
   pod 'FirebaseAnalytics'
   pod 'FirebaseAuth'

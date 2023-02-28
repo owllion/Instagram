@@ -9,7 +9,9 @@ import Foundation
 
 // MARK: - AnimationTextProvider
 
-/// Text provider is a protocol that is used to supply text to `LottieAnimationView`.
+/**
+ Text provider is a protocol that is used to supply text to `AnimationView`.
+ */
 public protocol AnimationTextProvider: AnyObject {
   func textFor(keypathName: String, sourceText: String) -> String
 }
@@ -43,7 +45,7 @@ public final class DefaultTextProvider: AnimationTextProvider {
 
   // MARK: Lifecycle
 
-  public init() { }
+  public init() {}
 
   // MARK: Public
 

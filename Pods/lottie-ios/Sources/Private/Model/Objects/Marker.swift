@@ -8,22 +8,11 @@
 import Foundation
 
 /// A time marker
-final class Marker: Codable, DictionaryInitializable {
-
-  // MARK: Lifecycle
-
-  init(dictionary: [String: Any]) throws {
-    name = try dictionary.value(for: CodingKeys.name)
-    frameTime = try dictionary.value(for: CodingKeys.frameTime)
-    durationFrameTime = try dictionary.value(for: CodingKeys.durationFrameTime)
-  }
-
-  // MARK: Internal
+final class Marker: Codable {
 
   enum CodingKeys: String, CodingKey {
     case name = "cm"
     case frameTime = "tm"
-    case durationFrameTime = "dr"
   }
 
   /// The Marker Name
@@ -31,7 +20,4 @@ final class Marker: Codable, DictionaryInitializable {
 
   /// The Frame time of the marker
   let frameTime: AnimationFrameTime
-
-  /// The duration of the marker, in frames.
-  let durationFrameTime: AnimationFrameTime
 }

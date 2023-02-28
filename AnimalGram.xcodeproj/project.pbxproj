@@ -10,6 +10,8 @@
 		2562954829AC581C00BE59CB /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954729AC581C00BE59CB /* PostViewModel.swift */; };
 		2562954C29AC6CF400BE59CB /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954B29AC6CF400BE59CB /* ProfileViewModel.swift */; };
 		2562954E29AC931500BE59CB /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954D29AC931500BE59CB /* FeedViewModel.swift */; };
+		2562955429ADFBA400BE59CB /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562955329ADFBA400BE59CB /* LottieView.swift */; };
+		2562955D29AE231100BE59CB /* post-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2562955C29AE231100BE59CB /* post-loading.json */; };
 		256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FB29A330E900087828 /* AnimalGramApp.swift */; };
 		256B17FE29A330E900087828 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FD29A330E900087828 /* ContentView.swift */; };
 		256B180029A330EA00087828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 256B17FF29A330EA00087828 /* Assets.xcassets */; };
@@ -57,6 +59,8 @@
 		2562954729AC581C00BE59CB /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		2562954B29AC6CF400BE59CB /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		2562954D29AC931500BE59CB /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		2562955329ADFBA400BE59CB /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		2562955C29AE231100BE59CB /* post-loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "post-loading.json"; path = "../../../../Downloads/post-loading.json"; sourceTree = "<group>"; };
 		256B17F829A330E900087828 /* AnimalGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimalGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256B17FB29A330E900087828 /* AnimalGramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalGramApp.swift; sourceTree = "<group>"; };
 		256B17FD29A330E900087828 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -116,6 +120,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2562955529AE17A900BE59CB /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				2562955C29AE231100BE59CB /* post-loading.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		256B17EF29A330E900087828 = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +155,7 @@
 				256B181529A355DD00087828 /* Models */,
 				256B180B29A346D200087828 /* Views */,
 				256B184E29A71B0B00087828 /* ViewModel */,
+				2562955529AE17A900BE59CB /* Lottie */,
 				256B184429A5C32E00087828 /* Utility */,
 				256B180E29A3494600087828 /* Constants */,
 				256B17FF29A330EA00087828 /* Assets.xcassets */,
@@ -234,6 +247,7 @@
 				256B184529A5C34500087828 /* ViewExtension.swift */,
 				256B185829A864DD00087828 /* ImageManager.swift */,
 				25FCF39729AB314300D8C8F1 /* CircularProgressDemoView.swift */,
+				2562955329ADFBA400BE59CB /* LottieView.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -337,6 +351,7 @@
 				256B180A29A337D900087828 /* LaunchScreen.storyboard in Resources */,
 				256B185229A7603300087828 /* GoogleService-Info.plist in Resources */,
 				256B180329A330EA00087828 /* Preview Assets.xcassets in Resources */,
+				2562955D29AE231100BE59CB /* post-loading.json in Resources */,
 				256B180029A330EA00087828 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +412,7 @@
 				256B181729A355E900087828 /* Post.swift in Sources */,
 				256B183529A4C9B100087828 /* SettingsLabelView.swift in Sources */,
 				256B182B29A4860100087828 /* PostImageView.swift in Sources */,
+				2562955429ADFBA400BE59CB /* LottieView.swift in Sources */,
 				256B183D29A516CF00087828 /* SignUpView.swift in Sources */,
 				256B17FE29A330E900087828 /* ContentView.swift in Sources */,
 				256B181D29A36EBF00087828 /* MessageView.swift in Sources */,

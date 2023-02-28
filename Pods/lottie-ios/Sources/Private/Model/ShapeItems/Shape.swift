@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// An item that defines an custom shape
+/// An item that define an ellipse shape
 final class Shape: ShapeItem {
 
   // MARK: Lifecycle
@@ -17,20 +17,6 @@ final class Shape: ShapeItem {
     path = try container.decode(KeyframeGroup<BezierPath>.self, forKey: .path)
     direction = try container.decodeIfPresent(PathDirection.self, forKey: .direction)
     try super.init(from: decoder)
-  }
-
-  required init(dictionary: [String: Any]) throws {
-    let pathDictionary: [String: Any] = try dictionary.value(for: CodingKeys.path)
-    path = try KeyframeGroup<BezierPath>(dictionary: pathDictionary)
-    if
-      let directionRawValue = dictionary[CodingKeys.direction.rawValue] as? Int,
-      let direction = PathDirection(rawValue: directionRawValue)
-    {
-      self.direction = direction
-    } else {
-      direction = nil
-    }
-    try super.init(dictionary: dictionary)
   }
 
   // MARK: Internal
