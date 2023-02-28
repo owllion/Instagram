@@ -36,6 +36,10 @@ class FeedViewModel: ObservableObject {
             .order(by: K.FireStore.Post.dateCreated)
             .limit(to: 50)
             .addSnapshotListener { snapshot, error in
+                
+                //need to reset or it will accumulate all the docs
+                self.posts = []
+                
                 if let error = error {
                     self.alertMessage = error.localizedDescription
                     self.showFeedAlert.toggle()
@@ -69,7 +73,6 @@ class FeedViewModel: ObservableObject {
                 //            self.posts = (snapshot?.documents.compactMap {
                 //                try? $0.data(as: Post.self)
                 //            }) ?? []
-                print(self.posts,"THis is selfPosts")
                 self.isLoadingFeed = false
             }
     }

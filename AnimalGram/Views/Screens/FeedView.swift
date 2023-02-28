@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FeedView: View {
     
-    @StateObject var feedViewModel = FeedViewModel()
+    @ObservedObject var feedViewModel = FeedViewModel()
     
     var title: String
     

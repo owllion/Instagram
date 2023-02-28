@@ -13,8 +13,9 @@ struct BrowseView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             CarouselView()
-            ImageGridView(data: posts)
-        }.navigationTitle("Browse").navigationBarTitleDisplayMode(.large)
+            ImageGridView()
+        }.navigationTitle("Browse")
+            .navigationBarTitleDisplayMode(.large)
     }
 }
 
