@@ -10,9 +10,10 @@ struct Post: Identifiable, Codable ,Hashable {
     var id = UUID().uuidString
     var postID: String
     var userID: String
-    var username: String
+    var displayName: String
     var caption: String?
-    var dateCreate: Date
+    var dateCreated: Int
+    var postImageURL: String
     var likeCount: Int
     var likedByUser: Bool
     

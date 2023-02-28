@@ -67,7 +67,7 @@ class PostViewModel: ObservableObject {
         print("report!!")
     }
     func sharePost(_ post: Post) {
-        let defaultText = "Just checking in at \(post.username)'s post"
+        let defaultText = "Just checking in at \(post.displayName)'s post"
         
         //let image = post.postImage
         let image = Image("dog1")
@@ -105,7 +105,7 @@ class PostViewModel: ObservableObject {
                 K.FireStore.Post.displayNameField: userName,
                 K.FireStore.Post.postImageURLField: url! as String,
                 K.FireStore.Post.captionField: caption,
-                K.FireStore.Post.dataCreated: Date().timeIntervalSince1970
+                K.FireStore.Post.dateCreated: Int(Date().timeIntervalSince1970)
             ]
             
             postCollection.document(postID).setData(postData) { error in

@@ -11,7 +11,8 @@ struct PostView: View {
     
     @StateObject var postViewModel = PostViewModel()
     @State var post: Post
-    var showHeaderAndFooter: Bool //not showing header &footer version is for ImageGrid
+    var showHeaderAndFooter: Bool
+    //not showing header &footer version is for ImageGrid
 
     var body: some View {
         VStack(alignment: .center,
@@ -26,9 +27,10 @@ struct PostView: View {
                         //isMyProfile = false => 因為這邊是貼文串，點進去當然是別人的
                         ProfileView(isMyProfile: false)
                     } label: {
+                        
                         Image("dog1").resizable()
                             .scaledToFill().frame(width: 30,height: 30,alignment: .center).cornerRadius(15)
-                        Text(post.username)
+                        Text(post.displayName)
                             .font(.callout)
                             .fontWeight(.medium)
                             .foregroundColor(.primary)
@@ -94,9 +96,14 @@ struct PostView: View {
             //MARK: - IMAGE
             ZStack {
                 //這邊之後是要改成從每個post自己的欄位裡面去取值
-                Image(uiImage:postViewModel.postImage)
-                    .resizable()
-                    .scaledToFit()
+                AsyncImage(url: URL(string: post.postImageURL)) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                        
+                    } placeholder: {
+                        ProgressView()
+                    }
                 
                 LikeAnimationView(animate: $postViewModel.animateLike)
             }
@@ -150,7 +157,7 @@ struct PostView: View {
 
 
 struct PostView_Previews: PreviewProvider {
-    static var post: Post = Post(postID: "", userID: "", username: "Tomothee", caption: "Test caption", dateCreate: Date(), likeCount: 0, likedByUser: false)
+    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", dateCreated: Int(Date().timeIntervalSince1970), postImageURL: "", likeCount: 0, likedByUser: false)
     
     static var previews: some View {
         PostView(post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)

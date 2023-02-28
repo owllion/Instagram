@@ -9,21 +9,21 @@ import Foundation
 import Combine
 
 class PostArrayObject: ObservableObject {
-    
-    @Published var posts = [Post]() //blank array of postModel
-    
-    
-    init() {
-        
-        posts = [
-            .init(postID: "", userID: "", username: "Tim Borton", caption: "", dateCreate: Date(), likeCount: 10, likedByUser: false),
-            .init(postID: "", userID: "", username: "Mile Willer", caption: "Stranger Things", dateCreate: Date(), likeCount: 50, likedByUser: false),
-            .init(postID: "", userID: "", username: "Dacre Mongmerry", caption: "No Idea Caption", dateCreate: Date(), likeCount: 109, likedByUser: false),
-            .init(postID: "", userID: "", username: "Will Buyers", caption: "I am a Gay.", dateCreate: Date(), likeCount:  5002, likedByUser: true)
-        ]
-    }
-    /// use for single post selection
-    init(post: Post) {
-        posts = [post]
-    }
+//    
+//    @Published var posts = [Post]() //blank array of postModel
+//    
+//    
+//    init() {
+//        
+//        posts = [
+//            .init(postID: "", userID: "", username: "Tim Borton", caption: "", dateCreate: Date(), likeCount: 10, likedByUser: false),
+//            .init(postID: "", userID: "", username: "Mile Willer", caption: "Stranger Things", dateCreate: Date(), likeCount: 50, likedByUser: false),
+//            .init(postID: "", userID: "", username: "Dacre Mongmerry", caption: "No Idea Caption", dateCreate: Date(), likeCount: 109, likedByUser: false),
+//            .init(postID: "", userID: "", username: "Will Buyers", caption: "I am a Gay.", dateCreate: Date(), likeCount:  5002, likedByUser: true)
+//        ]
+//    }
+//    /// use for single post selection
+//    init(post: Post) {
+//        posts = [post]
+//    }
 }

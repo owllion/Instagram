@@ -12,27 +12,28 @@ struct ImageGridView: View {
     @ObservedObject var data: PostArrayObject
     
     var body: some View {
-        LazyVGrid(
-            columns: [
-                GridItem(.flexible()),
-                GridItem(.flexible()),
-                GridItem(.flexible())
-            ],
-            alignment: .center,
-            spacing: nil,
-            pinnedViews: []) {
-                ForEach(data.posts, id: \.self) {
-                    post in
-                    NavigationLink {
-                        FeedView(data: PostArrayObject(post: post), title: "post")
-                    } label: {
-                        PostView(post: post, showHeaderAndFooter: false)
-                    }
-
-                   
-                }
-               
-            }
+        Text("fiosefhewiouhgisu")
+//        LazyVGrid(
+//            columns: [
+//                GridItem(.flexible()),
+//                GridItem(.flexible()),
+//                GridItem(.flexible())
+//            ],
+//            alignment: .center,
+//            spacing: nil,
+//            pinnedViews: []) {
+//                ForEach(data.posts, id: \.self) {
+//                    post in
+//                    NavigationLink {
+//                        FeedView(title: "post")
+//                    } label: {
+//                        PostView(post: post, showHeaderAndFooter: false)
+//                    }
+//
+//
+//                }
+//
+//            }
     }
 }
 

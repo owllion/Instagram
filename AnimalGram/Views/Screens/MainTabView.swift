@@ -12,7 +12,7 @@ struct MainTabView: View {
             TabView {
                 //NavigationView is for the top title & link
                 NavigationView {
-                    FeedView(data: PostArrayObject(), title: "Feed")
+                    FeedView(title: "Feed")
                 }.tabItem {
                     
                     Label("Feed", systemImage: "book.fill")

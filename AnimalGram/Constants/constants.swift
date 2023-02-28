@@ -32,7 +32,9 @@ struct K {
             static let userIDField = "userID"
             static let displayNameField = "displayName"
             static let captionField = "caption"
-            static let dataCreated = "dataCreated"
+            static let dateCreated = "dateCreated"
+            static let likeCountField = "likeCount"
+            static let likeByUserField = "likeByUser"
         }
         
         
