@@ -66,7 +66,6 @@ class AuthenticationViewModel: ObservableObject {
             
             if userInDB {
                 await getUserID(with: self.email)
-                print(self.userID,"This is userID")
                 self.state = .signedIn
             } else {
                 self.createUser()
@@ -138,8 +137,6 @@ class AuthenticationViewModel: ObservableObject {
     func getUserID(with email: String) async {
         do {
             let document = try await userCollection.document(email).getDocument()
-            
-            print(document.get(K.FireStore.User.userIDField),"This is doc.get")
             
             self.userID = document.get(K.FireStore.User.userIDField) as? String
             

@@ -18,19 +18,19 @@ class ImageManager {
     private var ref = Storage.storage()
     
         
-    func downloadImage(path: StorageReference) -> Data {
-        var finalData: Data?
-        path.getData(maxSize: 27 * 1024 * 1024) { returnedImageData, error in
-            if let data = returnedImageData, let res = UIImage(data: data) {
-                //image = res
-                finalData = data
-                
-            } else {
-                print("Error gettgin data from path for image")
-                return
-            }
-        }
-        return finalData!
+    func downloadImage(path: StorageReference){
+       // var finalData: Data?
+//        path.getData(maxSize: 27 * 1024 * 1024) { returnedImageData, error in
+//            if let data = returnedImageData, let res = UIImage(data: data) {
+//                //image = res
+//                finalData = data
+//
+//            } else {
+//                print("Error gettgin data from path for image")
+//                return
+//            }
+//        }
+//        return finalData!
         
     }
 

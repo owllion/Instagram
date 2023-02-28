@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ImageGridView: View {
     
-    @ObservedObject var feedViewModel =  FeedViewModel()
+    @ObservedObject var profileViewModel = ProfileViewModel()
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
     
     var body: some View {
         LazyVGrid(
@@ -21,7 +22,7 @@ struct ImageGridView: View {
             alignment: .center,
             spacing: nil,
             pinnedViews: []) {
-                ForEach(feedViewModel.posts, id: \.self) {
+                ForEach(profileViewModel.userPosts, id: \.self) {
                     post in
                     NavigationLink {
                         FeedView(title: "post")
@@ -31,7 +32,14 @@ struct ImageGridView: View {
                 }
 
             }.onAppear {
-                feedViewModel.getPosts()
+                Task {
+                    do {
+                        try await profileViewModel.getUserPosts(with: authViewModel.userID!)
+                    }catch {
+                        print(error)
+                    }
+                }
+              
             }
     }
 }

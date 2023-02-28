@@ -16,7 +16,6 @@ struct ProfileView: View {
     var isMyProfile: Bool
     //true => show the setting bar,otherwise do not show.
     
-    var posts = PostArrayObject()
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
