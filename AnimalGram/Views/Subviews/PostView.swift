@@ -17,8 +17,7 @@ struct PostView: View {
     //not showing header &footer version is for ImageGrid
 
     var body: some View {
-        VStack(alignment: .center,
-               spacing: 0) {
+        VStack(alignment: .leading,spacing: 0) {
             
             //MARK: - HEADER
             if showHeaderAndFooter {
@@ -138,6 +137,10 @@ struct PostView: View {
 
                     Spacer()
 
+                }.padding(.all,10)
+                
+                VStack(alignment: .leading) {
+                    Text("\(post.likeCount) likes")
                 }.padding(.all,10)
                 
                 
