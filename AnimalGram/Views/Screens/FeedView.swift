@@ -26,9 +26,6 @@ struct FeedView: View {
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
                 feedViewModel.getPosts()
-                print("feedView出現")
-                print("這是userID in FeedView", authViewModel.userID)
-                print("這是displatName in FeedView", authViewModel.displayName)
             }
     }
 }

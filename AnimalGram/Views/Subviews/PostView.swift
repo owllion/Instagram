@@ -1,32 +1,17 @@
-//
-//  PostView.swift
-//  AnimalGram
-//
-//  Created by Zheng yu hsin on 2023/2/20.
-//
-
 import SwiftUI
 import URLImage
 
 struct PostView: View {
-    //private let formatter: NumberFormatter
     
     @State var postImage: UIImage?
-    var postUserImageURL: String = ""
-    var displayName: String = ""
-    var caption: String = ""
-    @State var likeCount: Int = 0
-    @State var likedBy: Array<String> = []
-    
-    
+    @State var postUserImageURL: String = ""
+
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @StateObject var postViewModel = PostViewModel()
+    
     var post: Post
-    
-    
     var showHeaderAndFooter: Bool
-    //not showing header &footer version is for ImageGrid
-
+    
     var body: some View {
         VStack(alignment: .leading,spacing: 0) {
             
@@ -109,15 +94,6 @@ struct PostView: View {
                         options: URLImageOptions(
                             expireAfter: 10.0
                          ),
-                        inProgress: { progress ->
-                            Text in  // Display progress
-                            if let progress = progress {
-                                return Text("Loading!")
-                            }
-                            else {
-                                return Text("Loading...")
-                            }
-                         },
                          
                          failure: { error, retry in
                             VStack {
@@ -142,14 +118,11 @@ struct PostView: View {
                         .onTapGesture {
                             if post.likedBy.contains(authViewModel.userID!) {
                                 postViewModel.unlikePost(post: post, postID: post.postID, userID: authViewModel.userID!)
-                                self.likedBy = postViewModel.getNewLikedByArray(type: "unlike" ,with: self.post.likedBy, userID: authViewModel.userID!)
-                                self.likeCount -= 1
+//
                                 
                             } else {
                                  postViewModel.likePost(post: post, postID: post.postID, userID: authViewModel.userID!)
                                 
-                                self.likedBy = postViewModel.getNewLikedByArray(type: "like", with: self.post.likedBy, userID: authViewModel.userID!)
-                                self.likeCount += 1
 
                             }
                         }.foregroundColor( post.likedBy.contains(authViewModel.userID!) ? Color.red : Color.primary)
@@ -188,8 +161,8 @@ struct PostView: View {
             
             
         }.onAppear {
-            print(authViewModel.displayName ?? "不存在name")
-            print(authViewModel.userID ?? "不存在id")
+            print(authViewModel.displayName,"存在name")
+            print(authViewModel.userID,"不存在id")
             self.loadImageFromURL(post.postImageURL)
         }
     }

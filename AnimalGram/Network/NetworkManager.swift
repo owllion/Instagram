@@ -15,11 +15,9 @@ class NetworkManager: Any {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             
             guard let data = data, error == nil else {
-                print("jifwjiowejoi")
                 completion(nil)
                 return
             }
-            print("這是data",data)
             completion(UIImage(data: data))
             
         }.resume()

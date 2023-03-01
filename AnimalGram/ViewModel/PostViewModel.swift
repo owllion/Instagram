@@ -70,7 +70,6 @@ class PostViewModel: ObservableObject {
     }
     
     func likePost(post:Post, postID: String, userID: String){
-        print("收到的postID", postID )
         //Update animation
         self.animateLike = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
@@ -129,8 +128,10 @@ class PostViewModel: ObservableObject {
     }
     
     
+//    func reportPost(reason: String, postID: String, done: @escaping (_ success: Bool) -> Void) {
+//    }
     func reportPost(reason: String) {
-        print("report!!")
+        print("fehfie")
     }
     func sharePost(_ post: Post) {
         let defaultText = "Just checking in at \(post.displayName)'s post"
