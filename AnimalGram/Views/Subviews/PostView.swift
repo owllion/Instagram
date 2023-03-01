@@ -6,12 +6,23 @@
 //
 
 import SwiftUI
+import URLImage
 
 struct PostView: View {
+    //private let formatter: NumberFormatter
+    
+    @State var postImage: UIImage?
+    var postUserImageURL: String = ""
+    var displayName: String = ""
+    var caption: String = ""
+    @State var likeCount: Int = 0
+    @State var likedBy: Array<String> = []
+    
     
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @StateObject var postViewModel = PostViewModel()
-    @State var post: Post
+    var post: Post
+    
     
     var showHeaderAndFooter: Bool
     //not showing header &footer version is for ImageGrid
@@ -93,16 +104,32 @@ struct PostView: View {
             
             //MARK: - IMAGE
             ZStack {
-                AsyncImage(url: URL(string: post.postImageURL)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-
-                    } placeholder: {
-                        LottieView(lottieFile: "post-loading")
-                     
-                    }
-
+                URLImage(
+                        url: URL(string: post.postImageURL)!,
+                        options: URLImageOptions(
+                            expireAfter: 10.0
+                         ),
+                        inProgress: { progress ->
+                            Text in  // Display progress
+                            if let progress = progress {
+                                return Text("Loading!")
+                            }
+                            else {
+                                return Text("Loading...")
+                            }
+                         },
+                         
+                         failure: { error, retry in
+                            VStack {
+                                Text(error.localizedDescription)
+                            }
+                        },
+                         content: { image in
+                             image
+                                 .resizable()
+                                 .aspectRatio(contentMode: .fit)
+                         })
+                    
                 LikeAnimationView(animate: $postViewModel.animateLike)
             }
             
@@ -114,9 +141,15 @@ struct PostView: View {
                         .font(.title3)
                         .onTapGesture {
                             if post.likedBy.contains(authViewModel.userID!) {
-                                self.post = postViewModel.unlikePost(post: post, postID: post.postID, userID: authViewModel.userID!)
+                                postViewModel.unlikePost(post: post, postID: post.postID, userID: authViewModel.userID!)
+                                self.likedBy = postViewModel.getNewLikedByArray(type: "unlike" ,with: self.post.likedBy, userID: authViewModel.userID!)
+                                self.likeCount -= 1
+                                
                             } else {
-                                self.post = postViewModel.likePost(post: post, postID: post.postID, userID: authViewModel.userID!)
+                                 postViewModel.likePost(post: post, postID: post.postID, userID: authViewModel.userID!)
+                                
+                                self.likedBy = postViewModel.getNewLikedByArray(type: "like", with: self.post.likedBy, userID: authViewModel.userID!)
+                                self.likeCount += 1
 
                             }
                         }.foregroundColor( post.likedBy.contains(authViewModel.userID!) ? Color.red : Color.primary)
@@ -157,8 +190,21 @@ struct PostView: View {
         }.onAppear {
             print(authViewModel.displayName ?? "不存在name")
             print(authViewModel.userID ?? "不存在id")
+            self.loadImageFromURL(post.postImageURL)
         }
     }
+    
+
+    private func loadImageFromURL(_ strURL: String) {
+           
+           guard let url = URL(string: strURL) else {
+               return
+           }
+        
+           NetworkManager.loadData(url: url) { (image) in
+               self.postImage = image
+           }
+       }
 }
 
 
@@ -169,3 +215,4 @@ struct PostView_Previews: PreviewProvider {
         PostView(post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)
     }
 }
+

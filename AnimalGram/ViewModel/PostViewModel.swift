@@ -51,17 +51,25 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    func getNewLikedByArray(with oldArr: Array<String>, userID: String) -> Array<String> {
+    func getNewLikedByArray(type: String, with oldArr: Array<String>, userID: String) -> Array<String> {
         
         var likedBy: Array<String> = []
         
         likedBy = oldArr
-        likedBy.append(userID)
-        
+        if type == "like" {
+            likedBy.append(userID)
+        } else {
+            likedBy.remove(at: getIdIndex(arr: likedBy, userID: userID))
+        }
+         
         return likedBy
     }
     
-    func likePost(post:Post, postID: String, userID: String) -> Post {
+    func getIdIndex(arr: Array<String>, userID: String) -> Int {
+        return arr.firstIndex(of: userID)!
+    }
+    
+    func likePost(post:Post, postID: String, userID: String){
         print("收到的postID", postID )
         //Update animation
         self.animateLike = true
@@ -88,14 +96,14 @@ class PostViewModel: ObservableObject {
         print("updateData下面")
         
         //Update local data
-        let updatedPost = Post(id: UUID().uuidString, postID: post.postID, userID: post.userID, displayName: post.displayName, caption: post.caption, dateCreated: post.dateCreated, postImageURL: post.postImageURL, likeCount: post.likeCount + 1, likedBy: getNewLikedByArray(with: post.likedBy, userID: userID) )
-        
-        print("updatePost", updatedPost)
-        //return so that PostView can use it to replace the original post
-        return updatedPost
+//        let updatedPost = Post(id: UUID().uuidString, postID: post.postID, userID: post.userID, displayName: post.displayName, caption: post.caption, dateCreated: post.dateCreated, postImageURL: post.postImageURL, likeCount: post.likeCount + 1, likedBy: getNewLikedByArray(with: post.likedBy, userID: userID) )
+//
+//        print("updatePost", updatedPost)
+//        //return so that PostView can use it to replace the original post
+//        return updatedPost
     }
     
-    func unlikePost(post: Post, postID: String, userID: String) -> Post {
+    func unlikePost(post: Post, postID: String, userID: String) {
         
         //Update animation
         self.animateLike = true
@@ -113,11 +121,11 @@ class PostViewModel: ObservableObject {
         
         postCollection.document(postID).updateData(data)
         
-        //Update local data
-        let updatedPost = Post(id: UUID().uuidString, postID: post.postID, userID: post.userID, displayName: post.displayName, caption: post.caption, dateCreated: post.dateCreated, postImageURL: post.postImageURL, likeCount: post.likeCount - 1, likedBy: getNewLikedByArray(with: post.likedBy, userID: userID) )
-        
-        //return so that PostView can use it to replace the original post
-        return updatedPost
+//        //Update local data
+//        let updatedPost = Post(id: UUID().uuidString, postID: post.postID, userID: post.userID, displayName: post.displayName, caption: post.caption, dateCreated: post.dateCreated, postImageURL: post.postImageURL, likeCount: post.likeCount - 1, likedBy: getNewLikedByArray(with: post.likedBy, userID: userID) )
+//
+//        //return so that PostView can use it to replace the original post
+//        return updatedPost
     }
     
     
