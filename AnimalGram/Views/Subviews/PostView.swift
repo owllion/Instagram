@@ -9,8 +9,10 @@ import SwiftUI
 
 struct PostView: View {
     
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
     @StateObject var postViewModel = PostViewModel()
     @State var post: Post
+    
     var showHeaderAndFooter: Bool
     //not showing header &footer version is for ImageGrid
 
@@ -21,13 +23,10 @@ struct PostView: View {
             //MARK: - HEADER
             if showHeaderAndFooter {
                 HStack {
-                    
-                    //WE can use this is because we're in th navigationView
                     NavigationLink {
                         //isMyProfile = false => 因為這邊是貼文串，點進去當然是別人的
                         ProfileView(isMyProfile: false)
                     } label: {
-                        
                         Image("dog1").resizable()
                             .scaledToFill().frame(width: 30,height: 30,alignment: .center).cornerRadius(15)
                         Text(post.displayName)
@@ -104,31 +103,31 @@ struct PostView: View {
                         LottieView(lottieFile: "post-loading")
                      
                     }
-                
-                
+
                 LikeAnimationView(animate: $postViewModel.animateLike)
             }
             
             //MARK: - FOOTER
             if showHeaderAndFooter {
                 HStack(alignment: .center, spacing: 20) {
-                    Image(systemName: post.likedByUser ? "heart.fill" : "heart")
+                   
+                    Image(systemName: post.likedBy.contains(authViewModel.userID!) ? "heart.fill" : "heart")
                         .font(.title3)
                         .onTapGesture {
-                            if post.likedByUser {
-                                postViewModel.unlikePost(with: post.postID)
+                            if post.likedBy.contains(authViewModel.userID!) {
+                                self.post = postViewModel.unlikePost(post: post, postID: post.postID, userID: authViewModel.userID!)
                             } else {
-                                postViewModel.likePost(with: post.postID)
-                                
+                                self.post = postViewModel.likePost(post: post, postID: post.postID, userID: authViewModel.userID!)
+
                             }
-                        }.foregroundColor(post.likedByUser ? Color.red : Color.primary)
-                    
+                        }.foregroundColor( post.likedBy.contains(authViewModel.userID!) ? Color.red : Color.primary)
+
                     //MARK: - COMMENTS ICON
                     NavigationLink(
                         destination: CommentsView()) {
                             Image(systemName: "bubble.middle.bottom").foregroundColor(.primary)
                         }
-                    
+
 
                     Image(systemName: "paperplane")
                         .font(.title3)
@@ -136,9 +135,9 @@ struct PostView: View {
                         .onTapGesture {
                             postViewModel.sharePost(post)
                         }
-                    
+
                     Spacer()
-                    
+
                 }.padding(.all,10)
                 
                 
@@ -152,13 +151,16 @@ struct PostView: View {
             }
             
             
+        }.onAppear {
+            print(authViewModel.displayName ?? "不存在name")
+            print(authViewModel.userID ?? "不存在id")
         }
     }
 }
 
 
 struct PostView_Previews: PreviewProvider {
-    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", dateCreated: Int(Date().timeIntervalSince1970), postImageURL: "", likeCount: 0, likedByUser: false)
+    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", dateCreated: Int(Date().timeIntervalSince1970), postImageURL: "", likeCount: 0, likedBy: ["123"])
     
     static var previews: some View {
         PostView(post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)

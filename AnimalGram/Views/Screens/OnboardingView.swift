@@ -46,6 +46,7 @@ struct OnboardingView: View {
                     Task {
                         do {
                             try await authViewModel.signIn()
+                            print("應該要在userImDb後出現")
                             dismiss()
                             
                         }catch {

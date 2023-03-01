@@ -60,12 +60,16 @@ class AuthenticationViewModel: ObservableObject {
             //Start login flow
             let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController())
             await self.authenticateUser(for: result)
+            print("這是awiat authenticate下面")
             
-            
+            //MainView FeedView show here==
             let userInDB = await self.checkIfUserExistsInDB(with: self.email)
+            print("THis is userInDb await", userInDB)
             
-            if userInDB {
-                await getUserID(with: self.email)
+            //OnboradingView 根本沒有awiat這部分 他就只會等待到上面部分而已
+            if await self.checkIfUserExistsInDB(with: self.email) {
+                try await getUserID(with: self.email)
+                print("This is userId adter getUserID", self.userID)
                 self.state = .signedIn
             } else {
                 self.createUser()
@@ -93,7 +97,6 @@ class AuthenticationViewModel: ObservableObject {
         do {
             try await Auth.auth().signIn(with: credential)
             
-            self.state = .signedIn
             self.email = profile!.email
             self.displayName = profile!.name
             
@@ -118,7 +121,8 @@ class AuthenticationViewModel: ObservableObject {
         }
     }
     
-    @MainActor func checkIfUserExistsInDB(with email: String) async -> Bool {
+    @MainActor
+    func checkIfUserExistsInDB(with email: String) async -> Bool {
         do {
             let snapshot = try await userCollection.whereField(K.FireStore.User.emailField, isEqualTo: email).getDocuments()
             return snapshot.count > 0 ? true : false
@@ -134,7 +138,7 @@ class AuthenticationViewModel: ObservableObject {
     
     
     @MainActor
-    func getUserID(with email: String) async {
+    func getUserID(with email: String) async throws {
         do {
             let document = try await userCollection.document(email).getDocument()
             

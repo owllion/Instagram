@@ -18,6 +18,7 @@ struct BrowseView: View {
         }.navigationTitle("Browse")
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
+                print("Browse出現")
                 feedViewModel.getPosts()
             }
     }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FeedView: View {
     
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
     @ObservedObject var feedViewModel = FeedViewModel()
     
     var title: String
@@ -25,6 +26,9 @@ struct FeedView: View {
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
                 feedViewModel.getPosts()
+                print("feedView出現")
+                print("這是userID in FeedView", authViewModel.userID)
+                print("這是displatName in FeedView", authViewModel.displayName)
             }
     }
 }

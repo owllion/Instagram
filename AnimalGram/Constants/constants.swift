@@ -34,7 +34,7 @@ struct K {
             static let captionField = "caption"
             static let dateCreated = "dateCreated"
             static let likeCountField = "likeCount"
-            static let likeByUserField = "likeByUser"
+            static let likeByField = "likeBy"
         }
         
         

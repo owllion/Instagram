@@ -26,14 +26,18 @@ class PostViewModel: ObservableObject {
     @Published var dialogType: PostConfirmationOption = .general
     
     //MARK: - Error Properties
-    @Published var showPostVMError: Bool = false
+    @Published var showAlert: Bool = false
     @Published var alertMessage: String = ""
     
     //MARK: - Handle Error
     func handleError(_ error: Error){
         alertMessage = error.localizedDescription
-        showPostVMError.toggle()
-        
+        showAlert.toggle()
+    }
+    
+    func handleSuccess(_ msg: String) {
+        alertMessage = msg
+        showAlert.toggle()
     }
     
     
@@ -47,21 +51,75 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    func likePost(with postID: String) {
+    func getNewLikedByArray(with oldArr: Array<String>, userID: String) -> Array<String> {
         
-//        let updatedPost = Post(postID: post.postID, userID: post.userID, username: post.username, caption: post.caption, dateCreate: post.dateCreate, likeCount: post.likeCount + 1, likedByUser: true)
+        var likedBy: Array<String> = []
         
-        //self.post = updatedPost
+        likedBy = oldArr
+        likedBy.append(userID)
         
-        animateLike = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-                animateLike = false
-        }
+        return likedBy
     }
     
-    func unlikePost(with postID: String) {
+    func likePost(post:Post, postID: String, userID: String) -> Post {
+        print("收到的postID", postID )
+        //Update animation
+        self.animateLike = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            animateLike = false
+        }
         
+        //Update db data
+        let increment: Int64 = 1
+        let data: [String: Any] = [
+            K.FireStore.Post.likeCountField : FieldValue.increment(increment) ,
+            K.FireStore.Post.likeByField : FieldValue.arrayUnion([userID])
+            //FiledValue -> Firebase's method
+            //union -> pass in an arr to cur arr
+        ]
+        
+        postCollection.document(postID).updateData(data) {
+            error in
+            if let error = error {
+                print("這是error",error)
+                return
+            }
+        }
+        print("updateData下面")
+        
+        //Update local data
+        let updatedPost = Post(id: UUID().uuidString, postID: post.postID, userID: post.userID, displayName: post.displayName, caption: post.caption, dateCreated: post.dateCreated, postImageURL: post.postImageURL, likeCount: post.likeCount + 1, likedBy: getNewLikedByArray(with: post.likedBy, userID: userID) )
+        
+        print("updatePost", updatedPost)
+        //return so that PostView can use it to replace the original post
+        return updatedPost
     }
+    
+    func unlikePost(post: Post, postID: String, userID: String) -> Post {
+        
+        //Update animation
+        self.animateLike = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            animateLike = false
+        }
+        
+        //Update db data
+        let increment: Int64 = -1
+        let data: [String: Any] = [
+            K.FireStore.Post.likeCountField : FieldValue.increment(increment) ,
+            K.FireStore.Post.likeByField : FieldValue.arrayRemove([userID])
+           
+        ]
+        
+        postCollection.document(postID).updateData(data)
+        
+        //Update local data
+        let updatedPost = Post(id: UUID().uuidString, postID: post.postID, userID: post.userID, displayName: post.displayName, caption: post.caption, dateCreated: post.dateCreated, postImageURL: post.postImageURL, likeCount: post.likeCount - 1, likedBy: getNewLikedByArray(with: post.likedBy, userID: userID) )
+        
+        //return so that PostView can use it to replace the original post
+        return updatedPost
+    }
+    
     
     func reportPost(reason: String) {
         print("report!!")
@@ -97,7 +155,7 @@ class PostViewModel: ObservableObject {
         ImageManager.instance.uploadImageAndGetURL(type: "post", id: postID, image: image) { [self] url, error in
             if let error = error {
                 self.alertMessage = error
-                self.showPostVMError = true
+                self.showAlert = true
             }
             let postData: [String: Any] = [
                 K.FireStore.Post.postIDField: postID,
@@ -105,7 +163,9 @@ class PostViewModel: ObservableObject {
                 K.FireStore.Post.displayNameField: userName,
                 K.FireStore.Post.postImageURLField: url! as String,
                 K.FireStore.Post.captionField: caption,
-                K.FireStore.Post.dateCreated: Int(Date().timeIntervalSince1970)
+                K.FireStore.Post.dateCreated: Int(Date().timeIntervalSince1970),
+                K.FireStore.Post.likeCountField: 0,
+                K.FireStore.Post.likeByField: []
             ]
             
             postCollection.document(postID).setData(postData) { error in
@@ -114,8 +174,7 @@ class PostViewModel: ObservableObject {
                     return
                 } else {
                     print("Successfully post!")
-                    self.alertMessage = "Successfully post!"
-                    self.showPostVMError = true
+                    self.handleSuccess("Successfully post!")
                 }
             }
             

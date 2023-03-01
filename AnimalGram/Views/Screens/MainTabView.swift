@@ -14,7 +14,6 @@ struct MainTabView: View {
                 NavigationView {
                     FeedView(title: "Feed")
                 }.tabItem {
-                    
                     Label("Feed", systemImage: "book.fill")
                 }
                 
@@ -38,9 +37,9 @@ struct MainTabView: View {
                 }.tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }
+            }.onAppear {
+                print("MainView出現")
             }
-        
-        
     }
 }
 

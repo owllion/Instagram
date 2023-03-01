@@ -69,7 +69,7 @@ struct PostImageView: View {
                         .cornerRadius(12)
                         .padding(.horizontal)
                 } .tint(Color.MyTheme.yellow)
-                    .alert(isPresented: $postViewModel.showPostVMError) {
+                    .alert(isPresented: $postViewModel.showAlert) {
                         Alert(
                             title: Text(postViewModel.alertMessage),
                            message: nil,

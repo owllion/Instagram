@@ -11,14 +11,7 @@ struct ContentView: View {
     
     @EnvironmentObject var loginViewModel: AuthenticationViewModel
     @Environment(\.colorScheme) var colorScheme
-    //@State var test: Bool = false
-    //    @AppStorage("state") var state: String = "signedOut"
-    //@AppStorage("isLoggedIn") var isLoggedIn: Bool = false
     
-    
-    //    init() {
-    //        isLoggedIn = false
-    //    }
     var body: some View {
         switch loginViewModel.state {
         case .signedOut:

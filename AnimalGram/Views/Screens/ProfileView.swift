@@ -37,6 +37,7 @@ struct ProfileView: View {
                 }
             }
             .onAppear {
+                print("ProfileView出現")
                 Task {
                     do {
                         try await profileViewModel.getUserPosts(with: authViewModel.userID!)

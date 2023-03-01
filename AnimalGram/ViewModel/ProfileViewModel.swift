@@ -49,7 +49,6 @@ class ProfileViewModel: ObservableObject {
             
             for doc in snapshot.documents {
                 let data = doc.data()
-                print(data, "This is data")
                 
                 if
                     let userID = data[K.FireStore.Post.userIDField] as? String,
@@ -59,10 +58,10 @@ class ProfileViewModel: ObservableObject {
                     let caption = data[K.FireStore.Post.captionField] as? String,
                     let postImageURL = data[K.FireStore.Post.postImageURLField] as? String,
                     let likeCount = data[K.FireStore.Post.likeCountField] as? Int,
-                    let likeByUser = data[K.FireStore.Post.likeByUserField] as? Bool
+                    let likeBy = data[K.FireStore.Post.likeByField] as?  Array<String>
                         
                 {
-                    let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, dateCreated: dateCreated, postImageURL: postImageURL, likeCount: likeCount, likedByUser: likeByUser)
+                    let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, dateCreated: dateCreated, postImageURL: postImageURL, likeCount: likeCount, likedBy: likeBy)
                     
                     print("This is mewPost", newPost)
                     

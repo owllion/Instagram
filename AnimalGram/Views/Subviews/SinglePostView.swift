@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SinglePostView: View {
-    var post: Post
+    @State var post: Post
     
     var body: some View {
         ScrollView (.vertical, showsIndicators: false) {
