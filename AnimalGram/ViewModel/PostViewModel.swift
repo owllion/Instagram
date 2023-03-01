@@ -43,32 +43,6 @@ class PostViewModel: ObservableObject {
     
     //MARK: - PostView's methods
     
-    func updatePost(with postID: String,and post: Post) {
-        do {
-            try postCollection.document(postID).setData(from: post)
-        } catch {
-            self.handleError(error)
-        }
-    }
-    
-    func getNewLikedByArray(type: String, with oldArr: Array<String>, userID: String) -> Array<String> {
-        
-        var likedBy: Array<String> = []
-        
-        likedBy = oldArr
-        if type == "like" {
-            likedBy.append(userID)
-        } else {
-            likedBy.remove(at: getIdIndex(arr: likedBy, userID: userID))
-        }
-         
-        return likedBy
-    }
-    
-    func getIdIndex(arr: Array<String>, userID: String) -> Int {
-        return arr.firstIndex(of: userID)!
-    }
-    
     func likePost(post:Post, postID: String, userID: String){
         //Update animation
         self.animateLike = true
