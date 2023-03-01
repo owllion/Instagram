@@ -92,14 +92,6 @@ class PostViewModel: ObservableObject {
                 return
             }
         }
-        print("updateData下面")
-        
-        //Update local data
-//        let updatedPost = Post(id: UUID().uuidString, postID: post.postID, userID: post.userID, displayName: post.displayName, caption: post.caption, dateCreated: post.dateCreated, postImageURL: post.postImageURL, likeCount: post.likeCount + 1, likedBy: getNewLikedByArray(with: post.likedBy, userID: userID) )
-//
-//        print("updatePost", updatedPost)
-//        //return so that PostView can use it to replace the original post
-//        return updatedPost
     }
     
     func unlikePost(post: Post, postID: String, userID: String) {
@@ -119,12 +111,6 @@ class PostViewModel: ObservableObject {
         ]
         
         postCollection.document(postID).updateData(data)
-        
-//        //Update local data
-//        let updatedPost = Post(id: UUID().uuidString, postID: post.postID, userID: post.userID, displayName: post.displayName, caption: post.caption, dateCreated: post.dateCreated, postImageURL: post.postImageURL, likeCount: post.likeCount - 1, likedBy: getNewLikedByArray(with: post.likedBy, userID: userID) )
-//
-//        //return so that PostView can use it to replace the original post
-//        return updatedPost
     }
     
     

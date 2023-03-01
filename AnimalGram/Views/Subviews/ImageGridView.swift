@@ -24,7 +24,7 @@ struct ImageGridView: View {
                 ForEach(posts, id: \.self) {
                     post in
                     NavigationLink {
-                        SinglePostView(post: post)
+                        FeedView(title:"Post")
                     } label: {
                         PostView(post: post, showHeaderAndFooter: false)
                     }
