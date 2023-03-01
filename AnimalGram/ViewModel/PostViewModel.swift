@@ -14,6 +14,7 @@ private let store = Firestore.firestore()
 class PostViewModel: ObservableObject {
     
     private var postCollection = store.collection(K.FireStore.Post.collectionName)
+    private var reportCollection = store.collection(K.FireStore.Report.collectionName)
     
     enum PostConfirmationOption {
         case general,reporting
@@ -30,8 +31,8 @@ class PostViewModel: ObservableObject {
     @Published var alertMessage: String = ""
     
     //MARK: - Handle Error
-    func handleError(_ error: Error){
-        alertMessage = error.localizedDescription
+    func handleError(_ error: Error, msg: String?){
+        alertMessage = msg ?? error.localizedDescription
         showAlert.toggle()
     }
     
@@ -87,12 +88,26 @@ class PostViewModel: ObservableObject {
         postCollection.document(postID).updateData(data)
     }
     
-    
-//    func reportPost(reason: String, postID: String, done: @escaping (_ success: Bool) -> Void) {
-//    }
-    func reportPost(reason: String) {
-        print("fehfie")
+    @MainActor
+    func reportPost(reason: String, postID: String) async throws  {
+        
+        let data: [String : Any] = [
+            K.FireStore.Report.contentField : reason,
+            K.FireStore.Report.postIDField : postID,
+            K.FireStore.Report.dateCreated : FieldValue.serverTimestamp()
+        ]
+        
+        do {
+            try await reportCollection.addDocument(data: data)
+            
+            self.dialogType = .general
+            self.handleSuccess("Thanks for reporting this post. We will review it shortly and take the appropriate action!")
+
+        }catch {
+            self.handleError(error, msg: "Error! There was an error uploading the report. Please restart the app and try again.")
+        }
     }
+   
     func sharePost(_ post: Post) {
         let defaultText = "Just checking in at \(post.displayName)'s post"
         
@@ -139,7 +154,7 @@ class PostViewModel: ObservableObject {
             
             postCollection.document(postID).setData(postData) { error in
                 if let error = error {
-                    self.handleError(error)
+                    self.handleError(error, msg: nil)
                     return
                 } else {
                     print("Successfully post!")
@@ -151,15 +166,11 @@ class PostViewModel: ObservableObject {
         
         
     }
-    
-    
-   
-    
     func deletePost(_ postID: String) {
         postCollection.document(postID).delete { error in
             if let error = error {
                 print("Unable to remove the post: \(error.localizedDescription)")
-                self.handleError(error)
+                self.handleError(error, msg: nil)
             }
             
             

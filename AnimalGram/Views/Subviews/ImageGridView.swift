@@ -33,22 +33,19 @@ struct ImageGridView: View {
             }
     }
 }
-//
-//struct ImageGridView_Previews: PreviewProvider {
-//    static let posts = [
-//                Post(postID: "",
-//                     userID: "",
-//                     displayName: "Tim Borton",
-//                     caption: "",
-//                     dateCreated: Int(Date().timeIntervalSince1970),
-//                     postImageURL: "", likeCount: 10,
-//                     likedByUser: false
-//                    )
-//                ]
-//
-//
-//
-////    static var previews: some View {
-////        ImageGridView(posts: $posts).previewLayout(.sizeThatFits)
-////    }
-//}
+
+struct ImageGridView_Previews: PreviewProvider {
+    @State static var posts: [Post] = [
+                Post(postID: "",
+                     userID: "",
+                     displayName: "Tim Borton",
+                     caption: "",
+                     dateCreated: Int(Date().timeIntervalSince1970),
+                     postImageURL: "", likeCount: 10,
+                     likedBy: []
+                    )
+                ]
+    static var previews: some View {
+        ImageGridView(posts: posts).previewLayout(.sizeThatFits)
+    }
+}

@@ -37,6 +37,14 @@ struct K {
             static let likeByField = "likeBy"
         }
         
+        struct Report {
+            static let collectionName = "reports"
+            
+            static let postIDField = "postID"
+            static let contentField = "content"
+            static let dateCreated = "dateCreated"
+        }
+        
         
     }
 }

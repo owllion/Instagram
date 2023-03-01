@@ -56,19 +56,42 @@ struct PostView: View {
                                 }
                             } else {
                                 Button (role: .destructive){
-                                    postViewModel.reportPost(reason: "This is inappropriate")
+                                    Task {
+                                        do {
+                                            try await postViewModel.reportPost(reason: "This is inappropriate", postID: post.postID )
+                                        }catch {
+                                            print(error)
+                                        }
+                                    }
+                                   
                                 } label: {
                                     Text("This is inappropriate")
                                 }
                                 
                                 Button(role: .destructive) {
-                                                            postViewModel.reportPost(reason: "This is spam")
+                                    
+                                    Task {
+                                        do {
+                                            try await postViewModel.reportPost(reason: "This is spam", postID: post.postID)
+                                        }catch {
+                                            print(error)
+                                        }
+                                    }
+                                    
                                 } label: {
                                     Text("This is spam")
                                 }
                                 
                                 Button(role: .destructive) {
-                                                                        postViewModel.reportPost(reason: "It made me uncomfortable")
+                                    Task {
+                                        do {
+                                            try await postViewModel.reportPost(reason: "It made me uncomfortable", postID: post.postID)
+                                            
+                                        }catch {
+                                            print(error)
+                                        }
+                                    }
+                                   
                                 } label: {
                                     Text("It made me uncomfortable")
                                 }
@@ -164,6 +187,8 @@ struct PostView: View {
             print(authViewModel.displayName,"存在name")
             print(authViewModel.userID,"不存在id")
             self.loadImageFromURL(post.postImageURL)
+        }.alert(isPresented: $postViewModel.showAlert) {
+            () -> Alert in return Alert(title: Text(postViewModel.alertMessage), message: nil, dismissButton: .default(Text("OK")))
         }
     }
     
