@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
-struct Comment : Identifiable {
+struct Comment : Identifiable, Hashable {
     var id: String = UUID().uuidString
     var userName: String
     var userImageURL: String
     var content: String
     var commentID: String
-    var createAt: Date
+    var createAt: Timestamp
 }

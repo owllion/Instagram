@@ -53,7 +53,6 @@
 		256B184A29A6189700087828 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184929A6189700087828 /* ActivityView.swift */; };
 		256B185029A72BBA00087828 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B184F29A72BBA00087828 /* AuthenticationViewModel.swift */; };
 		256B185229A7603300087828 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 256B184B29A66F5900087828 /* GoogleService-Info.plist */; };
-		256B185529A7A7CF00087828 /* AnimalGramRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B185429A7A7CF00087828 /* AnimalGramRepository.swift */; };
 		256B185729A7ABC100087828 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B185629A7ABC100087828 /* constants.swift */; };
 		256B185929A864DD00087828 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B185829A864DD00087828 /* ImageManager.swift */; };
 		25FCF39829AB314300D8C8F1 /* CircularProgressDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FCF39729AB314300D8C8F1 /* CircularProgressDemoView.swift */; };
@@ -110,7 +109,6 @@
 		256B184B29A66F5900087828 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		256B184D29A715A800087828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		256B184F29A72BBA00087828 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
-		256B185429A7A7CF00087828 /* AnimalGramRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalGramRepository.swift; sourceTree = "<group>"; };
 		256B185629A7ABC100087828 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 		256B185829A864DD00087828 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		25FCF39729AB314300D8C8F1 /* CircularProgressDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressDemoView.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 				256B184D29A715A800087828 /* Info.plist */,
 				256B184B29A66F5900087828 /* GoogleService-Info.plist */,
 				2562956429AF56BF00BE59CB /* Network */,
-				256B185329A7A7A600087828 /* Repository */,
 				256B181529A355DD00087828 /* Models */,
 				256B180B29A346D200087828 /* Views */,
 				256B184E29A71B0B00087828 /* ViewModel */,
@@ -287,14 +284,6 @@
 				2562956B29B064C100BE59CB /* CommentViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		256B185329A7A7A600087828 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				256B185429A7A7CF00087828 /* AnimalGramRepository.swift */,
-			);
-			path = Repository;
 			sourceTree = "<group>";
 		};
 		641F29B5FC811435460BA1C1 /* Pods */ = {
@@ -453,7 +442,6 @@
 				256B182529A3BEF100087828 /* ImageGridView.swift in Sources */,
 				256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */,
 				2562955F29AE442000BE59CB /* SinglePostView.swift in Sources */,
-				256B185529A7A7CF00087828 /* AnimalGramRepository.swift in Sources */,
 				256B181429A34B9100087828 /* PostView.swift in Sources */,
 				256B184329A5BE9D00087828 /* OnboardingView_2.swift in Sources */,
 				256B182D29A49E4200087828 /* ProfileView.swift in Sources */,

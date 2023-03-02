@@ -154,7 +154,7 @@ struct PostView: View {
 
                         //MARK: - COMMENTS ICON
                         NavigationLink(
-                            destination: CommentsView()) {
+                            destination: CommentsView(postID: post.postID)) {
                                 Image(systemName: "bubble.middle.bottom").foregroundColor(.primary)
                             }
 

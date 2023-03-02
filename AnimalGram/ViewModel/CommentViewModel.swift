@@ -22,6 +22,8 @@ class CommentViewModel : ObservableObject {
     
     @MainActor
     func addComment(postID: String, content: String, imgUrl: String, userName: String ) async throws {
+        
+        print()
         let document = postCollection.document(postID).collection(K.FireStore.Post.Comment.collectionName).document()
         let commentID = document.documentID
         
@@ -37,7 +39,7 @@ class CommentViewModel : ObservableObject {
             try await document.setData(data)
             
         }catch {
-            self.handleAlert(error, msg: nil)
+            self.handleAlert(error, msg: "Something worng when adding comment to DB")
         }
     }
     
@@ -46,37 +48,42 @@ class CommentViewModel : ObservableObject {
             self.isLoading = true
         
             postCollection
-                .order(by: K.FireStore.Post.dateCreated)
+                .document(postID)
+                .collection(K.FireStore.Post.Comment.collectionName)
+                .order(by: K.FireStore.Post.Comment.createAtField)
                 .limit(to: 50)
                 .addSnapshotListener { snapshot, error in
                     
                     self.comments = []
                     
                     if let error = error {
+                        print(error,"這是getComments error")
                         self.handleAlert(error, msg: "something wrong when getting comments")
                         return
                     }
                     for doc in snapshot!.documents {
                         let data = doc.data()
-                        [K.FireStore.Post.Comment.commentIDField]
+                        
                         if
                             let commentID = data[K.FireStore.Post.Comment.commentIDField] as? String,
-                            let 
-                         
+                            let userName = data[K.FireStore.Post.Comment.userNameField] as? String,
+                            let userImageURL = data[K.FireStore.Post.Comment.userImageURLField] as? String,
+                            let content = data[K.FireStore.Post.Comment.contentField] as? String,
+                            
+                                let createAt = data[K.FireStore.Post.Comment.createAtField] as? Timestamp
                                 
                         {
-                            let newComment = CommentModel(id: UUID().uuidString, commentID: com, userID: <#T##String#>, username: <#T##String#>, content: <#T##String#>, dateCreated: <#T##Date#>)
-                            self.comments.append(newPost)
+                            let newComment = Comment(id: UUID().uuidString, userName: userName, userImageURL: userImageURL, content: content, commentID: commentID, createAt: createAt)
+                            
+                            self.comments.append(newComment)
                         }
                         
                     }
-                    
-                  
                     self.isLoading = false
                 }
-        
-        
     }
+    
+   
  
     func textIsAppropriate(_ submissionText: String) -> Bool {
         

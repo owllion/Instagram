@@ -6,24 +6,37 @@
 //
 
 import SwiftUI
+import URLImage
+import FirebaseFirestore
 
 struct MessageView: View {
     
-    @State var comment:CommentModel
+    var comment: Comment
     
     var body: some View {
         HStack {
             
             //MARK: - PROFILE IMAGE
-            Image("dog5")
-                .resizable()
-                .scaledToFill().scaledToFill().frame(width: 40, height: 40, alignment: .center)
-                .cornerRadius(20)
+            URLImage(
+                url: URL(string: comment.userImageURL)!,
+                     failure: { error, retry in
+                        VStack {
+                            Text(error.localizedDescription)
+                        }
+                    },
+                     content: { image in
+                         image
+                             .resizable()
+                             .scaledToFill()
+                             .scaledToFill()
+                             .frame(width: 40, height: 40, alignment: .center)
+                             .cornerRadius(20)
+                     })
             
             VStack(alignment: .leading, spacing: 4) {
                 
                 //MARK: - USER NAME
-                Text(comment.username)
+                Text(comment.userName)
                     .font(.caption)
                     .foregroundColor(.gray)
                 
@@ -41,7 +54,7 @@ struct MessageView: View {
 }
 
 struct MessageView_Previews: PreviewProvider {
-    static var comment = CommentModel(commentID: "", userID: "", username: "Mike Willer", content: "Love your dog!", dateCreated: Date())
+    static var comment = Comment(id: UUID().uuidString, userName: "Tom", userImageURL: "", content: "Cool", commentID: "", createAt: Timestamp())
     static var previews: some View {
         MessageView(comment: comment).previewLayout(.sizeThatFits)
     }
