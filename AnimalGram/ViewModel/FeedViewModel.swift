@@ -63,9 +63,6 @@ class FeedViewModel: ObservableObject {
                         self.posts.append(newPost)
                     }
                     
-                    
-                
-                    
                 }
                 
                 //            self.posts = (snapshot?.documents.compactMap {

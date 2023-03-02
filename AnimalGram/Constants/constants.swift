@@ -38,7 +38,9 @@ struct K {
             static let commentField = "comments"
             //sub-collection
             struct Comment {
-                static let userIDField = "userID"
+                //static let userIDField = "userID"
+                static let collectionName = "comments"
+                
                 static let commentIDField = "commentID"
                 static let userImageURLField = "userImageURL"
                 static let userNameField = "userName"

@@ -29,10 +29,8 @@
 		256B181229A34A8600087828 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181129A34A8600087828 /* FeedView.swift */; };
 		256B181429A34B9100087828 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181329A34B9100087828 /* PostView.swift */; };
 		256B181729A355E900087828 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181629A355E900087828 /* Post.swift */; };
-		256B181929A35A0C00087828 /* PostArrayObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181829A35A0C00087828 /* PostArrayObject.swift */; };
 		256B181B29A36A9600087828 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181A29A36A9600087828 /* CommentsView.swift */; };
 		256B181D29A36EBF00087828 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181C29A36EBF00087828 /* MessageView.swift */; };
-		256B181F29A372A900087828 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181E29A372A900087828 /* CommentModel.swift */; };
 		256B182129A3796200087828 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182029A3796200087828 /* BrowseView.swift */; };
 		256B182329A379EE00087828 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182229A379EE00087828 /* CarouselView.swift */; };
 		256B182529A3BEF100087828 /* ImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B182429A3BEF100087828 /* ImageGridView.swift */; };
@@ -87,10 +85,8 @@
 		256B181129A34A8600087828 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		256B181329A34B9100087828 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		256B181629A355E900087828 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		256B181829A35A0C00087828 /* PostArrayObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostArrayObject.swift; sourceTree = "<group>"; };
 		256B181A29A36A9600087828 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		256B181C29A36EBF00087828 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
-		256B181E29A372A900087828 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		256B182029A3796200087828 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
 		256B182229A379EE00087828 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		256B182429A3BEF100087828 /* ImageGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGridView.swift; sourceTree = "<group>"; };
@@ -264,8 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				256B181629A355E900087828 /* Post.swift */,
-				256B181829A35A0C00087828 /* PostArrayObject.swift */,
-				256B181E29A372A900087828 /* CommentModel.swift */,
 				2562956D29B06F6500BE59CB /* Comment.swift */,
 			);
 			path = Models;
@@ -455,7 +449,6 @@
 				256B181D29A36EBF00087828 /* MessageView.swift in Sources */,
 				256B181029A3496700087828 /* colors.swift in Sources */,
 				25FCF39A29AB357300D8C8F1 /* MainTabView.swift in Sources */,
-				256B181929A35A0C00087828 /* PostArrayObject.swift in Sources */,
 				256B184629A5C34500087828 /* Extension.swift in Sources */,
 				256B182529A3BEF100087828 /* ImageGridView.swift in Sources */,
 				256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */,
@@ -466,7 +459,6 @@
 				256B182D29A49E4200087828 /* ProfileView.swift in Sources */,
 				256B182129A3796200087828 /* BrowseView.swift in Sources */,
 				256B183B29A5058F00087828 /* SettingsEditImageView.swift in Sources */,
-				256B181F29A372A900087828 /* CommentModel.swift in Sources */,
 				256B181B29A36A9600087828 /* CommentsView.swift in Sources */,
 				2562954829AC581C00BE59CB /* PostViewModel.swift in Sources */,
 				256B182729A3C6DB00087828 /* UploadView.swift in Sources */,

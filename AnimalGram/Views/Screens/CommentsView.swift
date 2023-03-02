@@ -11,7 +11,6 @@ struct CommentsView: View {
     
     @Environment(\.colorScheme) var colorScheme
     @State var submissionText:String = ""
-    //textField changes the text -> this variable will also change.
     @State var comments = [CommentModel]()
     
     var body: some View {
@@ -50,7 +49,6 @@ struct CommentsView: View {
      
     }
     
-    //這應該另外寫成commentManager
     func getComments() {
         print("Get comments from db")
         
@@ -67,10 +65,8 @@ struct CommentsView: View {
 struct CommentsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            //加上這個，上面的navigation設定才會有效，因為他們就是必須存在於navigationView裡面
             CommentsView()
                 .preferredColorScheme(.dark)
-
         }
     }
 }

@@ -9,6 +9,9 @@ import Foundation
 
 struct Comment : Identifiable {
     var id: String = UUID().uuidString
-    var sender: String
-    var create_at: Date
+    var userName: String
+    var userImageURL: String
+    var content: String
+    var commentID: String
+    var createAt: Date
 }
