@@ -119,7 +119,7 @@ struct PostView: View {
                             options: URLImageOptions(
                                 expireAfter: 10.0
                              ),
-                             
+
                              failure: { error, retry in
                                 VStack {
                                     Text(error.localizedDescription)
@@ -132,7 +132,7 @@ struct PostView: View {
                              })
                         
                     LikeAnimationView(animate: $postViewModel.animateLike)
-                }
+                }.frame(height: 240)
                 
                 //MARK: - FOOTER
                 if showHeaderAndFooter {
@@ -143,7 +143,6 @@ struct PostView: View {
                             .onTapGesture {
                                 if post.likedBy.contains(authViewModel.userID!) {
                                     postViewModel.unlikePost(post: post, postID: post.postID, userID: authViewModel.userID!)
-    //
                                     
                                 } else {
                                      postViewModel.likePost(post: post, postID: post.postID, userID: authViewModel.userID!)
@@ -186,8 +185,6 @@ struct PostView: View {
                 
                 
             }.onAppear {
-//                print(authViewModel.displayName,"存在name")
-//                print(authViewModel.userID,"不存在id")
                 self.loadImageFromURL(post.postImageURL)
             }.alert(isPresented: $postViewModel.showAlert) {
                 () -> Alert in return Alert(title: Text(postViewModel.alertMessage), message: nil, dismissButton: .default(Text("OK")))

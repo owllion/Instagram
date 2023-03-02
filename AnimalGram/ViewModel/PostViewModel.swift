@@ -74,10 +74,10 @@ class PostViewModel: ObservableObject {
     func unlikePost(post: Post, postID: String, userID: String) {
         
         //Update animation
-        self.animateLike = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-            animateLike = false
-        }
+//        self.animateLike = true
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+//            animateLike = false
+//        }
         
         //Update db data
         let increment: Int64 = -1

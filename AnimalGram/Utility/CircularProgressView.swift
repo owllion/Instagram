@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct CircularProgressDemoView: View {
+struct CircularProgressView: View {
     @State private var progress = 0.9
 
        var body: some View {
@@ -19,8 +19,8 @@ struct CircularProgressDemoView: View {
        }
 }
 
-struct CircularProgressDemoView_Previews: PreviewProvider {
+struct CircularProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        CircularProgressDemoView()
+        CircularProgressView()
     }
 }

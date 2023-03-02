@@ -2,13 +2,16 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     
-    @EnvironmentObject var loginVM: AuthenticationViewModel
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
+    
+    var totalPosts: Int
+    var totalPostLikes: Int
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             
             //MARK: - PROFILE PICTURE
-            AsyncImage(url: URL(string: loginVM.imageURL)) { image in
+            AsyncImage(url: URL(string: authViewModel.imageURL)) { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -19,10 +22,10 @@ struct ProfileHeaderView: View {
                 }.frame(width: 120,height: 120, alignment: .center)
             
             //MARK: - USER NAME
-            Text(loginVM.displayName)
+            Text(authViewModel.displayName)
             
             //MARK: - BIO
-            Text(loginVM.bio)
+            Text(authViewModel.bio)
                 .font(.body)
                 .fontWeight(.regular)
                 .multilineTextAlignment(.center)
@@ -31,7 +34,7 @@ struct ProfileHeaderView: View {
                 
                 //MARK: - POSTS
                 VStack(alignment: .center, spacing: 5) {
-                    Text("5")
+                    Text(String(totalPosts))
                         .font(.title2)
                         .fontWeight(.bold)
                     
@@ -47,7 +50,7 @@ struct ProfileHeaderView: View {
                 
                 //MARK: - LIKES
                 VStack(alignment: .center, spacing: 5) {
-                    Text("20")
+                    Text(String(totalPostLikes))
                         .font(.title2)
                         .fontWeight(.bold)
                     
@@ -70,6 +73,6 @@ struct ProfileHeader_Previews: PreviewProvider {
     
     @State static var name: String = "Mike"
     static var previews: some View {
-        ProfileHeaderView().previewLayout(.sizeThatFits)
+        ProfileHeaderView(totalPosts: 20, totalPostLikes: 55).previewLayout(.sizeThatFits)
     }
 }

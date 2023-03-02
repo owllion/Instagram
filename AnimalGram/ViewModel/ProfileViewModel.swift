@@ -20,6 +20,8 @@ class ProfileViewModel: ObservableObject {
     @Published var bio: String = ""
     @Published var imageURL: String = ""
     @Published var userPosts: [Post] = [Post]()
+    @Published var totalPostLikes: Int = 0
+    @Published var totalPosts: Int = 0
 
     
     //MARK: - Error Properties
@@ -43,8 +45,7 @@ class ProfileViewModel: ObservableObject {
                             .order(by: K.FireStore.Post.dateCreated,descending: false)
                             .limit(to: 50)
                             .getDocuments()
-            print("this is snapshot", snapshot)
-            
+
             self.userPosts = []
             
             for doc in snapshot.documents {
@@ -68,6 +69,9 @@ class ProfileViewModel: ObservableObject {
                     self.userPosts.append(newPost)
                 }
             }
+            
+            self.totalPosts = self.userPosts.count
+            self.totalPostLikes = self.userPosts.map { $0.likeCount }.reduce(0, +)
             
             self.isLoading = false
             

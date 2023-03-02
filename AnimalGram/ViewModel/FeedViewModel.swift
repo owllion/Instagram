@@ -16,7 +16,7 @@ class FeedViewModel: ObservableObject {
     private var postCollection = store.collection(K.FireStore.Post.collectionName)
     
     @Published var posts = [Post]()
-    @Published var isLoadingFeed: Bool = false
+    @Published var isLoading: Bool = false
     
     //MARK: - Error Properties
     @Published var showFeedAlert: Bool = false
@@ -31,7 +31,8 @@ class FeedViewModel: ObservableObject {
     
     
     func getPosts() {
-        self.isLoadingFeed = true
+        self.isLoading = true
+        
         postCollection
             .order(by: K.FireStore.Post.dateCreated)
             .limit(to: 50)
@@ -41,6 +42,9 @@ class FeedViewModel: ObservableObject {
                 self.posts = []
                 
                 if let error = error {
+                    
+                    self.isLoading = false
+                    
                     self.alertMessage = error.localizedDescription
                     self.showFeedAlert.toggle()
                     return
@@ -68,7 +72,7 @@ class FeedViewModel: ObservableObject {
                 //            self.posts = (snapshot?.documents.compactMap {
                 //                try? $0.data(as: Post.self)
                 //            }) ?? []
-                self.isLoadingFeed = false
+                self.isLoading = false
             }
     }
 }

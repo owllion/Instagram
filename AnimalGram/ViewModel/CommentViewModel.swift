@@ -20,10 +20,16 @@ class CommentViewModel : ObservableObject {
         self.showAlert.toggle()
     }
     
+    func handleAlertMsg(msg: String) {
+        self.alertMessage = msg
+        self.showAlert = true
+    }
+    
     @MainActor
     func addComment(postID: String, content: String, imgUrl: String, userName: String ) async throws {
         
-        print()
+        self.isLoading = true
+        
         let document = postCollection.document(postID).collection(K.FireStore.Post.Comment.collectionName).document()
         let commentID = document.documentID
         
@@ -37,8 +43,10 @@ class CommentViewModel : ObservableObject {
         
         do {
             try await document.setData(data)
+            self.isLoading = false
             
         }catch {
+            self.isLoading = false
             self.handleAlert(error, msg: "Something worng when adding comment to DB")
         }
     }
@@ -57,7 +65,6 @@ class CommentViewModel : ObservableObject {
                     self.comments = []
                     
                     if let error = error {
-                        print(error,"這是getComments error")
                         self.handleAlert(error, msg: "something wrong when getting comments")
                         return
                     }
@@ -85,22 +92,23 @@ class CommentViewModel : ObservableObject {
     
    
  
-    func textIsAppropriate(_ submissionText: String) -> Bool {
-        
-        let badWords : [String] = ["shit", "ass"]
-        
-        let words = submissionText.components(separatedBy: " ")
-        //把含空格的字串轉成陣列 並以空格為切割基準
-        
-        for word in words {
-            if badWords.contains(word) {
-                return false
-            }
-        }
-        if submissionText.count < 3 {
-            return false
-        }
-        
-        return true
-    }
+    //func textIsAppropriate(_ submissionText: String) -> Bool {
+//        print("這是收到的text", submissionText)
+//        let badWords : [String] = ["shit", "ass"]
+//
+//        let words = submissionText.components(separatedBy: " ")
+//        //把含空格的字串轉成陣列 並以空格為切割基準
+//        print("這是words", words)
+//
+//        for word in words {
+//            if badWords.contains(word) {
+//                return false
+//            }
+//        }
+//        if submissionText.count < 3 {
+//            return false
+//        }
+//
+//        return true
+//    }
 }

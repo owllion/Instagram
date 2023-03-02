@@ -20,7 +20,7 @@ struct ProfileView: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            ProfileHeaderView()
+            ProfileHeaderView(totalPosts: profileViewModel.totalPosts, totalPostLikes: profileViewModel.totalPostLikes)
             Divider()
             ImageGridView(posts: profileViewModel.userPosts)
         }.navigationTitle("Profile")
@@ -37,7 +37,6 @@ struct ProfileView: View {
                 }
             }
             .onAppear {
-                print("ProfileView出現")
                 Task {
                     do {
                         try await profileViewModel.getUserPosts(with: authViewModel.userID!)
