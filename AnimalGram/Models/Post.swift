@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct Post: Identifiable, Codable ,Hashable {
-    var id = UUID().uuidString
+    var id: String = UUID().uuidString
     var postID: String
     var userID: String
     var displayName: String

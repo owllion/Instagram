@@ -35,6 +35,16 @@ struct K {
             static let dateCreated = "dateCreated"
             static let likeCountField = "likeCount"
             static let likeByField = "likeBy"
+            static let commentField = "comments"
+            //sub-collection
+            struct Comment {
+                static let userIDField = "userID"
+                static let commentIDField = "commentID"
+                static let userImageURLField = "userImageURL"
+                static let userNameField = "userName"
+                static let createAtField = "createdAt"
+                static let contentField = "content"
+            }
         }
         
         struct Report {
@@ -44,6 +54,8 @@ struct K {
             static let contentField = "content"
             static let dateCreated = "dateCreated"
         }
+        
+        
         
         
     }

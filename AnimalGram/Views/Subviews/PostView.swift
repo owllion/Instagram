@@ -186,8 +186,8 @@ struct PostView: View {
                 
                 
             }.onAppear {
-                print(authViewModel.displayName,"存在name")
-                print(authViewModel.userID,"不存在id")
+//                print(authViewModel.displayName,"存在name")
+//                print(authViewModel.userID,"不存在id")
                 self.loadImageFromURL(post.postImageURL)
             }.alert(isPresented: $postViewModel.showAlert) {
                 () -> Alert in return Alert(title: Text(postViewModel.alertMessage), message: nil, dismissButton: .default(Text("OK")))
