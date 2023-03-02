@@ -26,6 +26,8 @@ class PostViewModel: ObservableObject {
     @Published var showConfirmation: Bool  = false
     @Published var dialogType: PostConfirmationOption = .general
     
+    @Published var isLoading: Bool = false
+    
     //MARK: - Error Properties
     @Published var showAlert: Bool = false
     @Published var alertMessage: String = ""
@@ -90,7 +92,7 @@ class PostViewModel: ObservableObject {
     
     @MainActor
     func reportPost(reason: String, postID: String) async throws  {
-        
+        self.isLoading = true
         let data: [String : Any] = [
             K.FireStore.Report.contentField : reason,
             K.FireStore.Report.postIDField : postID,
@@ -101,9 +103,13 @@ class PostViewModel: ObservableObject {
             try await reportCollection.addDocument(data: data)
             
             self.dialogType = .general
+            
             self.handleSuccess("Thanks for reporting this post. We will review it shortly and take the appropriate action!")
+            self.isLoading = false
 
         }catch {
+            self.isLoading = false
+            
             self.handleError(error, msg: "Error! There was an error uploading the report. Please restart the app and try again.")
         }
     }

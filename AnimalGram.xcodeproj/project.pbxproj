@@ -16,6 +16,8 @@
 		2562956129AF42F800BE59CB /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956029AF42F800BE59CB /* AsyncImageView.swift */; };
 		2562956329AF537600BE59CB /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956229AF537600BE59CB /* ImageLoader.swift */; };
 		2562956629AF56E000BE59CB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956529AF56E000BE59CB /* NetworkManager.swift */; };
+		2562956829B05D0100BE59CB /* loading2.json in Resources */ = {isa = PBXBuildFile; fileRef = 2562956729B05D0100BE59CB /* loading2.json */; };
+		2562956A29B05ECA00BE59CB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956929B05ECA00BE59CB /* LoadingView.swift */; };
 		256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FB29A330E900087828 /* AnimalGramApp.swift */; };
 		256B17FE29A330E900087828 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FD29A330E900087828 /* ContentView.swift */; };
 		256B180029A330EA00087828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 256B17FF29A330EA00087828 /* Assets.xcassets */; };
@@ -69,6 +71,8 @@
 		2562956029AF42F800BE59CB /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		2562956229AF537600BE59CB /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		2562956529AF56E000BE59CB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		2562956729B05D0100BE59CB /* loading2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading2.json; sourceTree = "<group>"; };
+		2562956929B05ECA00BE59CB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		256B17F829A330E900087828 /* AnimalGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimalGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256B17FB29A330E900087828 /* AnimalGramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalGramApp.swift; sourceTree = "<group>"; };
 		256B17FD29A330E900087828 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -131,7 +135,9 @@
 		2562955529AE17A900BE59CB /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				2562956729B05D0100BE59CB /* loading2.json */,
 				2562955C29AE231100BE59CB /* post-loading.json */,
+				2562956929B05ECA00BE59CB /* LoadingView.swift */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -373,6 +379,7 @@
 				256B180329A330EA00087828 /* Preview Assets.xcassets in Resources */,
 				2562955D29AE231100BE59CB /* post-loading.json in Resources */,
 				256B180029A330EA00087828 /* Assets.xcassets in Resources */,
+				2562956829B05D0100BE59CB /* loading2.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +442,7 @@
 				256B182B29A4860100087828 /* PostImageView.swift in Sources */,
 				2562955429ADFBA400BE59CB /* LottieView.swift in Sources */,
 				256B183D29A516CF00087828 /* SignUpView.swift in Sources */,
+				2562956A29B05ECA00BE59CB /* LoadingView.swift in Sources */,
 				256B17FE29A330E900087828 /* ContentView.swift in Sources */,
 				256B181D29A36EBF00087828 /* MessageView.swift in Sources */,
 				256B181029A3496700087828 /* colors.swift in Sources */,
