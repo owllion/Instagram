@@ -172,6 +172,8 @@ class PostViewModel: ObservableObject {
         
         
     }
+    
+    
     func deletePost(_ postID: String) {
         postCollection.document(postID).delete { error in
             if let error = error {

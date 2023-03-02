@@ -12,9 +12,6 @@ struct SettingsView: View {
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @Environment(\.dismiss) var dismiss
     
-    @Binding var bio: String
-    @Binding var displayName: String
-    
     var body: some View {
         
         //Add navigationView here is because all views we've created so far are within the NavigationView that in the contentView. But this one is the popup,it will not be included in any navigationView,so have to write here directly.
@@ -40,13 +37,13 @@ struct SettingsView: View {
                 //MARK: - SECTION 2: PROFILE
                 GroupBox {
                     NavigationLink {
-                        SettingsEditTextView(submissionText: displayName, title: "Display Name", description: "You can edit your display name here.", placeholder: "Your displat name here.")
+                        SettingsEditTextView(submissionText: authViewModel.displayName, title: "Display Name", description: "You can edit your display name here.", placeholder: "Your displat name here.", settingsEditTextOption: .displayName, userID: authViewModel.userID, email: authViewModel.email, profileText: $authViewModel.displayName)
                     } label: {
                         SettingsRowView(iconName: "pencil", settingName: "Display Name", iconColor: Color.MyTheme.purple)
                     }
                     
                     NavigationLink {
-                        SettingsEditTextView(submissionText: bio, title: "Profile Bio", description: "Your bio is a great place to let other users know a little about you.", placeholder: "Your bio here..")
+                        SettingsEditTextView(submissionText: authViewModel.bio, title: "Profile Bio", description: "Your bio is a great place to let other users know a little about you.", placeholder: "Your bio here..",settingsEditTextOption: .bio, userID: authViewModel.userID, email: authViewModel.email, profileText: $authViewModel.bio)
                     } label: {
                         SettingsRowView(iconName: "text.quote", settingName: "Bio", iconColor: Color.MyTheme.purple)
                     }
@@ -65,11 +62,10 @@ struct SettingsView: View {
                     }.alert(isPresented: $authViewModel.showError) {
                         Alert(title: Text("Error signing out"))
                     }
-                    
-                    
-                    
-                    
-                }.padding()
+                }
+            label: {
+               
+            }.padding()
                 
                 //MARK: - SECTION 3: APPLICATION
                 GroupBox {
@@ -132,9 +128,7 @@ struct SettingsView: View {
 }
 
 struct SettingsView_Previews: PreviewProvider {
-    @State static var bio: String = ""
-    @State static var name: String = ""
     static var previews: some View {
-        SettingsView(bio: $bio, displayName: $name)
+        SettingsView()
     }
 }

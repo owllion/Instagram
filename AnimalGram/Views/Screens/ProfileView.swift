@@ -47,7 +47,7 @@ struct ProfileView: View {
               
             }
             .sheet(isPresented: $showSettings) {
-                SettingsView(bio: $authViewModel.bio, displayName: $authViewModel.displayName).environmentObject(authViewModel)
+                SettingsView().environmentObject(authViewModel)
             }
     }
 }
