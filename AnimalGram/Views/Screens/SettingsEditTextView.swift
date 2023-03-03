@@ -14,6 +14,7 @@ struct SettingsEditTextView: View {
     }
     
     @StateObject var settingsEditTextViewModel = SettingsEditTextViewModel()
+    @Environment(\.dismiss) var dismiss
     
     @State var submissionText: String = ""
     @State var title: String
@@ -39,7 +40,7 @@ struct SettingsEditTextView: View {
             
             Button {
                 Task {
-                        await self.saveText()
+                    await self.saveText()
                 }
             } label: {
                 Text("Save".uppercased())
@@ -58,7 +59,10 @@ struct SettingsEditTextView: View {
             .navigationBarTitleDisplayMode(.large)
             .padding()
             .alert(isPresented: $settingsEditTextViewModel.showAlert) {
-                return Alert(title: Text("Saved!"), message: Text(settingsEditTextViewModel.alertMessage), dismissButton: .default(Text("OK")))
+                return Alert(title: Text("Saved!"), message: Text(settingsEditTextViewModel.alertMessage), dismissButton: .default(Text("OK")) {
+                    self.dismiss()
+                }
+                )
             }
     }
     
@@ -82,6 +86,7 @@ struct SettingsEditTextView: View {
                 try await settingsEditTextViewModel.updateUserDisplayName(email: email, newName: submissionText)
                 
                 settingsEditTextViewModel.isLoading = false
+                settingsEditTextViewModel.handleSuccess(msg: "Successfully change your disaplyName")
 
                 
             }catch {
