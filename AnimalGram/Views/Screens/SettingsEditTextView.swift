@@ -72,8 +72,24 @@ struct SettingsEditTextView: View {
     func saveText() async {
         settingsEditTextViewModel.isLoading = true
         switch settingsEditTextOption {
+            
         case .bio:
+            settingsEditTextViewModel.isLoading = true
+            
+            self.profileText = submissionText
+            
+            do {
+                try await settingsEditTextViewModel.updateUserBio(email: email, bio: submissionText)
+                
+                settingsEditTextViewModel.isLoading = false
+                settingsEditTextViewModel.handleSuccess(msg: "Successfully change your disaplyName")
+                
+            }catch {
+                settingsEditTextViewModel.isLoading = false
+            }
+           
             break
+            
         case .displayName:
             //authViewModel name
             self.profileText = submissionText
@@ -86,7 +102,8 @@ struct SettingsEditTextView: View {
                 try await settingsEditTextViewModel.updateUserDisplayName(email: email, newName: submissionText)
                 
                 settingsEditTextViewModel.isLoading = false
-                settingsEditTextViewModel.handleSuccess(msg: "Successfully change your disaplyName")
+                
+                settingsEditTextViewModel.handleSuccess(msg: "Successfully change your bio")
 
                 
             }catch {

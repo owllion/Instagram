@@ -80,6 +80,8 @@ struct ImagePicker: UIViewControllerRepresentable {
                 //select the image for our app
                 parent.imageSelected = image
                 
+                print("被呼叫 parent imageSelected")
+                
                 //dismiss the screen ,both needs parent(which is ImagePicker)
                 parent.dismiss()
                 //or parent.presentationMode.wrappedValue.dismiss()

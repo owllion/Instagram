@@ -37,20 +37,20 @@ struct SettingsView: View {
                 //MARK: - SECTION 2: PROFILE
                 GroupBox {
                     NavigationLink {
-                        SettingsEditTextView(submissionText: authViewModel.displayName, title: "Display Name", description: "You can edit your display name here.", placeholder: "Your displat name here.", settingsEditTextOption: .displayName, userID: authViewModel.userID, email: authViewModel.email, profileText: $authViewModel.displayName)
+                        SettingsEditTextView(submissionText: authViewModel.displayName, title: "Display Name", description: "You can edit your display name here.", placeholder: "Your displat name here.", settingsEditTextOption: .displayName, userID: authViewModel.userID, email: authViewModel.email, profileText: $authViewModel.displayName).environmentObject(authViewModel)
                     } label: {
                         SettingsRowView(iconName: "pencil", settingName: "Display Name", iconColor: Color.MyTheme.purple)
                     }
                     
                     NavigationLink {
-                        SettingsEditTextView(submissionText: authViewModel.bio, title: "Profile Bio", description: "Your bio is a great place to let other users know a little about you.", placeholder: "Your bio here..",settingsEditTextOption: .bio, userID: authViewModel.userID, email: authViewModel.email, profileText: $authViewModel.bio)
+                        SettingsEditTextView(submissionText: authViewModel.bio, title: "Profile Bio", description: "Your bio is a great place to let other users know a little about you.", placeholder: "Your bio here..",settingsEditTextOption: .bio, userID: authViewModel.userID, email: authViewModel.email, profileText: $authViewModel.bio).environmentObject(authViewModel)
                     } label: {
                         SettingsRowView(iconName: "text.quote", settingName: "Bio", iconColor: Color.MyTheme.purple)
                     }
                     
                     
                     NavigationLink {
-                        SettingsEditImageView(title: "Profile Picture", description: "Your profile picture will be shown on your profile and on your posts.", selectedImage: UIImage(named: "dog4")!)
+                        SettingsEditImageView(title: "Profile Picture", description: "Your profile picture will be shown on your profile and on your posts.", imgURL: authViewModel.imageURL).environmentObject(authViewModel)
                     } label: {
                         SettingsRowView(iconName: "photo", settingName: "Profile Picture", iconColor: Color.MyTheme.purple)
                     }
@@ -63,9 +63,9 @@ struct SettingsView: View {
                         Alert(title: Text("Error signing out"))
                     }
                 }
-            label: {
-               
-            }.padding()
+                label: {
+                    SettingsLabelView(labelText: "Profile", labelImage: "person.fill")
+                }.padding()
                 
                 //MARK: - SECTION 3: APPLICATION
                 GroupBox {

@@ -9,7 +9,7 @@ import Foundation
 import FirebaseStorage // holds images and videos
 
 class ImageManager {
-    typealias FireBaseUploadResHandler = (String? , String?) -> Void
+    typealias FireBaseUploadResHandler = (String? , Error?) -> Void
     
     //MARK: - Properties
     
@@ -115,12 +115,12 @@ class ImageManager {
         { _, error in
             if let error = error {
                 print("Error uploading image. \(error)")
-                return done(nil, error.localizedDescription)
+                return done(nil, error)
             } else {
                 print("upload miage success!")
                 
                 path.downloadURL { url, error in
-                    guard let url = url else {return done(nil, error?.localizedDescription)}
+                    guard let url = url else {return done(nil, error)}
                     done(url.absoluteString, nil)
                 }
             }

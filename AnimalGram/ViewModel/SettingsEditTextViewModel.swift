@@ -32,10 +32,35 @@ class SettingsEditTextViewModel: ObservableObject {
     }
     
     
+    func updateUserAvatar(userID: String, imageSelected: UIImage, done: @escaping (String?, Error?) -> ()){
+                
+        ImageManager.instance.uploadImageAndGetURL(type: "user", id: userID, image: imageSelected) { url, error in
+                if let error = error {
+                    done(nil, error)
+                }
+                done(url, nil)
+                
+        }
+        
+       
+        
+    }
+    
     func updateUserDisplayName(email: String, newName: String) async throws {
         
         do {
             try await userCollection.document(email).updateData([K.FireStore.User.displayNameField : newName])
+            
+        }catch {
+            self.handleAlert(error, msg: nil)
+        }
+      
+    }
+    
+    func updateUserBio(email: String, bio: String) async throws {
+        
+        do {
+            try await userCollection.document(email).updateData([K.FireStore.User.bioField : bio])
             
         }catch {
             self.handleAlert(error, msg: nil)

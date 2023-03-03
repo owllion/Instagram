@@ -144,8 +144,7 @@ class PostViewModel: ObservableObject {
         
         ImageManager.instance.uploadImageAndGetURL(type: "post", id: postID, image: image) { [self] url, error in
             if let error = error {
-                self.alertMessage = error
-                self.showAlert = true
+                self.handleError(error, msg: nil)
             }
             let postData: [String: Any] = [
                 K.FireStore.Post.postIDField: postID,
