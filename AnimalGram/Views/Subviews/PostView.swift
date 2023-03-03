@@ -20,11 +20,20 @@ struct PostView: View {
                 if showHeaderAndFooter {
                     HStack {
                         NavigationLink {
-                            //isMyProfile = false => 因為這邊是貼文串，點進去當然是別人的
                             ProfileView(isMyProfile: false)
                         } label: {
-                            Image("dog1").resizable()
-                                .scaledToFill().frame(width: 30,height: 30,alignment: .center).cornerRadius(15)
+                            URLImage(
+                                    url: URL(string: post.userImageURL)!,
+                                     failure: { error, retry in
+                                        VStack {
+                                            Text(error.localizedDescription)
+                                        }
+                                    },
+                                     content: { image in
+                                         image
+                                             .resizable()
+                                             .scaledToFill().frame(width: 30,height: 30,alignment: .center).cornerRadius(15)
+                                     })
                             Text(post.displayName)
                                 .font(.callout)
                                 .fontWeight(.medium)
@@ -214,7 +223,7 @@ struct PostView: View {
 
 
 struct PostView_Previews: PreviewProvider {
-    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", postImageURL: "", likeCount: 0, likedBy: ["123"], createdAt: Int(Date().timeIntervalSince1970))
+    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", postImageURL: "", userImageURL: "", likeCount: 0, likedBy: ["123"], createdAt: Int(Date().timeIntervalSince1970))
     
     static var previews: some View {
         PostView(post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)

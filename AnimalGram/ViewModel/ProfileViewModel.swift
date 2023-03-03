@@ -43,8 +43,8 @@ class ProfileViewModel: ObservableObject {
             let snapshot = try await postCollection
                 .whereField(K.FireStore.Post.userIDField, isEqualTo: userID)
                 .order(by: K.FireStore.Post.createdAtField,descending: false)
-                            .limit(to: 50)
-                            .getDocuments()
+                .limit(to: 50)
+                .getDocuments()
 
             self.userPosts = []
             
@@ -56,13 +56,15 @@ class ProfileViewModel: ObservableObject {
                     let postId = data[K.FireStore.Post.postIDField] as? String,
                     let displayName = data[K.FireStore.Post.displayNameField] as? String,
                     let createdAt = data[K.FireStore.Post.createdAtField] as? Int,
+                    
                     let caption = data[K.FireStore.Post.captionField] as? String,
                     let postImageURL = data[K.FireStore.Post.postImageURLField] as? String,
+                    let userImageURL = data[K.FireStore.Post.userImageURLField] as? String,
                     let likeCount = data[K.FireStore.Post.likeCountField] as? Int,
                     let likeBy = data[K.FireStore.Post.likeByField] as?  Array<String>
                         
                 {
-                    let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURL: postImageURL, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
+                    let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURL: postImageURL, userImageURL: userImageURL, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
                                         
                     self.userPosts.append(newPost)
                 }
@@ -75,7 +77,7 @@ class ProfileViewModel: ObservableObject {
             
         }catch {
             self.isLoading = false
-            print(error.localizedDescription,"這是載入使用者貼文的錯誤")
+            print(error.localizedDescription,"載入使用者貼文的錯誤")
             self.handleError(error)
         }
     }

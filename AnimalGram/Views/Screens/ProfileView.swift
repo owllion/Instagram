@@ -9,14 +9,12 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    @ObservedObject var profileViewModel = ProfileViewModel()
+    @StateObject var profileViewModel = ProfileViewModel()
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @Environment(\.colorScheme) var colorScheme
     @State var showSettings: Bool = false
     
     var isMyProfile: Bool
-    //true => show the setting bar,otherwise do not show.
-    
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {

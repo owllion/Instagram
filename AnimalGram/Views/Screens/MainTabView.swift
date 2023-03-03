@@ -10,7 +10,6 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
             TabView {
-                //NavigationView is for the top title & link
                 NavigationView {
                     FeedView(title: "Feed")
                 }.tabItem {
@@ -22,9 +21,6 @@ struct MainTabView: View {
                 } .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }.toolbar(.visible, for: .tabBar)
-                    .toolbarBackground(.red, for: .tabBar)
-                
-                
                 NavigationView {
                     UploadView()
                     
@@ -37,8 +33,6 @@ struct MainTabView: View {
                 }.tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }
-            }.onAppear {
-                print("MainView出現")
             }
     }
 }

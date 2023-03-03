@@ -138,7 +138,7 @@ class PostViewModel: ObservableObject {
         viewController?.present(activityViewController, animated: true, completion: nil)
     }
 
-    func createPost(with caption: String, and image: UIImage, by userID: String, named userName: String) {
+    func createPost(with caption: String, and image: UIImage, by userID: String, imageURL: String , named userName: String) {
         
         let postID = generatePostIDForCreatingPost()
         
@@ -151,8 +151,9 @@ class PostViewModel: ObservableObject {
                 K.FireStore.Post.userIDField: userID,
                 K.FireStore.Post.displayNameField: userName,
                 K.FireStore.Post.postImageURLField: url! as String,
+                K.FireStore.Post.userImageURLField : imageURL ,
                 K.FireStore.Post.captionField: caption,
-                K.FireStore.Post.createdAtField: FieldValue.serverTimestamp(),
+                K.FireStore.Post.createdAtField: Int(Date().timeIntervalSince1970),
                 K.FireStore.Post.likeCountField: 0,
                 K.FireStore.Post.likeByField: []
             ]

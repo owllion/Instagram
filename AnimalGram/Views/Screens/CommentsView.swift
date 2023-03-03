@@ -47,8 +47,6 @@ struct CommentsView: View {
                     
                     TextField("Add a comment here ...", text: $submissionText)
                     Button {
-                            
-                            
                             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             
                             Task {

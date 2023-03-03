@@ -53,11 +53,15 @@ struct PostImageView: View {
                 )
                 .customTextField(background: Color.MyTheme.beige)
                 .padding(.horizontal)
-                
-                
-                
+
                 Button {
-                    postPicture(image: imageSelected)
+                    postViewModel.createPost(
+                        with: captionText,
+                        and: imageSelected,
+                        by: authViewModel.userID!,
+                        imageURL: authViewModel.imageURL,
+                        named: authViewModel.displayName
+                    )
                 } label: {
                     Text("Post Picture".uppercased())
                         .font(.title3)
@@ -73,27 +77,14 @@ struct PostImageView: View {
                         Alert(
                             title: Text(postViewModel.alertMessage),
                            message: nil,
-                            primaryButton: .default(Text("OK")) {
+                            dismissButton: .default(Text("OK")) {
                                 self.dismiss()
-                            },
-                           secondaryButton: .cancel()
+                            }
                         )
                     }
-                
             }
         }
     }
-    
-    func postPicture(image: UIImage) {
-        postViewModel.createPost(
-            with: captionText,
-            and: image,
-            by: authViewModel.userID!,
-            named: authViewModel.displayName
-        )
-        
-    }
-    
 }
 
 struct PostImageView_Previews: PreviewProvider {

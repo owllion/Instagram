@@ -73,7 +73,7 @@ struct SettingsEditImageView: View {
             })
                 
             Button {
-                settingsEditTextViewModel.updateUserAvatar(userID: authViewModel.userID!, imageSelected: imageSelected) {
+                settingsEditTextViewModel.uploadUserAvatar(userID: authViewModel.userID!, imageSelected: imageSelected) {
                     url, error in
                         
                     if let error = error {
@@ -81,6 +81,12 @@ struct SettingsEditImageView: View {
                         return
                     }
                     self.authViewModel.imageURL = url!
+                    
+                    //update db
+                    Task {
+                        await self.settingsEditTextViewModel.updateUserAvatar(email: self.authViewModel.email, url: url!)
+                    }
+                    
                     
                     settingsEditTextViewModel.handleSuccess(msg: "Successfully change your avatar")
                 }

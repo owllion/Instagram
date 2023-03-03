@@ -41,7 +41,7 @@ struct ImageGridView_Previews: PreviewProvider {
                      userID: "",
                      displayName: "Tim Borton",
                      caption: "",
-                     postImageURL: "", likeCount: 10,
+                     postImageURL: "", userImageURL: "", likeCount: 10,
                      likedBy: [],
                      createdAt: Int(Date().timeIntervalSince1970)
                     )

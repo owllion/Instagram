@@ -32,7 +32,7 @@ class SettingsEditTextViewModel: ObservableObject {
     }
     
     
-    func updateUserAvatar(userID: String, imageSelected: UIImage, done: @escaping (String?, Error?) -> ()){
+    func uploadUserAvatar(userID: String, imageSelected: UIImage, done: @escaping (String?, Error?) -> ()){
                 
         ImageManager.instance.uploadImageAndGetURL(type: "user", id: userID, image: imageSelected) { url, error in
                 if let error = error {
@@ -41,9 +41,16 @@ class SettingsEditTextViewModel: ObservableObject {
                 done(url, nil)
                 
         }
-        
-       
-        
+    }
+    
+    func updateUserAvatar(email: String, url: String) async {
+        do {
+            try await userCollection.document(email).updateData([K.FireStore.User.imageURLField : url])
+            
+        }catch {
+            self.handleAlert(error, msg: nil)
+        }
+      
     }
     
     func updateUserDisplayName(email: String, newName: String) async throws {

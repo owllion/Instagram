@@ -59,11 +59,12 @@ class FeedViewModel: ObservableObject {
                         let createdAt = data[K.FireStore.Post.createdAtField] as? Int,
                         let caption = data[K.FireStore.Post.captionField] as? String,
                         let postImageURL = data[K.FireStore.Post.postImageURLField] as? String,
+                        let userImageURL = data[K.FireStore.Post.userImageURLField] as? String,
                         let likeCount = data[K.FireStore.Post.likeCountField] as? Int,
                         let likeBy = data[K.FireStore.Post.likeByField] as? Array<String>
                             
                     {
-                        let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURL: postImageURL, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
+                        let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURL: postImageURL, userImageURL: userImageURL, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
                         self.posts.append(newPost)
                     }
                     
