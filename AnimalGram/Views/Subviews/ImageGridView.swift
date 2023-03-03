@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct ImageGridView: View {
     
@@ -40,9 +41,9 @@ struct ImageGridView_Previews: PreviewProvider {
                      userID: "",
                      displayName: "Tim Borton",
                      caption: "",
-                     dateCreated: Int(Date().timeIntervalSince1970),
                      postImageURL: "", likeCount: 10,
-                     likedBy: []
+                     likedBy: [],
+                     createdAt: Int(Date().timeIntervalSince1970)
                     )
                 ]
     static var previews: some View {

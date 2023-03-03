@@ -38,7 +38,7 @@ class CommentViewModel : ObservableObject {
             K.FireStore.Post.Comment.contentField : content,
             K.FireStore.Post.Comment.userNameField : userName,
             K.FireStore.Post.Comment.userImageURLField : imgUrl,
-            K.FireStore.Post.Comment.createAtField : FieldValue.serverTimestamp()
+            K.FireStore.Post.Comment.createdAtField : FieldValue.serverTimestamp()
         ]
         
         do {
@@ -58,7 +58,7 @@ class CommentViewModel : ObservableObject {
             postCollection
                 .document(postID)
                 .collection(K.FireStore.Post.Comment.collectionName)
-                .order(by: K.FireStore.Post.Comment.createAtField)
+                .order(by: K.FireStore.Post.Comment.createdAtField)
                 .limit(to: 50)
                 .addSnapshotListener { snapshot, error in
                     
@@ -76,11 +76,12 @@ class CommentViewModel : ObservableObject {
                             let userName = data[K.FireStore.Post.Comment.userNameField] as? String,
                             let userImageURL = data[K.FireStore.Post.Comment.userImageURLField] as? String,
                             let content = data[K.FireStore.Post.Comment.contentField] as? String,
+                            let likeCount = data[K.FireStore.Post.Comment.likeCountField] as? Int,
                             
-                                let createAt = data[K.FireStore.Post.Comment.createAtField] as? Timestamp
+                                let createdAt = data[K.FireStore.Post.Comment.createdAtField] as? Timestamp
                                 
                         {
-                            let newComment = Comment(id: UUID().uuidString, userName: userName, userImageURL: userImageURL, content: content, commentID: commentID, createAt: createAt)
+                            let newComment = Comment(id: UUID().uuidString, userName: userName, userImageURL: userImageURL, content: content, commentID: commentID, likeCount: likeCount, createdAt: createdAt)
                             
                             self.comments.append(newComment)
                         }

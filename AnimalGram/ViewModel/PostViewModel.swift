@@ -96,7 +96,7 @@ class PostViewModel: ObservableObject {
         let data: [String : Any] = [
             K.FireStore.Report.contentField : reason,
             K.FireStore.Report.postIDField : postID,
-            K.FireStore.Report.dateCreated : FieldValue.serverTimestamp()
+            K.FireStore.Report.createdAtField : FieldValue.serverTimestamp()
         ]
         
         do {
@@ -152,7 +152,7 @@ class PostViewModel: ObservableObject {
                 K.FireStore.Post.displayNameField: userName,
                 K.FireStore.Post.postImageURLField: url! as String,
                 K.FireStore.Post.captionField: caption,
-                K.FireStore.Post.dateCreated: Int(Date().timeIntervalSince1970),
+                K.FireStore.Post.createdAtField: FieldValue.serverTimestamp(),
                 K.FireStore.Post.likeCountField: 0,
                 K.FireStore.Post.likeByField: []
             ]

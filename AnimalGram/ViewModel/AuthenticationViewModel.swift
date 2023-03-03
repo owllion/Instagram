@@ -60,16 +60,11 @@ class AuthenticationViewModel: ObservableObject {
             //Start login flow
             let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: UIApplication.shared.rootController())
             await self.authenticateUser(for: result)
-            print("這是awiat authenticate下面")
             
-            //MainView FeedView show here==
             let userInDB = await self.checkIfUserExistsInDB(with: self.email)
-            print("THis is userInDb await", userInDB)
             
-            //OnboradingView 根本沒有awiat這部分 他就只會等待到上面部分而已
-            if await self.checkIfUserExistsInDB(with: self.email) {
-                try await getUserID(with: self.email)
-                print("This is userId adter getUserID", self.userID)
+            if userInDB {
+                try await getUserInfo(with: self.email)
                 self.state = .signedIn
             } else {
                 self.createUser()
@@ -138,11 +133,14 @@ class AuthenticationViewModel: ObservableObject {
     
     
     @MainActor
-    func getUserID(with email: String) async throws {
+    func getUserInfo(with email: String) async throws {
         do {
             let document = try await userCollection.document(email).getDocument()
             
             self.userID = document.get(K.FireStore.User.userIDField) as? String
+            self.displayName = (document.get(K.FireStore.User.displayNameField) as? String)!
+            self.imageURL = (document.get(K.FireStore.User.imageURLField) as? String)!
+            self.bio = document.get(K.FireStore.User.bioField) as? String ?? ""
             
         }catch {
             self.handleError(error)
@@ -159,8 +157,8 @@ class AuthenticationViewModel: ObservableObject {
             K.FireStore.User.emailField : email,
             K.FireStore.User.imageURLField: imageURL ,
             K.FireStore.User.userIDField : id,
-            K.FireStore.User.bioField : "Introduce yourself!",
-            K.FireStore.User.dateCreated : Date().timeIntervalSince1970
+            K.FireStore.User.bioField : "Introduce yourself",
+            K.FireStore.User.createdAtField : FieldValue.serverTimestamp()
         ]
         
         userCollection.document(self.email).setData(userData)

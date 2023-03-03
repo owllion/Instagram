@@ -20,7 +20,7 @@ struct K {
             static let imageURLField = "imageURL"
             static let userIDField = "userID"
             static let bioField = "bio"
-            static let dateCreated = "dateCreated"
+            static let createdAtField = "createdAt"
         }
         
         struct Post {
@@ -32,10 +32,10 @@ struct K {
             static let userIDField = "userID"
             static let displayNameField = "displayName"
             static let captionField = "caption"
-            static let dateCreated = "dateCreated"
             static let likeCountField = "likeCount"
             static let likeByField = "likeBy"
             static let commentField = "comments"
+            static let createdAtField = "createdAt"
             //sub-collection
             struct Comment {
                 //static let userIDField = "userID"
@@ -44,8 +44,10 @@ struct K {
                 static let commentIDField = "commentID"
                 static let userImageURLField = "userImageURL"
                 static let userNameField = "userName"
-                static let createAtField = "createdAt"
                 static let contentField = "content"
+                static let likeCountField = "likeCount"
+                static let createdAtField = "createdAt"
+
             }
         }
         
@@ -54,7 +56,7 @@ struct K {
             
             static let postIDField = "postID"
             static let contentField = "content"
-            static let dateCreated = "dateCreated"
+            static let createdAtField = "createdAt"
         }
         
         

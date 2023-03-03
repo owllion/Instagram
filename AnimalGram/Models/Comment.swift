@@ -14,5 +14,6 @@ struct Comment : Identifiable, Hashable {
     var userImageURL: String
     var content: String
     var commentID: String
-    var createAt: Timestamp
+    var likeCount: Int
+    var createdAt: Timestamp
 }

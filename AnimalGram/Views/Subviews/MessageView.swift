@@ -54,7 +54,7 @@ struct MessageView: View {
 }
 
 struct MessageView_Previews: PreviewProvider {
-    static var comment = Comment(id: UUID().uuidString, userName: "Tom", userImageURL: "", content: "Cool", commentID: "", createAt: Timestamp())
+    static var comment = Comment(id: UUID().uuidString, userName: "Tom", userImageURL: "", content: "Cool", commentID: "", likeCount: 998, createdAt: Timestamp())
     static var previews: some View {
         MessageView(comment: comment).previewLayout(.sizeThatFits)
     }

@@ -132,7 +132,7 @@ struct PostView: View {
                              })
                         
                     LikeAnimationView(animate: $postViewModel.animateLike)
-                }.frame(height: 240)
+                }
                 
                 //MARK: - FOOTER
                 if showHeaderAndFooter {
@@ -214,7 +214,7 @@ struct PostView: View {
 
 
 struct PostView_Previews: PreviewProvider {
-    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", dateCreated: Int(Date().timeIntervalSince1970), postImageURL: "", likeCount: 0, likedBy: ["123"])
+    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", postImageURL: "", likeCount: 0, likedBy: ["123"], createdAt: Int(Date().timeIntervalSince1970))
     
     static var previews: some View {
         PostView(post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)

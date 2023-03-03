@@ -34,7 +34,7 @@ class FeedViewModel: ObservableObject {
         self.isLoading = true
         
         postCollection
-            .order(by: K.FireStore.Post.dateCreated)
+            .order(by: K.FireStore.Post.createdAtField)
             .limit(to: 50)
             .addSnapshotListener { snapshot, error in
                 
@@ -56,14 +56,14 @@ class FeedViewModel: ObservableObject {
                         let userID = data[K.FireStore.Post.userIDField] as? String,
                         let postId = data[K.FireStore.Post.postIDField] as? String,
                         let displayName = data[K.FireStore.Post.displayNameField] as? String,
-                        let dateCreated = data[K.FireStore.Post.dateCreated] as? Int,
+                        let createdAt = data[K.FireStore.Post.createdAtField] as? Int,
                         let caption = data[K.FireStore.Post.captionField] as? String,
                         let postImageURL = data[K.FireStore.Post.postImageURLField] as? String,
                         let likeCount = data[K.FireStore.Post.likeCountField] as? Int,
                         let likeBy = data[K.FireStore.Post.likeByField] as? Array<String>
                             
                     {
-                        let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, dateCreated: dateCreated, postImageURL: postImageURL, likeCount: likeCount, likedBy: likeBy)
+                        let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURL: postImageURL, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
                         self.posts.append(newPost)
                     }
                     
