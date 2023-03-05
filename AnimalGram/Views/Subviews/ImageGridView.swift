@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct ImageGridView: View {
-    
+    @State var isLoading: Bool = false
     var posts: [Post]
     
     var body: some View {
@@ -27,7 +27,7 @@ struct ImageGridView: View {
                     NavigationLink {
                         FeedView(title:"Post")
                     } label: {
-                        PostView(post: post, showHeaderAndFooter: false)
+                        PostView(isLoading: $isLoading, post: post, showHeaderAndFooter: false)
                     }
                 }
 

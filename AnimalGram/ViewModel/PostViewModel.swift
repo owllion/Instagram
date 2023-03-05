@@ -65,19 +65,13 @@ class PostViewModel: ObservableObject {
         postCollection.document(postID).updateData(data) {
             error in
             if let error = error {
-                print("這是error",error)
+                self.handleError(error, msg: nil)
                 return
             }
         }
     }
     
     func unlikePost(post: Post, postID: String, userID: String) {
-        
-        //Update animation
-//        self.animateLike = true
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-//            animateLike = false
-//        }
         
         //Update db data
         let increment: Int64 = -1
@@ -92,7 +86,6 @@ class PostViewModel: ObservableObject {
     
     @MainActor
     func reportPost(reason: String, postID: String) async throws  {
-        self.isLoading = true
         let data: [String : Any] = [
             K.FireStore.Report.contentField : reason,
             K.FireStore.Report.postIDField : postID,
@@ -105,11 +98,8 @@ class PostViewModel: ObservableObject {
             self.dialogType = .general
             
             self.handleSuccess("Thanks for reporting this post. We will review it shortly and take the appropriate action!")
-            self.isLoading = false
 
         }catch {
-            self.isLoading = false
-            
             self.handleError(error, msg: "Error! There was an error uploading the report. Please restart the app and try again.")
         }
     }

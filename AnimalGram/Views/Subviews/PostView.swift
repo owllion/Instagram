@@ -3,9 +3,8 @@ import URLImage
 
 struct PostView: View {
     
-    @State var postImage: UIImage?
-    @State var postUserImageURL: String = ""
-
+    @Binding var isLoading: Bool
+    
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @StateObject var postViewModel = PostViewModel()
     
@@ -68,8 +67,14 @@ struct PostView: View {
                                     Button (role: .destructive){
                                         Task {
                                             do {
-                                                try await postViewModel.reportPost(reason: "This is inappropriate", postID: post.postID )
+                                                self.isLoading = true
+
+                                                try await postViewModel.reportPost(reason: "This is inappropriate", postID: post.postID)
+                                                self.isLoading = false
+
                                             }catch {
+                                                self.isLoading = false
+
                                                 print(error)
                                             }
                                         }
@@ -79,11 +84,13 @@ struct PostView: View {
                                     }
                                     
                                     Button(role: .destructive) {
-                                        
                                         Task {
                                             do {
+                                                self.isLoading = true
                                                 try await postViewModel.reportPost(reason: "This is spam", postID: post.postID)
+                                                self.isLoading = false
                                             }catch {
+                                                self.isLoading = false
                                                 print(error)
                                             }
                                         }
@@ -95,10 +102,16 @@ struct PostView: View {
                                     Button(role: .destructive) {
                                         Task {
                                             do {
+                                                
+                                                self.isLoading = true
+
                                                 try await postViewModel.reportPost(reason: "It made me uncomfortable", postID: post.postID)
                                                 
-                
+                                                self.isLoading = false
+
                                             }catch {
+                                                self.isLoading = false
+
                                                 print(error)
                                             }
                                         }
@@ -155,10 +168,10 @@ struct PostView: View {
                                     
                                 } else {
                                      postViewModel.likePost(post: post, postID: post.postID, userID: authViewModel.userID!)
-                                    
 
                                 }
-                            }.foregroundColor( post.likedBy.contains(authViewModel.userID!) ? Color.red : Color.primary)
+                            }
+                            .foregroundColor( post.likedBy.contains(authViewModel.userID!) ? Color.red : Color.primary)
 
                         //MARK: - COMMENTS ICON
                         NavigationLink(
@@ -193,40 +206,22 @@ struct PostView: View {
                 }
                 
                 
-            }.onAppear {
-                self.loadImageFromURL(post.postImageURL)
             }.alert(isPresented: $postViewModel.showAlert) {
                 () -> Alert in return Alert(title: Text(postViewModel.alertMessage), message: nil, dismissButton: .default(Text("OK")))
             }
-            
-            
-            if postViewModel.isLoading {
-                LoadingView(lottieFile: "loading2")
-                    
-            }
+
         }
         
     }
-    
-
-    private func loadImageFromURL(_ strURL: String) {
-           
-           guard let url = URL(string: strURL) else {
-               return
-           }
-        
-           NetworkManager.loadData(url: url) { (image) in
-               self.postImage = image
-           }
-       }
 }
 
 
 struct PostView_Previews: PreviewProvider {
+    @State static var isLoading: Bool = false
     static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", postImageURL: "", userImageURL: "", likeCount: 0, likedBy: ["123"], createdAt: Int(Date().timeIntervalSince1970))
     
     static var previews: some View {
-        PostView(post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)
+        PostView(isLoading: $isLoading, post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)
     }
 }
 

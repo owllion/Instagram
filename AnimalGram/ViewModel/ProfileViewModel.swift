@@ -42,7 +42,7 @@ class ProfileViewModel: ObservableObject {
         do {
             let snapshot = try await postCollection
                 .whereField(K.FireStore.Post.userIDField, isEqualTo: userID)
-                .order(by: K.FireStore.Post.createdAtField,descending: false)
+                .order(by: K.FireStore.Post.createdAtField,descending: true)
                 .limit(to: 50)
                 .getDocuments()
 

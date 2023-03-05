@@ -9,10 +9,10 @@ import SwiftUI
 
 struct SinglePostView: View {
     @State var post: Post
-    
+    @State var isLoading: Bool = false
     var body: some View {
         ScrollView (.vertical, showsIndicators: false) {
-            PostView(post: post, showHeaderAndFooter: true)
+            PostView(isLoading: $isLoading, post: post, showHeaderAndFooter: true)
         }.navigationTitle("Post")
             .navigationBarTitleDisplayMode(.large)
     }

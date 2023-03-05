@@ -13,20 +13,30 @@ struct FeedView: View {
     @ObservedObject var feedViewModel = FeedViewModel()
     
     var title: String
+    @State var isLoading: Bool = false
     
     var body: some View {
-        ScrollView (.vertical, showsIndicators: false) {
-            LazyVStack {
-                ForEach(feedViewModel.posts, id: \.self) { post in
-                    PostView(post: post, showHeaderAndFooter: true)
+        ZStack {
+            ScrollView (.vertical, showsIndicators: false) {
+                LazyVStack {
+                    ForEach(feedViewModel.posts, id: \.self) { post in
+                        PostView(isLoading: $isLoading, post: post, showHeaderAndFooter: true)
+                    }
                 }
+                
+            }.navigationTitle(title)
+                .navigationBarTitleDisplayMode(.large)
+                .onAppear {
+                    feedViewModel.getPosts()
+                }
+            if self.isLoading {
+                withAnimation(.easeIn(duration: 0.2)) {
+                    LoadingView(lottieFile:"loading2")
+                }
+
             }
-            
-        }.navigationTitle(title)
-            .navigationBarTitleDisplayMode(.large)
-            .onAppear {
-                feedViewModel.getPosts()
-            }
+        }
+       
     }
 }
 

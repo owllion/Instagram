@@ -34,7 +34,7 @@ class FeedViewModel: ObservableObject {
         self.isLoading = true
         
         postCollection
-            .order(by: K.FireStore.Post.createdAtField)
+            .order(by: K.FireStore.Post.createdAtField, descending: true)
             .limit(to: 50)
             .addSnapshotListener { snapshot, error in
                 
