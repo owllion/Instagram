@@ -15,7 +15,7 @@ class FeedViewModel: ObservableObject {
 
     private var postCollection = store.collection(K.FireStore.Post.collectionName)
     
-    @Published var posts = [Post]()
+    @Published var posts:[Post] = [Post]()
     @Published var isLoading: Bool = false
     
     //MARK: - Error Properties
@@ -42,7 +42,7 @@ class FeedViewModel: ObservableObject {
                 self.posts = []
                 
                 if let error = error {
-                    
+                    print("FeedVM 有錯誤")
                     self.isLoading = false
                     
                     self.alertMessage = error.localizedDescription
@@ -60,11 +60,13 @@ class FeedViewModel: ObservableObject {
                         let caption = data[K.FireStore.Post.captionField] as? String,
                         let postImageURL = data[K.FireStore.Post.postImageURLField] as? String,
                         let userImageURL = data[K.FireStore.Post.userImageURLField] as? String,
+                        
+                            let email = data[K.FireStore.Post.emailField] as? String,
                         let likeCount = data[K.FireStore.Post.likeCountField] as? Int,
                         let likeBy = data[K.FireStore.Post.likeByField] as? Array<String>
                             
                     {
-                        let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURL: postImageURL, userImageURL: userImageURL, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
+                        let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURL: postImageURL, userImageURL: userImageURL, email: email, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
                         self.posts.append(newPost)
                     }
                     

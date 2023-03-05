@@ -9,7 +9,6 @@ import SwiftUI
 import FirebaseFirestore
 
 struct ImageGridView: View {
-    @State var isLoading: Bool = false
     var posts: [Post]
     
     var body: some View {
@@ -22,12 +21,12 @@ struct ImageGridView: View {
             alignment: .center,
             spacing: nil,
             pinnedViews: []) {
-                ForEach(posts, id: \.self) {
+                ForEach(posts, id: \.postID) {
                     post in
                     NavigationLink {
                         FeedView(title:"Post")
                     } label: {
-                        PostView(isLoading: $isLoading, post: post, showHeaderAndFooter: false)
+                        PostView(post: post, showHeaderAndFooter: false)
                     }
                 }
 
@@ -41,7 +40,7 @@ struct ImageGridView_Previews: PreviewProvider {
                      userID: "",
                      displayName: "Tim Borton",
                      caption: "",
-                     postImageURL: "", userImageURL: "", likeCount: 10,
+                     postImageURL: "", userImageURL: "", email: "", likeCount: 10,
                      likedBy: [],
                      createdAt: Int(Date().timeIntervalSince1970)
                     )

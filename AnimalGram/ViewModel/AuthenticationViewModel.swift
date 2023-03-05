@@ -29,10 +29,9 @@ class AuthenticationViewModel: ObservableObject {
     @Published var imageURL: String = ""
     @Published var userID: String?
     
-    //MARK: - View Properties
     @Published var state: SignInState = .signedOut
+    @Published var isLoading: Bool = false
     
-    //MARK: - Error Properties
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
     
@@ -138,7 +137,10 @@ class AuthenticationViewModel: ObservableObject {
             let document = try await userCollection.document(email).getDocument()
             
             self.userID = document.get(K.FireStore.User.userIDField) as? String
+            
+            print(document.get(K.FireStore.User.displayNameField))
             self.displayName = (document.get(K.FireStore.User.displayNameField) as? String)!
+            
             self.imageURL = (document.get(K.FireStore.User.imageURLField) as? String)!
             self.bio = document.get(K.FireStore.User.bioField) as? String ?? ""
             
@@ -162,7 +164,7 @@ class AuthenticationViewModel: ObservableObject {
         ]
         
         userCollection.document(self.email).setData(userData)
-        print("Successfullt create user")
+        print("Successfully create user")
 //        userCollection.addDocument(data: userData) { error in
 //            if let error = error {
 //                self.handleError(error)

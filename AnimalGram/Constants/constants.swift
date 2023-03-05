@@ -31,6 +31,7 @@ struct K {
             static let postImageURLField = "postImageURL"
             static let userImageURLField = "userImageURL"
             static let userIDField = "userID"
+            static let emailField = "email"
             static let displayNameField = "displayName"
             static let captionField = "caption"
             static let likeCountField = "likeCount"

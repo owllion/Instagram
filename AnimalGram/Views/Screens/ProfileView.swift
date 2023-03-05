@@ -14,13 +14,18 @@ struct ProfileView: View {
     @Environment(\.colorScheme) var colorScheme
     @State var showSettings: Bool = false
     
+    var email: String
     var isMyProfile: Bool
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            ProfileHeaderView(totalPosts: profileViewModel.totalPosts, totalPostLikes: profileViewModel.totalPostLikes)
+            
+            ProfileHeaderView(isMyProfile: isMyProfile)
+                .environmentObject(profileViewModel)
+            
             Divider()
             ImageGridView(posts: profileViewModel.userPosts)
+            
         }.navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -31,13 +36,13 @@ struct ProfileView: View {
                         Image(systemName: "line.horizontal.3")
                     }.tint(colorScheme == .light ? Color.MyTheme.purple : Color.MyTheme.yellow)
                         .opacity(isMyProfile ? 1.0 : 0.0)
-
                 }
             }
             .onAppear {
                 Task {
                     do {
-                        try await profileViewModel.getUserPosts(with: authViewModel.userID!)
+                        try await profileViewModel.getPostAuthorInfo(with: email)
+                        try await profileViewModel.getUserPosts(with: profileViewModel.userID)
                     }catch {
                         print(error)
                     }
@@ -45,7 +50,9 @@ struct ProfileView: View {
               
             }
             .sheet(isPresented: $showSettings) {
-                SettingsView().environmentObject(authViewModel)
+                SettingsView()
+                    .environmentObject(authViewModel)
+                    .environmentObject(profileViewModel)
             }
     }
 }
@@ -54,7 +61,7 @@ struct ProfileView_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            ProfileView(isMyProfile: true)
+            ProfileView(email: "", isMyProfile: true)
         }
         
         

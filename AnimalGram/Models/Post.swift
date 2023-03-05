@@ -14,6 +14,7 @@ struct Post: Identifiable ,Hashable {
     var caption: String?
     var postImageURL: String
     var userImageURL: String
+    var email: String
     var likeCount: Int
     var likedBy: Array<String>
     var createdAt: Int

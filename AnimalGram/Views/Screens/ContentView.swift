@@ -9,17 +9,31 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var loginViewModel: AuthenticationViewModel
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        switch loginViewModel.state {
-        case .signedOut:
-            NavigationView { SignUpView() }
-        case .signedIn:
-            MainTabView()
+        ZStack {
+            switch authViewModel.state {
+            case .signedOut:
+                NavigationView { SignUpView() }
+            case .signedIn:
+               
+                MainTabView()
+                
+                if authViewModel.isLoading {
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        LoadingView(lottieFile:"main-loading")
+                    }
+
+                }
+                
+            }
             
+            
+           
         }
+       
     }
     
     struct ContentView_Previews: PreviewProvider {

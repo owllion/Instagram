@@ -55,13 +55,7 @@ struct PostImageView: View {
                 .padding(.horizontal)
 
                 Button {
-                    postViewModel.createPost(
-                        with: captionText,
-                        and: imageSelected,
-                        by: authViewModel.userID!,
-                        imageURL: authViewModel.imageURL,
-                        named: authViewModel.displayName
-                    )
+                    postViewModel.createPost(with: captionText, image: imageSelected, userID: authViewModel.userID!, imageURL: authViewModel.imageURL, userName: authViewModel.displayName, email: authViewModel.email)
                 } label: {
                     Text("Post Picture".uppercased())
                         .font(.title3)

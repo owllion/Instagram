@@ -2,9 +2,7 @@ import SwiftUI
 import URLImage
 
 struct PostView: View {
-    
-    @Binding var isLoading: Bool
-    
+        
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @StateObject var postViewModel = PostViewModel()
     
@@ -19,7 +17,7 @@ struct PostView: View {
                 if showHeaderAndFooter {
                     HStack {
                         NavigationLink {
-                            ProfileView(isMyProfile: false)
+                            ProfileView(email: post.email, isMyProfile: false )
                         } label: {
                             URLImage(
                                     url: URL(string: post.userImageURL)!,
@@ -67,13 +65,13 @@ struct PostView: View {
                                     Button (role: .destructive){
                                         Task {
                                             do {
-                                                self.isLoading = true
+                                                authViewModel.isLoading = true
 
                                                 try await postViewModel.reportPost(reason: "This is inappropriate", postID: post.postID)
-                                                self.isLoading = false
+                                                authViewModel.isLoading = false
 
                                             }catch {
-                                                self.isLoading = false
+                                                authViewModel.isLoading = false
 
                                                 print(error)
                                             }
@@ -86,11 +84,11 @@ struct PostView: View {
                                     Button(role: .destructive) {
                                         Task {
                                             do {
-                                                self.isLoading = true
+                                                authViewModel.isLoading = true
                                                 try await postViewModel.reportPost(reason: "This is spam", postID: post.postID)
-                                                self.isLoading = false
+                                                authViewModel.isLoading = false
                                             }catch {
-                                                self.isLoading = false
+                                                authViewModel.isLoading = false
                                                 print(error)
                                             }
                                         }
@@ -103,14 +101,14 @@ struct PostView: View {
                                         Task {
                                             do {
                                                 
-                                                self.isLoading = true
+                                                authViewModel.isLoading = true
 
                                                 try await postViewModel.reportPost(reason: "It made me uncomfortable", postID: post.postID)
                                                 
-                                                self.isLoading = false
+                                                authViewModel.isLoading = false
 
                                             }catch {
-                                                self.isLoading = false
+                                                authViewModel.isLoading = false
 
                                                 print(error)
                                             }
@@ -218,10 +216,10 @@ struct PostView: View {
 
 struct PostView_Previews: PreviewProvider {
     @State static var isLoading: Bool = false
-    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", postImageURL: "", userImageURL: "", likeCount: 0, likedBy: ["123"], createdAt: Int(Date().timeIntervalSince1970))
+    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", postImageURL: "", userImageURL: "", email: "", likeCount: 0, likedBy: ["123"], createdAt: Int(Date().timeIntervalSince1970))
     
     static var previews: some View {
-        PostView(isLoading: $isLoading, post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)
+        PostView(post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)
     }
 }
 

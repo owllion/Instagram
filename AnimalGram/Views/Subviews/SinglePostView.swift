@@ -12,7 +12,7 @@ struct SinglePostView: View {
     @State var isLoading: Bool = false
     var body: some View {
         ScrollView (.vertical, showsIndicators: false) {
-            PostView(isLoading: $isLoading, post: post, showHeaderAndFooter: true)
+            PostView(post: post, showHeaderAndFooter: true)
         }.navigationTitle("Post")
             .navigationBarTitleDisplayMode(.large)
     }

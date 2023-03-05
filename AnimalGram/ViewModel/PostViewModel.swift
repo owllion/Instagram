@@ -128,7 +128,7 @@ class PostViewModel: ObservableObject {
         viewController?.present(activityViewController, animated: true, completion: nil)
     }
 
-    func createPost(with caption: String, and image: UIImage, by userID: String, imageURL: String , named userName: String) {
+    func createPost(with caption: String,image: UIImage,userID: String, imageURL: String ,userName: String, email: String) {
         
         let postID = generatePostIDForCreatingPost()
         
@@ -139,6 +139,7 @@ class PostViewModel: ObservableObject {
             let postData: [String: Any] = [
                 K.FireStore.Post.postIDField: postID,
                 K.FireStore.Post.userIDField: userID,
+                K.FireStore.Post.emailField: email,
                 K.FireStore.Post.displayNameField: userName,
                 K.FireStore.Post.postImageURLField: url! as String,
                 K.FireStore.Post.userImageURLField : imageURL ,

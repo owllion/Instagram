@@ -4,6 +4,7 @@ import Lottie
  
 struct LottieView: UIViewRepresentable {
     var lottieFile: String
+    var isLoop: Bool
  
     func makeUIView(context: Context) -> some UIView {
         let view = UIView(frame: .zero)
@@ -13,7 +14,7 @@ struct LottieView: UIViewRepresentable {
         
         animationView.frame = CGRect(x: 0, y: 0, width: 200, height: 900)
         animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .loop
+        animationView.loopMode = isLoop ? .loop : .playOnce
         animationView.play()
 
         view.addSubview(animationView)

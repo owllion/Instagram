@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2556F8C429B4821D0041B792 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F8C329B4821D0041B792 /* LaunchView.swift */; };
+		2556F8C629B482FB0041B792 /* launch-icon.json in Resources */ = {isa = PBXBuildFile; fileRef = 2556F8C529B482FB0041B792 /* launch-icon.json */; };
+		2556F8CF29B48C900041B792 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F8CE29B48C900041B792 /* SplashScreenView.swift */; };
+		2556F8D029B48FA70041B792 /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2556F8CD29B4892F0041B792 /* Billabong.ttf */; };
 		2562954829AC581C00BE59CB /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954729AC581C00BE59CB /* PostViewModel.swift */; };
 		2562954C29AC6CF400BE59CB /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954B29AC6CF400BE59CB /* ProfileViewModel.swift */; };
 		2562954E29AC931500BE59CB /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954D29AC931500BE59CB /* FeedViewModel.swift */; };
@@ -22,11 +26,11 @@
 		2562956E29B06F6500BE59CB /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956D29B06F6500BE59CB /* Comment.swift */; };
 		2562957229B0F8E700BE59CB /* SettingsEditTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562957129B0F8E700BE59CB /* SettingsEditTextViewModel.swift */; };
 		2562957429B1B2C900BE59CB /* SettingsEditImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562957329B1B2C900BE59CB /* SettingsEditImageViewModel.swift */; };
+		2562957A29B4808500BE59CB /* main-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2562957929B4808500BE59CB /* main-loading.json */; };
 		256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FB29A330E900087828 /* AnimalGramApp.swift */; };
 		256B17FE29A330E900087828 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FD29A330E900087828 /* ContentView.swift */; };
 		256B180029A330EA00087828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 256B17FF29A330EA00087828 /* Assets.xcassets */; };
 		256B180329A330EA00087828 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 256B180229A330EA00087828 /* Preview Assets.xcassets */; };
-		256B180A29A337D900087828 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 256B180929A337D900087828 /* LaunchScreen.storyboard */; };
 		256B181029A3496700087828 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B180F29A3496700087828 /* colors.swift */; };
 		256B181229A34A8600087828 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181129A34A8600087828 /* FeedView.swift */; };
 		256B181429A34B9100087828 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B181329A34B9100087828 /* PostView.swift */; };
@@ -63,6 +67,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2556F8C329B4821D0041B792 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		2556F8C529B482FB0041B792 /* launch-icon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "launch-icon.json"; path = "../../../../Downloads/launch-icon.json"; sourceTree = "<group>"; };
+		2556F8CD29B4892F0041B792 /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Billabong.ttf; path = ../../../../Downloads/Billabong.ttf; sourceTree = "<group>"; };
+		2556F8CE29B48C900041B792 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		2562954729AC581C00BE59CB /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		2562954B29AC6CF400BE59CB /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		2562954D29AC931500BE59CB /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
@@ -78,12 +86,12 @@
 		2562956D29B06F6500BE59CB /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		2562957129B0F8E700BE59CB /* SettingsEditTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEditTextViewModel.swift; sourceTree = "<group>"; };
 		2562957329B1B2C900BE59CB /* SettingsEditImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEditImageViewModel.swift; sourceTree = "<group>"; };
+		2562957929B4808500BE59CB /* main-loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "main-loading.json"; path = "../../../../Downloads/main-loading.json"; sourceTree = "<group>"; };
 		256B17F829A330E900087828 /* AnimalGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimalGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256B17FB29A330E900087828 /* AnimalGramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalGramApp.swift; sourceTree = "<group>"; };
 		256B17FD29A330E900087828 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		256B17FF29A330EA00087828 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		256B180229A330EA00087828 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		256B180929A337D900087828 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		256B180F29A3496700087828 /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		256B181129A34A8600087828 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		256B181329A34B9100087828 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
@@ -134,9 +142,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2556F8C729B486620041B792 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2556F8CC29B489260041B792 /* fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2556F8CC29B489260041B792 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2556F8CD29B4892F0041B792 /* Billabong.ttf */,
+			);
+			name = fonts;
+			sourceTree = "<group>";
+		};
 		2562955529AE17A900BE59CB /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				2556F8C529B482FB0041B792 /* launch-icon.json */,
+				2562957929B4808500BE59CB /* main-loading.json */,
 				2562956729B05D0100BE59CB /* loading2.json */,
 				2562955C29AE231100BE59CB /* post-loading.json */,
 				2562956929B05ECA00BE59CB /* LoadingView.swift */,
@@ -175,16 +201,17 @@
 			children = (
 				256B184D29A715A800087828 /* Info.plist */,
 				256B184B29A66F5900087828 /* GoogleService-Info.plist */,
+				2556F8C729B486620041B792 /* Resources */,
 				2562956429AF56BF00BE59CB /* Network */,
+				2562955529AE17A900BE59CB /* Lottie */,
 				256B181529A355DD00087828 /* Models */,
 				256B180B29A346D200087828 /* Views */,
 				256B184E29A71B0B00087828 /* ViewModel */,
-				2562955529AE17A900BE59CB /* Lottie */,
 				256B184429A5C32E00087828 /* Utility */,
 				256B180E29A3494600087828 /* Constants */,
 				256B17FF29A330EA00087828 /* Assets.xcassets */,
-				256B180929A337D900087828 /* LaunchScreen.storyboard */,
 				256B180129A330EA00087828 /* Preview Content */,
+				2556F8C329B4821D0041B792 /* LaunchView.swift */,
 			);
 			path = AnimalGram;
 			sourceTree = "<group>";
@@ -224,6 +251,7 @@
 				256B183E29A5B4C000087828 /* OnboardingView.swift */,
 				256B184229A5BE9D00087828 /* OnboardingView_2.swift */,
 				25FCF39929AB357300D8C8F1 /* MainTabView.swift */,
+				2556F8CE29B48C900041B792 /* SplashScreenView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -369,7 +397,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				256B180A29A337D900087828 /* LaunchScreen.storyboard in Resources */,
+				2556F8D029B48FA70041B792 /* Billabong.ttf in Resources */,
+				2556F8C629B482FB0041B792 /* launch-icon.json in Resources */,
+				2562957A29B4808500BE59CB /* main-loading.json in Resources */,
 				256B185229A7603300087828 /* GoogleService-Info.plist in Resources */,
 				256B180329A330EA00087828 /* Preview Assets.xcassets in Resources */,
 				2562955D29AE231100BE59CB /* post-loading.json in Resources */,
@@ -450,11 +480,13 @@
 				256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */,
 				2562955F29AE442000BE59CB /* SinglePostView.swift in Sources */,
 				256B181429A34B9100087828 /* PostView.swift in Sources */,
+				2556F8CF29B48C900041B792 /* SplashScreenView.swift in Sources */,
 				256B184329A5BE9D00087828 /* OnboardingView_2.swift in Sources */,
 				256B182D29A49E4200087828 /* ProfileView.swift in Sources */,
 				256B182129A3796200087828 /* BrowseView.swift in Sources */,
 				256B183B29A5058F00087828 /* SettingsEditImageView.swift in Sources */,
 				256B181B29A36A9600087828 /* CommentsView.swift in Sources */,
+				2556F8C429B4821D0041B792 /* LaunchView.swift in Sources */,
 				2562954829AC581C00BE59CB /* PostViewModel.swift in Sources */,
 				256B182729A3C6DB00087828 /* UploadView.swift in Sources */,
 				256B183F29A5B4C000087828 /* OnboardingView.swift in Sources */,
@@ -606,6 +638,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AnimalGram/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera at the user's request to take a photo.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows the app to access the photo library to import or save a photo at the user's request.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -641,6 +674,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AnimalGram/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app uses the camera at the user's request to take a photo.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This allows the app to access the photo library to import or save a photo at the user's request.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

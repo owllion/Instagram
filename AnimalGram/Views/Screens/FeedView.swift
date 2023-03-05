@@ -13,14 +13,13 @@ struct FeedView: View {
     @ObservedObject var feedViewModel = FeedViewModel()
     
     var title: String
-    @State var isLoading: Bool = false
     
     var body: some View {
         ZStack {
             ScrollView (.vertical, showsIndicators: false) {
                 LazyVStack {
                     ForEach(feedViewModel.posts, id: \.self) { post in
-                        PostView(isLoading: $isLoading, post: post, showHeaderAndFooter: true)
+                        PostView(post: post, showHeaderAndFooter: true)
                     }
                 }
                 
@@ -29,12 +28,12 @@ struct FeedView: View {
                 .onAppear {
                     feedViewModel.getPosts()
                 }
-            if self.isLoading {
-                withAnimation(.easeIn(duration: 0.2)) {
-                    LoadingView(lottieFile:"loading2")
-                }
-
-            }
+//                .overlay {
+//                    ProgressView("Fetching data...")
+//                        .progressViewStyle(
+//                        CircularProgressViewStyle(tint: .cyan))
+//                }
+           
         }
        
     }

@@ -2,30 +2,31 @@ import SwiftUI
 
 struct ProfileHeaderView: View {
     
+    @EnvironmentObject var profileViewModel: ProfileViewModel
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     
-    var totalPosts: Int
-    var totalPostLikes: Int
+    var isMyProfile: Bool
     
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             
             //MARK: - PROFILE PICTURE
-            AsyncImage(url: URL(string: authViewModel.imageURL)) { image in
+            AsyncImage(url: URL(string: isMyProfile ? authViewModel.imageURL : profileViewModel.imageURL)) { image in
                     image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .cornerRadius(15)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 120, height: 120, alignment: .center)
+                    .cornerRadius(60)
                     
                 } placeholder: {
                     ProgressView()
                 }.frame(width: 120,height: 120, alignment: .center)
             
             //MARK: - USER NAME
-            Text(authViewModel.displayName)
+            Text(profileViewModel.displayName)
             
             //MARK: - BIO
-            Text(authViewModel.bio)
+            Text(profileViewModel.bio)
                 .font(.body)
                 .fontWeight(.regular)
                 .multilineTextAlignment(.center)
@@ -34,7 +35,7 @@ struct ProfileHeaderView: View {
                 
                 //MARK: - POSTS
                 VStack(alignment: .center, spacing: 5) {
-                    Text(String(totalPosts))
+                    Text(String(profileViewModel.totalPosts))
                         .font(.title2)
                         .fontWeight(.bold)
                     
@@ -50,7 +51,7 @@ struct ProfileHeaderView: View {
                 
                 //MARK: - LIKES
                 VStack(alignment: .center, spacing: 5) {
-                    Text(String(totalPostLikes))
+                    Text(String(profileViewModel.totalPostLikes))
                         .font(.title2)
                         .fontWeight(.bold)
                     
@@ -73,6 +74,6 @@ struct ProfileHeader_Previews: PreviewProvider {
     
     @State static var name: String = "Mike"
     static var previews: some View {
-        ProfileHeaderView(totalPosts: 20, totalPostLikes: 55).previewLayout(.sizeThatFits)
+        ProfileHeaderView(isMyProfile: true).previewLayout(.sizeThatFits)
     }
 }

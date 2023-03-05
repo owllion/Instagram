@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
+    @EnvironmentObject var profileViewModel: ProfileViewModel
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @Environment(\.dismiss) var dismiss
     
@@ -37,13 +38,13 @@ struct SettingsView: View {
                 //MARK: - SECTION 2: PROFILE
                 GroupBox {
                     NavigationLink {
-                        SettingsEditTextView(submissionText: authViewModel.displayName, title: "Display Name", description: "You can edit your display name here.", placeholder: "Your displat name here.", settingsEditTextOption: .displayName, userID: authViewModel.userID, email: authViewModel.email, profileText: $authViewModel.displayName).environmentObject(authViewModel)
+                        SettingsEditTextView(submissionText: authViewModel.displayName, title: "Display Name", description: "You can edit your display name here.", placeholder: "Your displat name here.", settingsEditTextOption: .displayName, userID: authViewModel.userID, email: authViewModel.email, profileText: $profileViewModel.displayName).environmentObject(authViewModel)
                     } label: {
                         SettingsRowView(iconName: "pencil", settingName: "Display Name", iconColor: Color.MyTheme.purple)
                     }
                     
                     NavigationLink {
-                        SettingsEditTextView(submissionText: authViewModel.bio, title: "Profile Bio", description: "Your bio is a great place to let other users know a little about you.", placeholder: "Your bio here..",settingsEditTextOption: .bio, userID: authViewModel.userID, email: authViewModel.email, profileText: $authViewModel.bio).environmentObject(authViewModel)
+                        SettingsEditTextView(submissionText: authViewModel.bio, title: "Profile Bio", description: "Your bio is a great place to let other users know a little about you.", placeholder: "Your bio here..",settingsEditTextOption: .bio, userID: authViewModel.userID, email: authViewModel.email, profileText: $profileViewModel.bio).environmentObject(authViewModel)
                     } label: {
                         SettingsRowView(iconName: "text.quote", settingName: "Bio", iconColor: Color.MyTheme.purple)
                     }

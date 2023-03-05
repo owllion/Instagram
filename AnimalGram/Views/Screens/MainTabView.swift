@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
     var body: some View {
             TabView {
                 NavigationView {
@@ -29,9 +30,15 @@ struct MainTabView: View {
                 }
                 
                 NavigationView {
-                    ProfileView(isMyProfile: true)
+                    ProfileView(email: authViewModel.email, isMyProfile: true)
                 }.tabItem {
                     Label("Profile", systemImage: "person.fill")
+                }
+                
+                NavigationView {
+                    BrowseView()
+                }.tabItem {
+                    Label("Test", systemImage: "square.and.arrow.up.circle.fill")
                 }
             }
     }
