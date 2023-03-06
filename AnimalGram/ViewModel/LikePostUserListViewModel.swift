@@ -17,7 +17,16 @@ class LikePostUserListViewModel: ObservableObject {
     private var userCollection = store.collection(K.FireStore.User.collectionName)
     private var postCollection = store.collection(K.FireStore.Post.collectionName)
     
+    var searchResultList: [User] {
+        return self.userList.filter({ $0.displayName.hasPrefix(self.searchText)})
+        
+    }
     
+    var userNames: [String] {
+        return self.userList.map { $0.displayName }
+    }
+    
+    @Published var searchText: String = ""
     @Published var userList: [User] = [User]()
     
     @Published var isLoading: Bool = false

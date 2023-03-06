@@ -15,20 +15,17 @@ struct LikePostUserListView: View {
     @StateObject var userListViewModel = LikePostUserListViewModel()
     
     var postID: String
-    @State private var searchText: String = ""
     
     var body: some View {
         ScrollView (.vertical, showsIndicators: false) {
             LazyVStack {
-                ForEach(userListViewModel.userList, id: \.self) { user in
+                ForEach(userListViewModel.searchResultList, id: \.self) { user in
                     HStack() {
                         AvatarWithNavLink(email: user.email, isMyProfile: authViewModel.email == user.email , imageUrl: user.imageURL, displayName: user.displayName, width: 70, height: 70, cornerRadius: 35)
-                        
                     }
                     
                 }
             }.padding(.all,15)
-            
         }
         .navigationTitle("Likes")
         .navigationBarTitleDisplayMode(.large)
@@ -40,7 +37,14 @@ struct LikePostUserListView: View {
                 }catch {}
             }
         }
-        .searchable(text: $searchText, placement:  .navigationBarDrawer(displayMode: .always))
+        .searchable(text: $userListViewModel.searchText,placement:  .navigationBarDrawer(displayMode: .always), prompt: "Search user name") {
+            ForEach(userListViewModel.userNames, id: \.self) {
+                suggestion in
+                    Text(suggestion)
+                    .searchCompletion(suggestion)
+            }
+            
+        }
         
     }
 }
