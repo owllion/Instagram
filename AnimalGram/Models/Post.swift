@@ -18,5 +18,9 @@ struct Post: Identifiable ,Hashable {
     var likeCount: Int
     var likedBy: Array<String>
     var createdAt: Int
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 
 }

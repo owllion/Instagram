@@ -34,12 +34,6 @@ struct MainTabView: View {
                 }.tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }
-                
-                NavigationView {
-                    BrowseView()
-                }.tabItem {
-                    Label("Test", systemImage: "square.and.arrow.up.circle.fill")
-                }
             }
     }
 }

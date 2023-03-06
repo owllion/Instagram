@@ -21,7 +21,7 @@ struct ImageGridView: View {
             alignment: .center,
             spacing: nil,
             pinnedViews: []) {
-                ForEach(posts, id: \.postID) {
+                ForEach(posts, id: \.self) {
                     post in
                     NavigationLink {
                         FeedView(title:"Post")

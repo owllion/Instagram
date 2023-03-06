@@ -15,7 +15,8 @@ class FeedViewModel: ObservableObject {
 
     private var postCollection = store.collection(K.FireStore.Post.collectionName)
     
-    @Published var posts:[Post] = [Post]()
+    @Published var posts: [Post] = [Post]() //for FeedView
+    @Published var browsePosts: [Post] = [Post]() //for BrowseView
     @Published var isLoading: Bool = false
     
     //MARK: - Error Properties
@@ -27,6 +28,52 @@ class FeedViewModel: ObservableObject {
         alertMessage = error.localizedDescription
         showFeedAlert.toggle()
         
+    }
+    
+    
+    @MainActor //for BrowseView
+    func getBrowsePosts() async throws {
+        self.isLoading = true
+        
+        do {
+            let snapshot = try await postCollection
+                .order(by: K.FireStore.Post.createdAtField,descending: true)
+                .limit(to: 50)
+                .getDocuments()
+
+            self.browsePosts = []
+            
+            for doc in snapshot.documents {
+                let data = doc.data()
+                
+                if
+                    let userID = data[K.FireStore.Post.userIDField] as? String,
+                    let postId = data[K.FireStore.Post.postIDField] as? String,
+                    let displayName = data[K.FireStore.Post.displayNameField] as? String,
+                    let createdAt = data[K.FireStore.Post.createdAtField] as? Int,
+                    
+                    let caption = data[K.FireStore.Post.captionField] as? String,
+                    let postImageURL = data[K.FireStore.Post.postImageURLField] as? String,
+                    let userImageURL = data[K.FireStore.Post.userImageURLField] as? String,
+                    
+                    let email = data[K.FireStore.Post.emailField] as? String,
+                    
+                    let likeCount = data[K.FireStore.Post.likeCountField] as? Int,
+                    let likeBy = data[K.FireStore.Post.likeByField] as?  Array<String>
+                        
+                {
+                    let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURL: postImageURL, userImageURL: userImageURL, email: email, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
+                                        
+                    self.browsePosts.append(newPost)
+                }
+            }
+            self.isLoading = false
+            
+        }catch {
+            self.isLoading = false
+            print(error.localizedDescription,"browsePosts error")
+            self.handleError(error)
+        }
     }
     
     
