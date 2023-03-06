@@ -15,7 +15,7 @@ struct CarouselView: View {
     @State var timerAdded: Bool = false
     
     var body: some View {
-        //selection => current selected target
+        
         TabView(selection: $selection) {
             ForEach(1..<self.maxCount, id:\.self) { count in
                 Image("dog\(count)")

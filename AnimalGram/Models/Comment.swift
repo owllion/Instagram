@@ -16,4 +16,9 @@ struct Comment : Identifiable, Hashable {
     var commentID: String
     var likeCount: Int
     var createdAt: Timestamp
+   
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }

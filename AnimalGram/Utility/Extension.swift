@@ -5,9 +5,9 @@
 //  Created by Zheng yu hsin on 2023/2/22.
 //
 import SwiftUI
+import Foundation
 
 extension View {
-    
     func customLabel() -> some View {
             self.font(.headline)
             .fontWeight(.bold)
@@ -31,4 +31,13 @@ extension View {
     }
 
 }
+
+extension Date {
+    func timeAgoDisplay() -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        return formatter.localizedString(for: self, relativeTo: Date())
+    }
+}
+
 

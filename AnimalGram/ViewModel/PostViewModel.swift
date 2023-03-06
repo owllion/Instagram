@@ -130,6 +130,8 @@ class PostViewModel: ObservableObject {
 
     func createPost(with caption: String,image: UIImage,userID: String, imageURL: String ,userName: String, email: String) {
         
+        self.isLoading = true
+        
         let postID = generatePostIDForCreatingPost()
         
         ImageManager.instance.uploadImageAndGetURL(type: "post", id: postID, image: image) { [self] url, error in
@@ -151,9 +153,11 @@ class PostViewModel: ObservableObject {
             
             postCollection.document(postID).setData(postData) { error in
                 if let error = error {
+                    self.isLoading = false
                     self.handleError(error, msg: nil)
                     return
                 } else {
+                    self.isLoading = false
                     print("Successfully post!")
                     self.handleSuccess("Successfully post!")
                 }

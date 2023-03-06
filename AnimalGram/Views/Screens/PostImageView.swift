@@ -10,9 +10,7 @@ import SwiftUI
 struct PostImageView: View {
     
     @StateObject var postViewModel = PostViewModel()
-    
     @EnvironmentObject var authViewModel: AuthenticationViewModel
-    
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     
@@ -53,7 +51,7 @@ struct PostImageView: View {
                 )
                 .customTextField(background: Color.MyTheme.beige)
                 .padding(.horizontal)
-
+                
                 Button {
                     postViewModel.createPost(with: captionText, image: imageSelected, userID: authViewModel.userID!, imageURL: authViewModel.imageURL, userName: authViewModel.displayName, email: authViewModel.email)
                 } label: {
@@ -70,13 +68,27 @@ struct PostImageView: View {
                     .alert(isPresented: $postViewModel.showAlert) {
                         Alert(
                             title: Text(postViewModel.alertMessage),
-                           message: nil,
+                            message: nil,
                             dismissButton: .default(Text("OK")) {
                                 self.dismiss()
                             }
                         )
                     }
             }
+        }.overlay {
+            
+            if postViewModel.isLoading {
+                
+                ZStack {
+                    Color.primary.opacity(0.2).edgesIgnoringSafeArea(.all)
+                    ProgressView("Loading...")
+                        .progressViewStyle(
+                            CircularProgressViewStyle(tint: .cyan)
+                        )
+                }
+                
+            }
+            
         }
     }
 }

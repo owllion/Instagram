@@ -16,27 +16,9 @@ struct PostView: View {
                 //MARK: - HEADER
                 if showHeaderAndFooter {
                     HStack {
-                        NavigationLink {
-                            ProfileView(email: post.email, isMyProfile: false )
-                        } label: {
-                            URLImage(
-                                    url: URL(string: post.userImageURL)!,
-                                     failure: { error, retry in
-                                        VStack {
-                                            Text(error.localizedDescription)
-                                        }
-                                    },
-                                     content: { image in
-                                         image
-                                             .resizable()
-                                             .scaledToFill().frame(width: 30,height: 30,alignment: .center).cornerRadius(15)
-                                     })
-                            Text(post.displayName)
-                                .font(.callout)
-                                .fontWeight(.medium)
-                                .foregroundColor(.primary)
-                        }
-                        Spacer()
+                        
+                        AvatarWithNavLink(email: post.email, isMyProfile: authViewModel.email == post.email, imageUrl: post.userImageURL, displayName: post.displayName)
+                        
                         Image(systemName: "ellipsis")
                             .font(.headline)
                             .onTapGesture {
@@ -190,7 +172,10 @@ struct PostView: View {
                     }.padding(.all,10)
                     
                     VStack(alignment: .leading) {
-                        Text("\(post.likeCount) likes")
+                        NavigationLink(destination: LikePostUserListView(postID: post.postID)) {
+                            Text("\(post.likeCount) likes")
+                        }.disabled(post.likeCount == 0)
+                       
                     }.padding(.all,10)
                     
                     
@@ -202,6 +187,7 @@ struct PostView: View {
                         }.padding(.all,10)
                     }
                 }
+                
                 
                 
             }.alert(isPresented: $postViewModel.showAlert) {

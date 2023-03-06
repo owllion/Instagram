@@ -11,6 +11,10 @@
 		2556F8C629B482FB0041B792 /* launch-icon.json in Resources */ = {isa = PBXBuildFile; fileRef = 2556F8C529B482FB0041B792 /* launch-icon.json */; };
 		2556F8CF29B48C900041B792 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F8CE29B48C900041B792 /* SplashScreenView.swift */; };
 		2556F8D029B48FA70041B792 /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2556F8CD29B4892F0041B792 /* Billabong.ttf */; };
+		2556F8D229B5C0AF0041B792 /* LikePostUserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F8D129B5C0AF0041B792 /* LikePostUserListView.swift */; };
+		2556F8D429B5C35E0041B792 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F8D329B5C35E0041B792 /* User.swift */; };
+		2556F8D629B5C8750041B792 /* LikePostUserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F8D529B5C8750041B792 /* LikePostUserListViewModel.swift */; };
+		2556F8D929B5D5610041B792 /* AvatarWithNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F8D829B5D5610041B792 /* AvatarWithNavLink.swift */; };
 		2562954829AC581C00BE59CB /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954729AC581C00BE59CB /* PostViewModel.swift */; };
 		2562954C29AC6CF400BE59CB /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954B29AC6CF400BE59CB /* ProfileViewModel.swift */; };
 		2562954E29AC931500BE59CB /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954D29AC931500BE59CB /* FeedViewModel.swift */; };
@@ -18,14 +22,12 @@
 		2562955D29AE231100BE59CB /* post-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2562955C29AE231100BE59CB /* post-loading.json */; };
 		2562955F29AE442000BE59CB /* SinglePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562955E29AE442000BE59CB /* SinglePostView.swift */; };
 		2562956129AF42F800BE59CB /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956029AF42F800BE59CB /* AsyncImageView.swift */; };
-		2562956329AF537600BE59CB /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956229AF537600BE59CB /* ImageLoader.swift */; };
 		2562956629AF56E000BE59CB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956529AF56E000BE59CB /* NetworkManager.swift */; };
 		2562956829B05D0100BE59CB /* loading2.json in Resources */ = {isa = PBXBuildFile; fileRef = 2562956729B05D0100BE59CB /* loading2.json */; };
 		2562956A29B05ECA00BE59CB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956929B05ECA00BE59CB /* LoadingView.swift */; };
 		2562956C29B064C100BE59CB /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956B29B064C100BE59CB /* CommentViewModel.swift */; };
 		2562956E29B06F6500BE59CB /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562956D29B06F6500BE59CB /* Comment.swift */; };
 		2562957229B0F8E700BE59CB /* SettingsEditTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562957129B0F8E700BE59CB /* SettingsEditTextViewModel.swift */; };
-		2562957429B1B2C900BE59CB /* SettingsEditImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562957329B1B2C900BE59CB /* SettingsEditImageViewModel.swift */; };
 		2562957A29B4808500BE59CB /* main-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2562957929B4808500BE59CB /* main-loading.json */; };
 		256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FB29A330E900087828 /* AnimalGramApp.swift */; };
 		256B17FE29A330E900087828 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B17FD29A330E900087828 /* ContentView.swift */; };
@@ -71,6 +73,10 @@
 		2556F8C529B482FB0041B792 /* launch-icon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "launch-icon.json"; path = "../../../../Downloads/launch-icon.json"; sourceTree = "<group>"; };
 		2556F8CD29B4892F0041B792 /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Billabong.ttf; path = ../../../../Downloads/Billabong.ttf; sourceTree = "<group>"; };
 		2556F8CE29B48C900041B792 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		2556F8D129B5C0AF0041B792 /* LikePostUserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostUserListView.swift; sourceTree = "<group>"; };
+		2556F8D329B5C35E0041B792 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2556F8D529B5C8750041B792 /* LikePostUserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostUserListViewModel.swift; sourceTree = "<group>"; };
+		2556F8D829B5D5610041B792 /* AvatarWithNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarWithNavLink.swift; sourceTree = "<group>"; };
 		2562954729AC581C00BE59CB /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		2562954B29AC6CF400BE59CB /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		2562954D29AC931500BE59CB /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
@@ -78,14 +84,12 @@
 		2562955C29AE231100BE59CB /* post-loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "post-loading.json"; path = "../../../../Downloads/post-loading.json"; sourceTree = "<group>"; };
 		2562955E29AE442000BE59CB /* SinglePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePostView.swift; sourceTree = "<group>"; };
 		2562956029AF42F800BE59CB /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
-		2562956229AF537600BE59CB /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		2562956529AF56E000BE59CB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		2562956729B05D0100BE59CB /* loading2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading2.json; sourceTree = "<group>"; };
 		2562956929B05ECA00BE59CB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		2562956B29B064C100BE59CB /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		2562956D29B06F6500BE59CB /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		2562957129B0F8E700BE59CB /* SettingsEditTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEditTextViewModel.swift; sourceTree = "<group>"; };
-		2562957329B1B2C900BE59CB /* SettingsEditImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEditImageViewModel.swift; sourceTree = "<group>"; };
 		2562957929B4808500BE59CB /* main-loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "main-loading.json"; path = "../../../../Downloads/main-loading.json"; sourceTree = "<group>"; };
 		256B17F829A330E900087828 /* AnimalGram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimalGram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256B17FB29A330E900087828 /* AnimalGramApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalGramApp.swift; sourceTree = "<group>"; };
@@ -158,6 +162,14 @@
 			name = fonts;
 			sourceTree = "<group>";
 		};
+		2556F8D729B5D5330041B792 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2556F8D829B5D5610041B792 /* AvatarWithNavLink.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		2562955529AE17A900BE59CB /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +213,7 @@
 			children = (
 				256B184D29A715A800087828 /* Info.plist */,
 				256B184B29A66F5900087828 /* GoogleService-Info.plist */,
+				2556F8D729B5D5330041B792 /* Components */,
 				2556F8C729B486620041B792 /* Resources */,
 				2562956429AF56BF00BE59CB /* Network */,
 				2562955529AE17A900BE59CB /* Lottie */,
@@ -252,6 +265,7 @@
 				256B184229A5BE9D00087828 /* OnboardingView_2.swift */,
 				25FCF39929AB357300D8C8F1 /* MainTabView.swift */,
 				2556F8CE29B48C900041B792 /* SplashScreenView.swift */,
+				2556F8D129B5C0AF0041B792 /* LikePostUserListView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -290,6 +304,7 @@
 			children = (
 				256B181629A355E900087828 /* Post.swift */,
 				2562956D29B06F6500BE59CB /* Comment.swift */,
+				2556F8D329B5C35E0041B792 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -301,7 +316,6 @@
 				256B185829A864DD00087828 /* ImageManager.swift */,
 				25FCF39729AB314300D8C8F1 /* CircularProgressView.swift */,
 				2562955329ADFBA400BE59CB /* LottieView.swift */,
-				2562956229AF537600BE59CB /* ImageLoader.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -315,7 +329,7 @@
 				2562954D29AC931500BE59CB /* FeedViewModel.swift */,
 				2562956B29B064C100BE59CB /* CommentViewModel.swift */,
 				2562957129B0F8E700BE59CB /* SettingsEditTextViewModel.swift */,
-				2562957329B1B2C900BE59CB /* SettingsEditImageViewModel.swift */,
+				2556F8D529B5C8750041B792 /* LikePostUserListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -457,6 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2556F8D929B5D5610041B792 /* AvatarWithNavLink.swift in Sources */,
 				2562956C29B064C100BE59CB /* CommentViewModel.swift in Sources */,
 				2562956E29B06F6500BE59CB /* Comment.swift in Sources */,
 				256B185029A72BBA00087828 /* AuthenticationViewModel.swift in Sources */,
@@ -479,6 +494,7 @@
 				256B182529A3BEF100087828 /* ImageGridView.swift in Sources */,
 				256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */,
 				2562955F29AE442000BE59CB /* SinglePostView.swift in Sources */,
+				2556F8D229B5C0AF0041B792 /* LikePostUserListView.swift in Sources */,
 				256B181429A34B9100087828 /* PostView.swift in Sources */,
 				2556F8CF29B48C900041B792 /* SplashScreenView.swift in Sources */,
 				256B184329A5BE9D00087828 /* OnboardingView_2.swift in Sources */,
@@ -491,15 +507,15 @@
 				256B182729A3C6DB00087828 /* UploadView.swift in Sources */,
 				256B183F29A5B4C000087828 /* OnboardingView.swift in Sources */,
 				256B182929A464E300087828 /* ImagePicker.swift in Sources */,
-				2562957429B1B2C900BE59CB /* SettingsEditImageViewModel.swift in Sources */,
 				256B184A29A6189700087828 /* ActivityView.swift in Sources */,
 				25FCF39829AB314300D8C8F1 /* CircularProgressView.swift in Sources */,
+				2556F8D629B5C8750041B792 /* LikePostUserListViewModel.swift in Sources */,
 				256B185729A7ABC100087828 /* constants.swift in Sources */,
 				256B182329A379EE00087828 /* CarouselView.swift in Sources */,
 				256B17FC29A330E900087828 /* AnimalGramApp.swift in Sources */,
+				2556F8D429B5C35E0041B792 /* User.swift in Sources */,
 				256B183329A4C67E00087828 /* SettingsView.swift in Sources */,
 				256B183929A500D800087828 /* SettingsEditTextView.swift in Sources */,
-				2562956329AF537600BE59CB /* ImageLoader.swift in Sources */,
 				2562954C29AC6CF400BE59CB /* ProfileViewModel.swift in Sources */,
 				256B183729A4CFE000087828 /* SettingsRowView.swift in Sources */,
 				256B184829A5CD9C00087828 /* LikeAnimationView.swift in Sources */,

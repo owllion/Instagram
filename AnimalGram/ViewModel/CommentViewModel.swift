@@ -91,25 +91,4 @@ class CommentViewModel : ObservableObject {
                 }
     }
     
-   
- 
-    //func textIsAppropriate(_ submissionText: String) -> Bool {
-//        print("這是收到的text", submissionText)
-//        let badWords : [String] = ["shit", "ass"]
-//
-//        let words = submissionText.components(separatedBy: " ")
-//        //把含空格的字串轉成陣列 並以空格為切割基準
-//        print("這是words", words)
-//
-//        for word in words {
-//            if badWords.contains(word) {
-//                return false
-//            }
-//        }
-//        if submissionText.count < 3 {
-//            return false
-//        }
-//
-//        return true
-//    }
 }
