@@ -6,6 +6,8 @@ struct PostView: View {
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @StateObject var postViewModel = PostViewModel()
     
+    @State var currentScale: CGFloat = 0
+    
     var post: Post
     var showHeaderAndFooter: Bool
     
@@ -130,8 +132,22 @@ struct PostView: View {
                              content: { image in
                                  image
                                      .resizable()
-                                     .aspectRatio(contentMode: .fit)
+                                     .aspectRatio(contentMode: .fill)
+                                     //.frame(height: 300)
                              })
+                        .scaleEffect(currentScale + 1)
+                        .gesture(
+                            MagnificationGesture()
+                                .onChanged { value in
+                                    self.currentScale = value - 1
+                                }
+                                .onEnded { value in
+                                    withAnimation(.spring()) {
+                                        currentScale = 0
+                                    }
+                                }
+                        
+                        )
                         
                     LikeAnimationView(animate: $postViewModel.animateLike)
                 }
