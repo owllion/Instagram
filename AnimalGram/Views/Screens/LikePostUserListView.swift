@@ -18,12 +18,17 @@ struct LikePostUserListView: View {
     
     var body: some View {
         ScrollView (.vertical, showsIndicators: false) {
-            LazyVStack {
-                ForEach(userListViewModel.searchResultList, id: \.self) { user in
-                    HStack() {
-                        AvatarWithNavLink(email: user.email, isMyProfile: authViewModel.email == user.email , imageUrl: user.imageURL, displayName: user.displayName, width: 70, height: 70, cornerRadius: 35)
+            LazyVStack(alignment: .leading) {
+                if userListViewModel.searchResultList.count == 0 {
+                    Text("No users found.")
+                } else {
+                    ForEach(userListViewModel.searchResultList, id: \.self) { user in
+                        HStack() {
+                            AvatarWithNavLink(email: user.email, isMyProfile: authViewModel.email == user.email , imageUrl: user.imageURL, displayName: user.displayName, width: 70, height: 70, cornerRadius: 35)
+                        }
+                        
                     }
-                    
+
                 }
             }.padding(.all,15)
         }
