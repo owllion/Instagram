@@ -207,23 +207,25 @@ struct PostView: View {
                     }.padding([.leading,.top],10)
                     
                     //MARK: - viewAllComments & Date
-                    HStack {
+                    
                         if commentsViewModel.commentsCount > 0 {
-                            NavigationLink(
-                                destination: CommentsView(postID: post.postID)) {
-                                    Text("View all \(commentsViewModel.commentsCount) comments")
-                                        .fontWeight(.light)
-                                        .font(.title3)
-                                        .foregroundColor(Color.gray)
-                                }
+                            HStack {
+                                NavigationLink(
+                                    destination: CommentsView(postID: post.postID)) {
+                                        Text("View all \(commentsViewModel.commentsCount) comments")
+                                            .fontWeight(.light)
+                                            .font(.title3)
+                                            .foregroundColor(Color.gray)
+                                    }
+                            } .padding([.leading,.top], 10)
+                                .frame(height: 30)
                         }
                         
-                    }
-                        .padding([.leading,.top], 10)
-                        .frame(height: 30)
+                    
+                       
                     
                     HStack {
-                        if (TimeInterval(post.createdAt).toDate().isInToday()) {
+                        if (TimeInterval(post.createdAt).toDate().isInWeek()) {
                             Text(TimeInterval(post.createdAt).toDate().timeAgoDisplay())
                         } else {
                             Text(TimeInterval(post.createdAt).toDateString())

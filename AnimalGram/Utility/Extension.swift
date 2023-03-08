@@ -37,12 +37,16 @@ extension TimeInterval {
         
     }
     func toDateString() -> String {
+        
         let date = Date(timeIntervalSince1970: self)
-           let dateFormatter = DateFormatter()
-           dateFormatter.timeStyle = DateFormatter.Style.medium
-           dateFormatter.dateStyle = DateFormatter.Style.medium
-           dateFormatter.timeZone = .current
-           let localDate = dateFormatter.string(from: date)
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.timeZone = .current
+        dateFormatter.locale = .current
+        dateFormatter.dateFormat = "MMMM d"
+        
+        let localDate = dateFormatter.string(from: date)
+        
         return localDate
     }
     
@@ -54,10 +58,14 @@ extension Date {
         return formatter.localizedString(for: self, relativeTo: Date())
     }
     
-    func isInToday() -> Bool {
-        let formatter = RelativeDateTimeFormatter()
-       
-        return formatter.calendar.isDateInToday(self)
+    
+    
+    func isInWeek() -> Bool {
+        let now = Date.now
+        let fromDate = Calendar.current.date(byAdding: .day, value:  -7, to: now)!
+        let range = fromDate...now
+        
+        return range.contains(self)
        
     }
     
