@@ -49,13 +49,13 @@ struct PostView: View {
                                     Button (role: .destructive){
                                         Task {
                                             do {
-                                                authViewModel.isLoading = true
+                                              //  authViewModel.isLoading = true
 
                                                 try await postViewModel.reportPost(reason: "This is inappropriate", postID: post.postID)
-                                                authViewModel.isLoading = false
+                                               // authViewModel.isLoading = false
 
                                             }catch {
-                                                authViewModel.isLoading = false
+                                              //  authViewModel.isLoading = false
 
                                                 print(error)
                                             }
@@ -68,11 +68,11 @@ struct PostView: View {
                                     Button(role: .destructive) {
                                         Task {
                                             do {
-                                                authViewModel.isLoading = true
+                                               // authViewModel.isLoading = true
                                                 try await postViewModel.reportPost(reason: "This is spam", postID: post.postID)
-                                                authViewModel.isLoading = false
+                                               // authViewModel.isLoading = false
                                             }catch {
-                                                authViewModel.isLoading = false
+                                               // authViewModel.isLoading = false
                                                 print(error)
                                             }
                                         }
@@ -85,14 +85,14 @@ struct PostView: View {
                                         Task {
                                             do {
                                                 
-                                                authViewModel.isLoading = true
+                                               // authViewModel.isLoading = true
 
                                                 try await postViewModel.reportPost(reason: "It made me uncomfortable", postID: post.postID)
                                                 
-                                                authViewModel.isLoading = false
+                                                //authViewModel.isLoading = false
 
                                             }catch {
-                                                authViewModel.isLoading = false
+                                                //authViewModel.isLoading = false
 
                                                 print(error)
                                             }
@@ -121,19 +121,24 @@ struct PostView: View {
                     ZStack {
                         URLImage(
                                 url: URL(string: post.postImageURL)!,
-                                options: URLImageOptions(
-                                    expireAfter: 10.0
-                                 ),
-
                                  failure: { error, retry in
                                     VStack {
                                         Text(error.localizedDescription)
                                     }
                                 },
                                  content: { image in
-                                     image
-                                         .resizable()
-                                         .aspectRatio(contentMode: .fill)
+                                    
+                                         image
+                                             .resizable()
+                                             .scaledToFill()
+                                             .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3 )
+                                             .clipped()
+                                    
+//                                         image
+//                                             .resizable()
+//                                             .aspectRatio(contentMode: .fill)
+                                     
+                                     
                                  })
                             .scaleEffect(1 + currentScale)
                             .gesture(
@@ -192,15 +197,26 @@ struct PostView: View {
                     }.padding(.all,10)
                     
                     //MARK: - likeCount
-                    VStack(alignment: .leading) {
-                        NavigationLink(destination: LikePostUserListView(postID: post.postID)) {
-                            Text("\(post.likeCount) likes")
-                        }.disabled(post.likeCount == 0)
-                       
-                    }.padding(.leading,10)
+                    if post.likeCount > 0 {
+                        VStack(alignment: .leading) {
+                            NavigationLink(destination: LikePostUserListView(postID: post.postID)) {
+                                Text("\(post.likeCount) likes")
+                                    .fontWeight(.bold)
+                            }
+                           
+                        }.padding(.leading,10)
+                    }
+                   
                     
                     //MARK: - caption
                     HStack {
+                        NavigationLink {
+                            ProfileView(email: post.email, isMyProfile: post.email == authViewModel.email)
+                        } label: {
+                            Text(post.displayName)
+                                .fontWeight(.bold)
+                        }
+
                         Text(post.caption)
                         Spacer(minLength: 0)
                         //when caption == entire screen,then len== 0; otherwise certain amount.
@@ -227,8 +243,12 @@ struct PostView: View {
                     HStack {
                         if (TimeInterval(post.createdAt).toDate().isInWeek()) {
                             Text(TimeInterval(post.createdAt).toDate().timeAgoDisplay())
+                                .font(.caption)
+                                .foregroundColor(Color.gray)
                         } else {
                             Text(TimeInterval(post.createdAt).toDateString())
+                                .font(.title3)
+                                .foregroundColor(Color.gray)
                         }
                     }.padding([.leading,.top], 10)
                     

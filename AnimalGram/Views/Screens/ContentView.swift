@@ -23,7 +23,7 @@ struct ContentView: View {
                 
                 if authViewModel.isLoading {
                     withAnimation(.easeIn(duration: 0.2)) {
-                        LoadingView(lottieFile:"main-loading")
+                        LoadingView(lottieFile:"ig-ani-loading")
                     }
 
                 }

@@ -12,21 +12,14 @@ struct ImageGridView: View {
     var posts: [Post]
     
     var body: some View {
-        LazyVGrid(
-            columns: [
-                GridItem(.flexible()),
-                GridItem(.flexible()),
-                GridItem(.flexible())
-            ],
-            alignment: .center,
-            spacing: nil,
-            pinnedViews: []) {
+        LazyVGrid(columns: Array(repeating:  GridItem(.flexible()), count: 3)) {
                 ForEach(posts, id: \.self) {
                     post in
                     NavigationLink {
                         FeedView(title:"Post")
                     } label: {
                         PostView(post: post, showHeaderAndFooter: false)
+                            
                     }
                 }
 

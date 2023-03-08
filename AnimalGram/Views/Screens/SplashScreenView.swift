@@ -17,7 +17,7 @@ struct SplashScreenView: View {
         } else {
             VStack {
                 VStack {
-                    LoadingView(lottieFile: "launch-icon").frame(width: 150,height: 150)
+                    LoadingView(lottieFile: "ig-ani-loading").frame(width: 150,height: 150)
                     
                     Text("Instagram").font(Font.custom("Billabong", size: 50))
                         

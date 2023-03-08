@@ -17,8 +17,7 @@ struct AsyncImageView: View, Equatable {
                     .aspectRatio(contentMode: .fill)
 
             } placeholder: {
-                //LottieView(lottieFile: "post-loading")
-             
+                
             }
     }
 

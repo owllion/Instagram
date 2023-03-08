@@ -13,7 +13,6 @@ struct LoadingView: View {
     var body: some View {
         ZStack {
             LottieView(lottieFile: lottieFile, isLoop: false)
-                
                
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

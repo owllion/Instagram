@@ -22,5 +22,7 @@ extension Color {
         static var beige: Color {
             return Color("ColorBeige")
         }
+        
+        
     }
 }
