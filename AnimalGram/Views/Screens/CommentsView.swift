@@ -23,7 +23,7 @@ struct CommentsView: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(commentViewModel.comments, id: \.self) {
-                            comment in MessageView(comment: comment)
+                            comment in MessageView(comment: comment, postID: postID)
                         }
                     }
                 }

@@ -20,7 +20,7 @@ struct Post: Identifiable ,Hashable {
     var createdAt: Int
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+        hasher.combine(id) //for comparing pre and cur list item in ForEach is the same or not, it's the same -> not refresh
     }
 
 }

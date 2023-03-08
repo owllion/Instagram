@@ -5,6 +5,7 @@ struct PostView: View {
         
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @StateObject var postViewModel = PostViewModel()
+    @StateObject var commentsViewModel = CommentViewModel()
     
     @State var currentScale: CGFloat = 0
     
@@ -133,13 +134,12 @@ struct PostView: View {
                                  image
                                      .resizable()
                                      .aspectRatio(contentMode: .fill)
-                                     //.frame(height: 300)
                              })
-                        .scaleEffect(currentScale + 1)
+                        .scaleEffect(1 + currentScale)
                         .gesture(
                             MagnificationGesture()
                                 .onChanged { value in
-                                    self.currentScale = value - 1
+                                    self.currentScale = value
                                 }
                                 .onEnded { value in
                                     withAnimation(.spring()) {
@@ -192,21 +192,41 @@ struct PostView: View {
                             Text("\(post.likeCount) likes")
                         }.disabled(post.likeCount == 0)
                        
-                    }.padding(.all,10)
+                    }.padding(.leading,10)
                     
+
                     
                     if let caption = post.caption {
                         HStack {
                             Text(caption)
                             Spacer(minLength: 0)
                             //when caption == entire screen,then len== 0; otherwise certain amount.
-                        }.padding(.all,10)
+                        }.padding([.leading,.top],10)
+                    }
+                    
+                    if commentsViewModel.commentsCount > 0 {
+                        HStack {
+                            NavigationLink(
+                                destination: CommentsView(postID: post.postID)) {
+                                    Text("View all \(commentsViewModel.commentsCount) comments")
+                                        .fontWeight(.light)
+                                        .font(.title3)
+                                        .foregroundColor(Color.gray)
+                                }
+                            
+                        }.padding([.leading,.top], 10)
+                        
+                            
                     }
                 }
-                
-                
-                
-            }.alert(isPresented: $postViewModel.showAlert) {
+            }.onAppear {
+                Task {
+                   await commentsViewModel.getCommentsCount(postID: post.postID)
+                        
+                }
+   
+            }
+            .alert(isPresented: $postViewModel.showAlert) {
                 () -> Alert in return Alert(title: Text(postViewModel.alertMessage), message: nil, dismissButton: .default(Text("OK")))
             }
 

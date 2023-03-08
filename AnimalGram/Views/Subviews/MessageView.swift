@@ -11,7 +11,11 @@ import FirebaseFirestore
 
 struct MessageView: View {
     
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
+    @StateObject var commentViewModel = CommentViewModel()
+    
     var comment: Comment
+    var postID: String
     
     var body: some View {
         HStack {
@@ -35,10 +39,15 @@ struct MessageView: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 
-                //MARK: - USER NAME
-                Text(comment.userName)
-                    .font(.caption)
-                    .foregroundColor(.gray)
+                //MARK: - USER NAME & Date
+                HStack {
+                    Text(comment.userName)
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    
+                    Text(TimeInterval(comment.createdAt).toDate().timeAgoDisplay())
+                }
+               
                 
                 //MARK: - CONTENT
                 Text(comment.content)
@@ -49,13 +58,32 @@ struct MessageView: View {
             }
             Spacer(minLength: 0)
             //for making sure message is pushed all the way to the let side of the screen,coz if our msg was a shorter column, we don't want it to be in the center.
+            
+            VStack {
+                Image(systemName: comment.likedBy.contains(authViewModel.userID!) ? "heart.fill" : "heart")
+                    .font(.title3)
+                    .onTapGesture {
+                        if comment.likedBy.contains(authViewModel.userID!) {
+                            commentViewModel.unlikePost(postID: postID, userID : authViewModel.userID!, commentID: comment.commentID)
+                            
+                        } else {
+                            commentViewModel.likePost(postID: postID, userID: authViewModel.userID!, commentID: comment.commentID)
+
+                        }
+                    }
+                    .foregroundColor(comment.likedBy.contains(authViewModel.userID!) ? Color.red : Color.primary)
+                
+                Text("\(comment.likeCount)")
+            }
+            
         }
     }
+   
 }
 
 struct MessageView_Previews: PreviewProvider {
-    static var comment = Comment(id: UUID().uuidString, userName: "Tom", userImageURL: "", content: "Cool", commentID: "", likeCount: 998, createdAt: Timestamp())
+    static var comment = Comment(id: UUID().uuidString, userName: "Tom", userImageURL: "", content: "Cool", commentID: "", likeCount: 998, likedBy: [], createdAt: Int(Date().timeIntervalSince1970))
     static var previews: some View {
-        MessageView(comment: comment).previewLayout(.sizeThatFits)
+        MessageView(comment: comment, postID: "").previewLayout(.sizeThatFits)
     }
 }

@@ -48,6 +48,7 @@ struct K {
                 static let userNameField = "userName"
                 static let contentField = "content"
                 static let likeCountField = "likeCount"
+                static let likeByField = "likeBy"
                 static let createdAtField = "createdAt"
 
             }

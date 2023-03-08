@@ -15,7 +15,8 @@ struct Comment : Identifiable, Hashable {
     var content: String
     var commentID: String
     var likeCount: Int
-    var createdAt: Timestamp
+    var likedBy: Array<String>
+    var createdAt: Int
    
     
     func hash(into hasher: inout Hasher) {
