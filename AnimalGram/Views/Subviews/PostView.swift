@@ -16,10 +16,9 @@ struct PostView: View {
         ZStack {
             VStack(alignment: .leading,spacing: 0) {
                 
-                //MARK: - HEADER
+                //MARK: - Header
                 if showHeaderAndFooter {
                     HStack {
-                        
                         AvatarWithNavLink(email: post.email, isMyProfile: authViewModel.email == post.email, imageUrl: post.userImageURL, displayName: post.displayName)
                         
                         Image(systemName: "ellipsis")
@@ -117,43 +116,48 @@ struct PostView: View {
                 }
                 
                 
-                //MARK: - IMAGE
-                ZStack {
-                    URLImage(
-                            url: URL(string: post.postImageURL)!,
-                            options: URLImageOptions(
-                                expireAfter: 10.0
-                             ),
+                //MARK: - Image
+                HStack {
+                    ZStack {
+                        URLImage(
+                                url: URL(string: post.postImageURL)!,
+                                options: URLImageOptions(
+                                    expireAfter: 10.0
+                                 ),
 
-                             failure: { error, retry in
-                                VStack {
-                                    Text(error.localizedDescription)
-                                }
-                            },
-                             content: { image in
-                                 image
-                                     .resizable()
-                                     .aspectRatio(contentMode: .fill)
-                             })
-                        .scaleEffect(1 + currentScale)
-                        .gesture(
-                            MagnificationGesture()
-                                .onChanged { value in
-                                    self.currentScale = value
-                                }
-                                .onEnded { value in
-                                    withAnimation(.spring()) {
-                                        currentScale = 0
+                                 failure: { error, retry in
+                                    VStack {
+                                        Text(error.localizedDescription)
                                     }
-                                }
-                        
-                        )
-                        
-                    LikeAnimationView(animate: $postViewModel.animateLike)
+                                },
+                                 content: { image in
+                                     image
+                                         .resizable()
+                                         .aspectRatio(contentMode: .fill)
+                                 })
+                            .scaleEffect(1 + currentScale)
+                            .gesture(
+                                MagnificationGesture()
+                                    .onChanged { value in
+                                        self.currentScale = value
+                                    }
+                                    .onEnded { value in
+                                        withAnimation(.spring()) {
+                                            currentScale = 0
+                                        }
+                                    }
+                            
+                            )
+                            
+                        LikeAnimationView(animate: $postViewModel.animateLike)
+                    }
                 }
                 
-                //MARK: - FOOTER
+                
+                //MARK: - Footer
                 if showHeaderAndFooter {
+                    
+                    //MARK: - icon
                     HStack(alignment: .center, spacing: 20) {
                        
                         Image(systemName: post.likedBy.contains(authViewModel.userID!) ? "heart.fill" : "heart")
@@ -187,6 +191,7 @@ struct PostView: View {
 
                     }.padding(.all,10)
                     
+                    //MARK: - likeCount
                     VStack(alignment: .leading) {
                         NavigationLink(destination: LikePostUserListView(postID: post.postID)) {
                             Text("\(post.likeCount) likes")
@@ -194,18 +199,16 @@ struct PostView: View {
                        
                     }.padding(.leading,10)
                     
-
+                    //MARK: - caption
+                    HStack {
+                        Text(post.caption)
+                        Spacer(minLength: 0)
+                        //when caption == entire screen,then len== 0; otherwise certain amount.
+                    }.padding([.leading,.top],10)
                     
-                    if let caption = post.caption {
-                        HStack {
-                            Text(caption)
-                            Spacer(minLength: 0)
-                            //when caption == entire screen,then len== 0; otherwise certain amount.
-                        }.padding([.leading,.top],10)
-                    }
-                    
-                    if commentsViewModel.commentsCount > 0 {
-                        HStack {
+                    //MARK: - viewAllComments & Date
+                    HStack {
+                        if commentsViewModel.commentsCount > 0 {
                             NavigationLink(
                                 destination: CommentsView(postID: post.postID)) {
                                     Text("View all \(commentsViewModel.commentsCount) comments")
@@ -213,11 +216,20 @@ struct PostView: View {
                                         .font(.title3)
                                         .foregroundColor(Color.gray)
                                 }
-                            
-                        }.padding([.leading,.top], 10)
+                        }
                         
-                            
                     }
+                        .padding([.leading,.top], 10)
+                        .frame(height: 30)
+                    
+                    HStack {
+                        if (TimeInterval(post.createdAt).toDate().isInToday()) {
+                            Text(TimeInterval(post.createdAt).toDate().timeAgoDisplay())
+                        } else {
+                            Text(TimeInterval(post.createdAt).toDateString())
+                        }
+                    }.padding([.leading,.top], 10)
+                    
                 }
             }.onAppear {
                 Task {

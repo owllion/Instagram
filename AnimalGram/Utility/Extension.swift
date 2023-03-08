@@ -53,6 +53,14 @@ extension Date {
         formatter.unitsStyle = .full
         return formatter.localizedString(for: self, relativeTo: Date())
     }
+    
+    func isInToday() -> Bool {
+        let formatter = RelativeDateTimeFormatter()
+       
+        return formatter.calendar.isDateInToday(self)
+       
+    }
+    
 }
 
 extension Double {

@@ -32,7 +32,7 @@ class FeedViewModel: ObservableObject {
     
     
     @MainActor //for BrowseView
-    func getBrowsePosts() async throws {
+    func getBrowsePosts() async{
         self.isLoading = true
         
         do {

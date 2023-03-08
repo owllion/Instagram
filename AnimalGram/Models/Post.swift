@@ -11,7 +11,7 @@ struct Post: Identifiable ,Hashable {
     var postID: String
     var userID: String
     var displayName: String
-    var caption: String?
+    var caption: String
     var postImageURL: String
     var userImageURL: String
     var email: String
