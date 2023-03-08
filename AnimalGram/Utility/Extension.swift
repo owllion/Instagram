@@ -8,6 +8,24 @@ import SwiftUI
 import Foundation
 
 extension View {
+    @ViewBuilder
+    func `if`<Content: View>(_ conditional: Bool, @ViewBuilder _ content: (Self) -> Content) -> some View {
+        if conditional {
+            content(self)
+        } else {
+            self
+        }
+    }
+    
+    @ViewBuilder func `if`<Truthy: View, Falsy: View>(_ conditional: Bool = true, @ViewBuilder _ truthy: (Self) -> Truthy, @ViewBuilder else falsy: (Self) -> Falsy) -> some View {
+        if conditional {
+            truthy(self)
+        } else {
+            falsy(self)
+        }
+    }
+
+    
     func customLabel() -> some View {
             self.font(.headline)
             .fontWeight(.bold)
@@ -85,5 +103,6 @@ extension Double {
         return String(format: "%.0f", locale: Locale.current,self)
     }
 }
+
 
 

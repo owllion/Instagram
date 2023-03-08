@@ -129,15 +129,18 @@ struct PostView: View {
                                 },
                                  content: { image in
                                     
-                                         image
+                                     image.if(showHeaderAndFooter) {
+                                         
+                                             $0
+                                                 .resizable()
+                                                 .aspectRatio(contentMode: .fill)
+                                     } else: {
+                                         $0
                                              .resizable()
                                              .scaledToFill()
                                              .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3 )
                                              .clipped()
-                                    
-//                                         image
-//                                             .resizable()
-//                                             .aspectRatio(contentMode: .fill)
+                                     }
                                      
                                      
                                  })
@@ -164,7 +167,7 @@ struct PostView: View {
                 if showHeaderAndFooter {
                     
                     //MARK: - icon
-                    HStack(alignment: .center, spacing: 20) {
+                    HStack(spacing: 20) {
                        
                         Image(systemName: post.likedBy.contains(authViewModel.userID!) ? "heart.fill" : "heart")
                             .font(.title3)
@@ -182,7 +185,7 @@ struct PostView: View {
                         //MARK: - COMMENTS ICON
                         NavigationLink(
                             destination: CommentsView(postID: post.postID)) {
-                                Image(systemName: "bubble.middle.bottom").foregroundColor(.primary)
+                                Image(systemName: "bubble.right").foregroundColor(.primary)
                             }
 
 
@@ -194,8 +197,13 @@ struct PostView: View {
                             }
 
                         Spacer()
+                        
+                        Image(systemName: "bookmark")
+                            .foregroundColor(.primary)
 
-                    }.padding(.all,10)
+                    }
+                    .font(.title2)
+                    .padding(.all,10)
                     
                     //MARK: - likeCount
                     if post.likeCount > 0 {
