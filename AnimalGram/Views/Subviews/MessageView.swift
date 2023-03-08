@@ -45,7 +45,11 @@ struct MessageView: View {
                         .font(.caption)
                         .foregroundColor(.gray)
                     
-                    Text(TimeInterval(comment.createdAt).toDate().timeAgoDisplay())
+                    Text(
+                        TimeInterval(comment.createdAt)
+                        .toDate()
+                        .timeAgoDisplay()
+                    )
                 }
                
                 

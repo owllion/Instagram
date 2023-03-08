@@ -51,7 +51,7 @@ struct ProfileHeaderView: View {
                 
                 //MARK: - LIKES
                 VStack(alignment: .center, spacing: 5) {
-                    Text("\(profileViewModel.totalPostLikes)")
+                    Text("\(Double(profileViewModel.totalPostLikes).kmFormatted)")
                         .font(.title2)
                         .fontWeight(.bold)
                     
