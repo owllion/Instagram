@@ -23,6 +23,7 @@ struct PostView: View {
                         
                         Image(systemName: "ellipsis")
                             .font(.headline)
+                            .rotationEffect(.degrees(90))
                             .onTapGesture {
                                 postViewModel.showConfirmation.toggle()
                             }.confirmationDialog(
