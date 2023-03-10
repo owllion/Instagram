@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct MainTabView: View {
+    
     @EnvironmentObject var authViewModel: AuthenticationViewModel
+    @ObservedObject var feedViewModel = FeedViewModel()
+    
     var body: some View {
             TabView {
                 NavigationView {
-                    FeedView(title: "Feed")
+                    FeedView(posts: feedViewModel.posts , scrollIndex: nil, title: "Feed", from: "main")
                 }.tabItem {
                     Label("Feed", systemImage: "book.fill")
                 }
@@ -34,6 +37,8 @@ struct MainTabView: View {
                 }.tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }
+            }.onAppear {
+                feedViewModel.getPosts()
             }
     }
 }

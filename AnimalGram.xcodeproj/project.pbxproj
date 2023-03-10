@@ -15,6 +15,7 @@
 		2556F8D929B5D5610041B792 /* AvatarWithNavLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F8D829B5D5610041B792 /* AvatarWithNavLink.swift */; };
 		2556F8E429B8CB900041B792 /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2556F8CD29B4892F0041B792 /* Billabong.ttf */; };
 		2556F8E729B8CCCD0041B792 /* ig-ani-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2556F8C529B482FB0041B792 /* ig-ani-loading.json */; };
+		2556F8E929B9CD650041B792 /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2556F8E829B9CD650041B792 /* BrowseViewModel.swift */; };
 		2562954829AC581C00BE59CB /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954729AC581C00BE59CB /* PostViewModel.swift */; };
 		2562954C29AC6CF400BE59CB /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954B29AC6CF400BE59CB /* ProfileViewModel.swift */; };
 		2562954E29AC931500BE59CB /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2562954D29AC931500BE59CB /* FeedViewModel.swift */; };
@@ -74,6 +75,7 @@
 		2556F8D329B5C35E0041B792 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2556F8D529B5C8750041B792 /* LikePostUserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePostUserListViewModel.swift; sourceTree = "<group>"; };
 		2556F8D829B5D5610041B792 /* AvatarWithNavLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarWithNavLink.swift; sourceTree = "<group>"; };
+		2556F8E829B9CD650041B792 /* BrowseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewModel.swift; sourceTree = "<group>"; };
 		2562954729AC581C00BE59CB /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		2562954B29AC6CF400BE59CB /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		2562954D29AC931500BE59CB /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				2562956B29B064C100BE59CB /* CommentViewModel.swift */,
 				2562957129B0F8E700BE59CB /* SettingsEditTextViewModel.swift */,
 				2556F8D529B5C8750041B792 /* LikePostUserListViewModel.swift */,
+				2556F8E829B9CD650041B792 /* BrowseViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				256B181D29A36EBF00087828 /* MessageView.swift in Sources */,
 				256B181029A3496700087828 /* colors.swift in Sources */,
 				25FCF39A29AB357300D8C8F1 /* MainTabView.swift in Sources */,
+				2556F8E929B9CD650041B792 /* BrowseViewModel.swift in Sources */,
 				256B184629A5C34500087828 /* Extension.swift in Sources */,
 				256B182529A3BEF100087828 /* ImageGridView.swift in Sources */,
 				256B183129A4A49200087828 /* ProfileHeaderView.swift in Sources */,

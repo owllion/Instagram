@@ -168,15 +168,13 @@ class PostViewModel: ObservableObject {
         
     }
     
-    
-    func deletePost(_ postID: String) {
-        postCollection.document(postID).delete { error in
-            if let error = error {
-                print("Unable to remove the post: \(error.localizedDescription)")
-                self.handleError(error, msg: nil)
-            }
-            
-            
+    @MainActor
+    func deletePost(_ postID: String) async  {
+        do {
+            try await postCollection.document(postID).delete()
+
+        } catch {
+            self.handleError(error, msg: nil)
         }
     }
     

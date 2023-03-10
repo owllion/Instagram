@@ -40,12 +40,18 @@ struct PostView: View {
                                     } label: {
                                         Text("Report")
                                     }
-                                    
-                                    Button {
-                                        print()
-                                    } label: {
-                                        Text("Learn more..")
+                                    if (authViewModel.email == post.email) {
+                                        Button (role: .destructive) {
+                                            Task {
+                                                await postViewModel.deletePost(post.postID)
+                                            }
+                                            
+                                        } label: {
+                                            Text("Delete")
+                                        }
+                                        
                                     }
+                                   
                                 } else {
                                     Button (role: .destructive){
                                         Task {
@@ -256,7 +262,7 @@ struct PostView: View {
                                 .foregroundColor(Color.gray)
                         } else {
                             Text(TimeInterval(post.createdAt).toDateString())
-                                .font(.title3)
+                                .font(.caption)
                                 .foregroundColor(Color.gray)
                         }
                     }.padding([.leading,.top], 10)

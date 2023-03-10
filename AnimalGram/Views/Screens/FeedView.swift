@@ -11,38 +11,50 @@ struct FeedView: View {
     
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @ObservedObject var feedViewModel = FeedViewModel()
+    @ObservedObject var browseViewModel = BrowseViewModel()
+    @ObservedObject var profileViewModel = ProfileViewModel()
     
+   
+    
+    @State var displayPosts: [Post] = [Post]()
+
+    var posts: [Post]
+    var scrollIndex: Int?
     var title: String
+    var from: String
+    
+    var postID: String?
+    var userID: String? //get userPosts
     
     var body: some View {
-        ZStack {
+        ScrollViewReader { scrollView in 
             ScrollView (.vertical, showsIndicators: false) {
                 LazyVStack {
-                    ForEach(feedViewModel.posts, id: \.self) { post in
-                        PostView(post: post, showHeaderAndFooter: true)
+                    ForEach(posts.indices, id: \.self) { index in
+                        PostView(post: posts[index], showHeaderAndFooter: true).id(index)
                     }
                 }
                 
             }.navigationTitle(title)
                 .navigationBarTitleDisplayMode(.large)
                 .onAppear {
-                    feedViewModel.getPosts()
+                    if let scrollIndex = self.scrollIndex {
+                        withAnimation(.easeIn(duration: 0.8)) {
+                            scrollView.scrollTo(scrollIndex)
+                        }
+                    }
                 }
-//                .overlay {
-//                    ProgressView("Fetching data...")
-//                        .progressViewStyle(
-//                        CircularProgressViewStyle(tint: .cyan))
-//                }
-           
+                
         }
        
     }
 }
 
 struct FeedView_Previews: PreviewProvider {
+    @State static var posts = [Post(postID: "", userID: "", displayName: "", caption: "", postImageURL: "", userImageURL: "", email: "", likeCount: 9, likedBy: [], createdAt: Int(Date().timeIntervalSince1970))]
     static var previews: some View {
         NavigationView {
-            FeedView(title: "My Post")
+            FeedView(posts: posts, scrollIndex: 5, title: "", from: "")
 
         }
     }

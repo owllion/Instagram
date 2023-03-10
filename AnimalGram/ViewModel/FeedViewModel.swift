@@ -16,7 +16,8 @@ class FeedViewModel: ObservableObject {
     private var postCollection = store.collection(K.FireStore.Post.collectionName)
     
     @Published var posts: [Post] = [Post]() //for FeedView
-    @Published var browsePosts: [Post] = [Post]() //for BrowseView
+    @Published var postsWithoutListener: [Post] = [Post]() //for BrowseView
+    @Published var pinAndShuffledPosts: [Post] = [Post]()
     @Published var isLoading: Bool = false
     
     //MARK: - Error Properties
@@ -32,7 +33,7 @@ class FeedViewModel: ObservableObject {
     
     
     @MainActor //for BrowseView
-    func getBrowsePosts() async{
+    func getPostsWithoutListener() async {
         self.isLoading = true
         
         do {
@@ -41,7 +42,7 @@ class FeedViewModel: ObservableObject {
                 .limit(to: 50)
                 .getDocuments()
 
-            self.browsePosts = []
+            self.postsWithoutListener = []
             
             for doc in snapshot.documents {
                 let data = doc.data()
@@ -64,18 +65,29 @@ class FeedViewModel: ObservableObject {
                 {
                     let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURL: postImageURL, userImageURL: userImageURL, email: email, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
                                         
-                    self.browsePosts.append(newPost)
+                    self.postsWithoutListener.append(newPost)
                 }
             }
             self.isLoading = false
             
         }catch {
             self.isLoading = false
-            print(error.localizedDescription,"browsePosts error")
+            print(error.localizedDescription)
             self.handleError(error)
         }
     }
     
+    @MainActor
+    func getPinAndShufflePosts(_ postID: String) async {
+        await self.getPostsWithoutListener()
+        
+        if let postNeedToBePinned = self.postsWithoutListener.first(where: { $0.postID == postID}) {
+            
+            self.pinAndShuffledPosts.append(postNeedToBePinned)
+            self.pinAndShuffledPosts.append(contentsOf: postsWithoutListener.filter {$0.postID != postID}.shuffled())
+            
+        }
+    }
     
     func getPosts() {
         self.isLoading = true
@@ -89,7 +101,7 @@ class FeedViewModel: ObservableObject {
                 self.posts = []
                 
                 if let error = error {
-                    print("FeedVM 有錯誤")
+                    print("FeedVM error")
                     self.isLoading = false
                     
                     self.alertMessage = error.localizedDescription

@@ -14,15 +14,13 @@ struct BrowseView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             CarouselView()
-            ImageGridView(posts: feedViewModel.browsePosts)
+            ImageGridView(posts: feedViewModel.postsWithoutListener, from: "browse")
         }.navigationTitle("Browse")
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
                 Task {
-                    do {
-                        try await                 feedViewModel.getBrowsePosts()
-
-                    }catch {}
+                  
+                     await                 feedViewModel.getPostsWithoutListener()
                 }
             }
     }
