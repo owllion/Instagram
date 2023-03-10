@@ -85,7 +85,9 @@ class PostViewModel: ObservableObject {
     }
     
     @MainActor
-    func reportPost(reason: String, postID: String) async throws  {
+    func reportPost(reason: String, postID: String) async {
+        self.isLoading = true
+        
         let data: [String : Any] = [
             K.FireStore.Report.contentField : reason,
             K.FireStore.Report.postIDField : postID,
@@ -97,9 +99,11 @@ class PostViewModel: ObservableObject {
             
             self.dialogType = .general
             
+            self.isLoading = false
             self.handleSuccess("Thanks for reporting this post. We will review it shortly and take the appropriate action!")
 
         }catch {
+            self.isLoading = false
             self.handleError(error, msg: "Error! There was an error uploading the report. Please restart the app and try again.")
         }
     }

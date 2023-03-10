@@ -2,11 +2,12 @@ import SwiftUI
 import URLImage
 
 struct PostView: View {
-        
+    
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @StateObject var postViewModel = PostViewModel()
     @StateObject var commentsViewModel = CommentViewModel()
     
+    @State private var showAlert = false
     @State var currentScale: CGFloat = 0
     
     var post: Post
@@ -41,47 +42,37 @@ struct PostView: View {
                                         Text("Report")
                                     }
                                     if (authViewModel.email == post.email) {
-                                        Button (role: .destructive) {
-                                            Task {
-                                                await postViewModel.deletePost(post.postID)
-                                            }
+                                        Button {
+                                            self.showAlert.toggle()
+                                            
+//                                            Task {
+//                                                await postViewModel.deletePost(post.postID)
+//                                            }
                                             
                                         } label: {
                                             Text("Delete")
                                         }
                                         
                                     }
-                                   
+                                    
                                 } else {
                                     Button (role: .destructive){
                                         Task {
-                                            do {
-                                              //  authViewModel.isLoading = true
-
-                                                try await postViewModel.reportPost(reason: "This is inappropriate", postID: post.postID)
-                                               // authViewModel.isLoading = false
-
-                                            }catch {
-                                              //  authViewModel.isLoading = false
-
-                                                print(error)
-                                            }
+                                            
+                                            
+                                            await postViewModel.reportPost(reason: "This is inappropriate", postID: post.postID)
+                                            
+                                            
                                         }
-                                       
+                                        
                                     } label: {
                                         Text("This is inappropriate")
                                     }
                                     
                                     Button(role: .destructive) {
                                         Task {
-                                            do {
-                                               // authViewModel.isLoading = true
-                                                try await postViewModel.reportPost(reason: "This is spam", postID: post.postID)
-                                               // authViewModel.isLoading = false
-                                            }catch {
-                                               // authViewModel.isLoading = false
-                                                print(error)
-                                            }
+                                            await postViewModel.reportPost(reason: "This is spam", postID: post.postID)
+                                            
                                         }
                                         
                                     } label: {
@@ -90,21 +81,9 @@ struct PostView: View {
                                     
                                     Button(role: .destructive) {
                                         Task {
-                                            do {
-                                                
-                                               // authViewModel.isLoading = true
-
-                                                try await postViewModel.reportPost(reason: "It made me uncomfortable", postID: post.postID)
-                                                
-                                                //authViewModel.isLoading = false
-
-                                            }catch {
-                                                //authViewModel.isLoading = false
-
-                                                print(error)
-                                            }
+                                            await postViewModel.reportPost(reason: "It made me uncomfortable", postID: post.postID)
                                         }
-                                       
+                                        
                                     } label: {
                                         Text("It made me uncomfortable")
                                     }
@@ -114,10 +93,10 @@ struct PostView: View {
                                     Button("Cancel", role: .cancel) {
                                         self.postViewModel.dialogType = .general
                                     }
-                                   
+                                    
                                 }
-                              
-
+                                
+                                
                             }
                     }.padding(.all, 6)
                 }
@@ -127,43 +106,43 @@ struct PostView: View {
                 HStack {
                     ZStack {
                         URLImage(
-                                url: URL(string: post.postImageURL)!,
-                                 failure: { error, retry in
-                                    VStack {
-                                        Text(error.localizedDescription)
-                                    }
-                                },
-                                 content: { image in
+                            url: URL(string: post.postImageURL)!,
+                            failure: { error, retry in
+                                VStack {
+                                    Text(error.localizedDescription)
+                                }
+                            },
+                            content: { image in
+                                
+                                image.if(showHeaderAndFooter) {
                                     
-                                     image.if(showHeaderAndFooter) {
-                                         
-                                             $0
-                                                 .resizable()
-                                                 .aspectRatio(contentMode: .fill)
-                                     } else: {
-                                         $0
-                                             .resizable()
-                                             .scaledToFill()
-                                             .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3 )
-                                             .clipped()
-                                     }
-                                     
-                                     
-                                 })
-                            .scaleEffect(1 + currentScale)
-                            .gesture(
-                                MagnificationGesture()
-                                    .onChanged { value in
-                                        self.currentScale = value
+                                    $0
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                } else: {
+                                    $0
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3 )
+                                        .clipped()
+                                }
+                                
+                                
+                            })
+                        .scaleEffect(1 + currentScale)
+                        .gesture(
+                            MagnificationGesture()
+                                .onChanged { value in
+                                    self.currentScale = value
+                                }
+                                .onEnded { value in
+                                    withAnimation(.spring()) {
+                                        currentScale = 0
                                     }
-                                    .onEnded { value in
-                                        withAnimation(.spring()) {
-                                            currentScale = 0
-                                        }
-                                    }
+                                }
                             
-                            )
-                            
+                        )
+                        
                         LikeAnimationView(animate: $postViewModel.animateLike)
                     }
                 }
@@ -174,7 +153,7 @@ struct PostView: View {
                     
                     //MARK: - icon
                     HStack(spacing: 20) {
-                       
+                        
                         Image(systemName: post.likedBy.contains(authViewModel.userID!) ? "heart.fill" : "heart")
                             .font(.title3)
                             .onTapGesture {
@@ -182,31 +161,31 @@ struct PostView: View {
                                     postViewModel.unlikePost(post: post, postID: post.postID, userID: authViewModel.userID!)
                                     
                                 } else {
-                                     postViewModel.likePost(post: post, postID: post.postID, userID: authViewModel.userID!)
-
+                                    postViewModel.likePost(post: post, postID: post.postID, userID: authViewModel.userID!)
+                                    
                                 }
                             }
                             .foregroundColor( post.likedBy.contains(authViewModel.userID!) ? Color.red : Color.primary)
-
+                        
                         //MARK: - COMMENTS ICON
                         NavigationLink(
                             destination: CommentsView(postID: post.postID)) {
                                 Image(systemName: "bubble.right").foregroundColor(.primary)
                             }
-
-
+                        
+                        
                         Image(systemName: "paperplane")
                             .font(.title3)
                             .foregroundColor(.primary)
                             .onTapGesture {
                                 postViewModel.sharePost(post)
                             }
-
+                        
                         Spacer()
                         
                         Image(systemName: "bookmark")
                             .foregroundColor(.primary)
-
+                        
                     }
                     .font(.title2)
                     .padding(.all,10)
@@ -216,12 +195,13 @@ struct PostView: View {
                         VStack(alignment: .leading) {
                             NavigationLink(destination: LikePostUserListView(postID: post.postID)) {
                                 Text("\(post.likeCount) likes")
-                                    .fontWeight(.bold)
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.red)
                             }
-                           
+                            
                         }.padding(.leading,10)
                     }
-                   
+                    
                     
                     //MARK: - caption
                     HStack {
@@ -231,7 +211,7 @@ struct PostView: View {
                             Text(post.displayName)
                                 .fontWeight(.bold)
                         }
-
+                        
                         Text(post.caption)
                         Spacer(minLength: 0)
                         //when caption == entire screen,then len== 0; otherwise certain amount.
@@ -239,21 +219,21 @@ struct PostView: View {
                     
                     //MARK: - viewAllComments & Date
                     
-                        if commentsViewModel.commentsCount > 0 {
-                            HStack {
-                                NavigationLink(
-                                    destination: CommentsView(postID: post.postID)) {
-                                        Text("View all \(commentsViewModel.commentsCount) comments")
-                                            .fontWeight(.light)
-                                            .font(.title3)
-                                            .foregroundColor(Color.gray)
-                                    }
-                            } .padding([.leading,.top], 10)
-                                .frame(height: 30)
-                        }
-                        
+                    if commentsViewModel.commentsCount > 0 {
+                        HStack {
+                            NavigationLink(
+                                destination: CommentsView(postID: post.postID)) {
+                                    Text("View all \(commentsViewModel.commentsCount) comments")
+                                        .fontWeight(.light)
+                                        .font(.title3)
+                                        .foregroundColor(Color.gray)
+                                }
+                        } .padding([.leading,.top], 10)
+                            .frame(height: 30)
+                    }
                     
-                       
+                    
+                    
                     
                     HStack {
                         if (TimeInterval(post.createdAt).toDate().isInWeek()) {
@@ -270,15 +250,24 @@ struct PostView: View {
                 }
             }.onAppear {
                 Task {
-                   await commentsViewModel.getCommentsCount(postID: post.postID)
-                        
+                    await commentsViewModel.getCommentsCount(postID: post.postID)
+                    
                 }
-   
+                
             }
             .alert(isPresented: $postViewModel.showAlert) {
                 () -> Alert in return Alert(title: Text(postViewModel.alertMessage), message: nil, dismissButton: .default(Text("OK")))
             }
-
+            .alert("Are you sure?", isPresented: $showAlert) {
+                Button("Delete", role: .destructive) {
+                    Task {
+                        await postViewModel.deletePost(post.postID)
+                    }
+                    
+                }
+            }
+            
+            
         }
         
     }

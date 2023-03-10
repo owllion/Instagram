@@ -78,14 +78,14 @@ struct PostImageView: View {
         }.overlay {
             
             if postViewModel.isLoading {
-                
-                ZStack {
-                    Color.primary.opacity(0.2).edgesIgnoringSafeArea(.all)
-                    ProgressView("Loading...")
-                        .progressViewStyle(
-                            CircularProgressViewStyle(tint: .cyan)
-                        )
-                }
+                CustomProgressView()
+//                ZStack {
+//                    Color.primary.opacity(0.2).edgesIgnoringSafeArea(.all)
+//                    ProgressView("Loading...")
+//                        .progressViewStyle(
+//                            CircularProgressViewStyle(tint: .cyan)
+//                        )
+//                }
                 
             }
             

@@ -11,8 +11,7 @@ struct CustomProgressView: View {
     
     var placeHolder: String = "Please wait"
     @State var animate: Bool = false
-    @Binding var show: Bool
-
+    
     var body: some View {
         
         VStack(spacing: 28) {
@@ -33,13 +32,6 @@ struct CustomProgressView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             Color.primary.opacity(0.35)
-                .onTapGesture {
-                    
-                    withAnimation {
-                        
-                        show.toggle()
-                    }
-                }
         ).edgesIgnoringSafeArea(.all)
         .onAppear {
             withAnimation(Animation.linear(duration: 1.5).repeatForever(autoreverses: false)) {
@@ -66,8 +58,7 @@ struct BlurView: UIViewRepresentable {
 }
 
 struct CustomProgressView_Previews: PreviewProvider {
-    @State static var showVal = false
     static var previews: some View {
-        CustomProgressView(placeHolder: "", show: $showVal)
+        CustomProgressView(placeHolder: "")
     }
 }

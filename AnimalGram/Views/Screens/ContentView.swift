@@ -18,20 +18,14 @@ struct ContentView: View {
             case .signedOut:
                 NavigationView { SignUpView() }
             case .signedIn:
-               
                 MainTabView()
-                CustomProgressView(show: $test)
                 if authViewModel.isLoading {
-                    withAnimation(.easeIn(duration: 0.2)) {
-                        LoadingView(lottieFile:"ig-ani-loading")
-                    }
-
+                    CustomProgressView()
                 }
                 
             }
-            
-            
-           
+                
+            }     
         }
        
     }
@@ -46,4 +40,3 @@ struct ContentView: View {
             
         }
     }
-}
