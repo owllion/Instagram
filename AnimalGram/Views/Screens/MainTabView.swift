@@ -15,7 +15,7 @@ struct MainTabView: View {
     var body: some View {
             TabView {
                 NavigationView {
-                    FeedView(posts: feedViewModel.posts , scrollIndex: nil, title: "Feed", from: "main")
+                    FeedView(posts: feedViewModel.posts , scrollIndex: nil, title: "Feed")
                 }.tabItem {
                     Label("Feed", systemImage: "book.fill")
                 }

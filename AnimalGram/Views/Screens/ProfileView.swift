@@ -24,7 +24,7 @@ struct ProfileView: View {
                 .environmentObject(profileViewModel)
             
             Divider()
-            ImageGridView(posts: profileViewModel.userPosts, from: "profile", userID: profileViewModel.userID)
+            ImageGridView(posts: profileViewModel.userPosts)
             
         }.navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.large)
@@ -40,14 +40,10 @@ struct ProfileView: View {
             }
             .onAppear {
                 Task {
-                    
                     await profileViewModel.getPostAuthorInfo(with: email)
-                    
-                    
+                    profileViewModel.getUserPosts(with: profileViewModel.userID)
+                  
                 }
-                profileViewModel.getUserPosts(with: profileViewModel.userID)
-                
-              
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView()

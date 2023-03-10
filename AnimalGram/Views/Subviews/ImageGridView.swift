@@ -13,17 +13,14 @@ struct ImageGridView: View {
     @ObservedObject var browseViewModel = BrowseViewModel()
     @ObservedObject var profileViewModel = ProfileViewModel()
     
-    var shuffledPosts:[Post] = [Post]()
     var posts: [Post]
-    var from: String
-    var userID: String? //for getting userPosts
-    
+   
     var body: some View {
         LazyVGrid(columns: Array(repeating:  GridItem(.flexible()), count: 3)) {
             ForEach(posts.indices, id: \.self) {
                     index in
                     NavigationLink {
-                        FeedView(posts: posts, scrollIndex: index, title:"Post", from: "" )
+                        FeedView(posts: posts, scrollIndex: index, title: "Posts")
                     } label: {
                         PostView(post: posts[index], showHeaderAndFooter: false)
                             
@@ -48,6 +45,6 @@ struct ImageGridView_Previews: PreviewProvider {
                     )
                 ]
     static var previews: some View {
-        ImageGridView(posts: posts, from: "browse").previewLayout(.sizeThatFits)
+        ImageGridView(posts: posts).previewLayout(.sizeThatFits)
     }
 }

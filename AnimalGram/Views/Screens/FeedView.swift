@@ -21,7 +21,6 @@ struct FeedView: View {
     var posts: [Post]
     var scrollIndex: Int?
     var title: String
-    var from: String
     
     var postID: String?
     var userID: String? //get userPosts
@@ -54,7 +53,7 @@ struct FeedView_Previews: PreviewProvider {
     @State static var posts = [Post(postID: "", userID: "", displayName: "", caption: "", postImageURL: "", userImageURL: "", email: "", likeCount: 9, likedBy: [], createdAt: Int(Date().timeIntervalSince1970))]
     static var previews: some View {
         NavigationView {
-            FeedView(posts: posts, scrollIndex: 5, title: "", from: "")
+            FeedView(posts: posts, scrollIndex: 5, title: "")
 
         }
     }

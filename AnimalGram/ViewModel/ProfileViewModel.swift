@@ -76,6 +76,10 @@ class ProfileViewModel: ObservableObject {
                         self.userPosts.append(newPost)
                     }
                 }
+                
+                self.totalPosts = self.userPosts.count
+                self.totalPostLikes = self.userPosts.map { $0.likeCount }.reduce(0, +)
+                
                 self.isLoading = false
                 
                 
@@ -151,27 +155,6 @@ class ProfileViewModel: ObservableObject {
             }
         }
         
-        
-        @MainActor
-        func getPinPosts(postID: String, userID: String) async ->  [Post]? {
-            var userPinPosts: [Post] = []
-            
-            await self.getUserPosts(with: userID)
-            
-            if self.userPosts.count > 0 {
-                if let postNeedToBePinned = self.userPosts.first(where: { $0.postID == postID}) {
-                    
-                    userPinPosts.append(postNeedToBePinned)
-                    userPinPosts.append(contentsOf: self.userPosts.filter {$0.postID != postID}.shuffled())
-                    
-                    return userPinAndShuffledPosts
-                    
-                }
-                return []
-            }
-            return []
-            
-        }
         
     }
 

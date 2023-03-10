@@ -9,19 +9,16 @@ import SwiftUI
 
 struct BrowseView: View {
     
-    @ObservedObject var feedViewModel = FeedViewModel()
+    @StateObject var feedViewModel = FeedViewModel()
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             CarouselView()
-            ImageGridView(posts: feedViewModel.postsWithoutListener, from: "browse")
+            ImageGridView(posts: feedViewModel.posts)
         }.navigationTitle("Browse")
             .navigationBarTitleDisplayMode(.large)
             .onAppear {
-                Task {
-                  
-                     await                 feedViewModel.getPostsWithoutListener()
-                }
+                feedViewModel.getPosts()
             }
     }
 }

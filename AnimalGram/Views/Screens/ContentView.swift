@@ -11,7 +11,7 @@ struct ContentView: View {
     
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @Environment(\.colorScheme) var colorScheme
-    
+    @State var test: Bool = true
     var body: some View {
         ZStack {
             switch authViewModel.state {
@@ -20,7 +20,7 @@ struct ContentView: View {
             case .signedIn:
                
                 MainTabView()
-                
+                CustomProgressView(show: $test)
                 if authViewModel.isLoading {
                     withAnimation(.easeIn(duration: 0.2)) {
                         LoadingView(lottieFile:"ig-ani-loading")
