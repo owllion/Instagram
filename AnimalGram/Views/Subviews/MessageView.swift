@@ -33,8 +33,8 @@ struct MessageView: View {
                              .resizable()
                              .scaledToFill()
                              .scaledToFill()
-                             .frame(width: 40, height: 40, alignment: .center)
-                             .cornerRadius(20)
+                             .frame(width: 50, height: 50, alignment: .center)
+                             .cornerRadius(25)
                      })
             
             VStack(alignment: .leading, spacing: 4) {
@@ -42,24 +42,23 @@ struct MessageView: View {
                 //MARK: - USER NAME & Date
                 HStack {
                     Text(comment.userName)
-                        .font(.caption)
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color.primary)
+                        .fontWeight(.medium)
                     
                     Text(
                         TimeInterval(comment.createdAt)
                         .toDate()
                         .timeAgoDisplay()
-                    )
+                    ).foregroundColor(Color.gray)
                 }
                
                 
                 //MARK: - CONTENT
                 Text(comment.content)
-                    .padding(.all, 10)
+                    .padding([.top,.trailing], 10)
                     .foregroundColor(.primary)
-                    .background(Color.gray)
-                    .cornerRadius(10)
-            }
+                    
+            }.padding(.leading, 7)
             Spacer(minLength: 0)
             //for making sure message is pushed all the way to the let side of the screen,coz if our msg was a shorter column, we don't want it to be in the center.
             
@@ -78,16 +77,21 @@ struct MessageView: View {
                     .foregroundColor(comment.likedBy.contains(authViewModel.userID!) ? Color.red : Color.primary)
                 
                 Text("\(comment.likeCount)")
+                    .padding(.top,8)
             }
             
-        }
+        }.padding(.all,15)
     }
    
 }
 
 struct MessageView_Previews: PreviewProvider {
-    static var comment = Comment(id: UUID().uuidString, userName: "Tom", userImageURL: "", content: "Cool", commentID: "", likeCount: 998, likedBy: [], createdAt: Int(Date().timeIntervalSince1970))
+    @EnvironmentObject static var authViewModel: AuthenticationViewModel
+    static var comment = Comment(id: UUID().uuidString, userName: "Tom", userImageURL: "https://res.cloudinary.com/azainseong/image/upload/v1662517415/mij3ogxe5cqxitevri9z.png", content: "Cool", commentID: "35", likeCount: 998, likedBy: [], createdAt: Int(Date().timeIntervalSince1970))
     static var previews: some View {
-        MessageView(comment: comment, postID: "").previewLayout(.sizeThatFits)
+        MessageView(comment: comment, postID: "")
+            .environmentObject(authViewModel)
+            .previewLayout(.sizeThatFits)
+            
     }
 }

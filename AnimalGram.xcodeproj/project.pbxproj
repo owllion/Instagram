@@ -63,6 +63,7 @@
 		256B185929A864DD00087828 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B185829A864DD00087828 /* ImageManager.swift */; };
 		25D80B8029BB03380019D34B /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D80B7F29BB03380019D34B /* CustomProgressView.swift */; };
 		25D80B8229BB0C690019D34B /* dots-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 25D80B8129BB0C690019D34B /* dots-loading.json */; };
+		25D80B8429BB6FC70019D34B /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D80B8329BB6FC70019D34B /* PhotoPicker.swift */; };
 		25FCF39829AB314300D8C8F1 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FCF39729AB314300D8C8F1 /* CircularProgressView.swift */; };
 		25FCF39A29AB357300D8C8F1 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FCF39929AB357300D8C8F1 /* MainTabView.swift */; };
 		F99D7F03ACB47933B29CA3AA /* Pods_AnimalGram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B31E87545773D8F7B064FA /* Pods_AnimalGram.framework */; };
@@ -127,6 +128,7 @@
 		256B185829A864DD00087828 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		25D80B7F29BB03380019D34B /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		25D80B8129BB0C690019D34B /* dots-loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dots-loading.json"; sourceTree = "<group>"; };
+		25D80B8329BB6FC70019D34B /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		25FCF39729AB314300D8C8F1 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		25FCF39929AB357300D8C8F1 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		462FF1EDD5F06C659D596C42 /* Pods-AnimalGram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalGram.debug.xcconfig"; path = "Target Support Files/Pods-AnimalGram/Pods-AnimalGram.debug.xcconfig"; sourceTree = "<group>"; };
@@ -276,7 +278,6 @@
 				256B181C29A36EBF00087828 /* MessageView.swift */,
 				256B182229A379EE00087828 /* CarouselView.swift */,
 				256B182429A3BEF100087828 /* ImageGridView.swift */,
-				256B182829A464E300087828 /* ImagePicker.swift */,
 				256B184929A6189700087828 /* ActivityView.swift */,
 				256B183029A4A49200087828 /* ProfileHeaderView.swift */,
 				256B183429A4C9B100087828 /* SettingsLabelView.swift */,
@@ -311,10 +312,12 @@
 		256B184429A5C32E00087828 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				256B182829A464E300087828 /* ImagePicker.swift */,
 				256B184529A5C34500087828 /* Extension.swift */,
 				256B185829A864DD00087828 /* ImageManager.swift */,
 				25FCF39729AB314300D8C8F1 /* CircularProgressView.swift */,
 				2562955329ADFBA400BE59CB /* LottieView.swift */,
+				25D80B8329BB6FC70019D34B /* PhotoPicker.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				256B185929A864DD00087828 /* ImageManager.swift in Sources */,
 				256B181229A34A8600087828 /* FeedView.swift in Sources */,
 				2562957229B0F8E700BE59CB /* SettingsEditTextViewModel.swift in Sources */,
+				25D80B8429BB6FC70019D34B /* PhotoPicker.swift in Sources */,
 				256B184129A5B75D00087828 /* SignInWithAppleButtonCustom.swift in Sources */,
 				2562956629AF56E000BE59CB /* NetworkManager.swift in Sources */,
 				256B181729A355E900087828 /* Post.swift in Sources */,

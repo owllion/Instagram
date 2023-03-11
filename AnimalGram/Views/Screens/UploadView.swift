@@ -12,6 +12,10 @@ struct UploadView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
+    
+    @State var images: [UIImage] = [UIImage(imageLiteralResourceName: "logo")]
+    @State var videos: [URL] = [URL(string: "https://bit.ly/swswift")!]
+    
     @State var showImagePicker: Bool = false
     @State var showPostImageView: Bool = false
     @State var imageSelected: UIImage = UIImage(imageLiteralResourceName: "logo")
@@ -54,8 +58,9 @@ struct UploadView: View {
             .sheet(isPresented: $showImagePicker) {
                 segueToPostImageView()
             } content: {
-                ImagePicker(sourceType: $sourceType, imageSelected: $imageSelected)
-                    .tint(colorScheme == .light ? Color.MyTheme.purple : Color.MyTheme.yellow )
+//                ImagePicker(sourceType: $sourceType, imageSelected: $imageSelected)
+//                    .tint(colorScheme == .light ? Color.MyTheme.purple : Color.MyTheme.yellow )
+                PhotoPicker(images: $images, videos: $videos)
             }
 
             
@@ -65,7 +70,7 @@ struct UploadView: View {
                 .frame(width: 100,height: 100,alignment: .center)
                 .shadow(radius: 12)
                 .fullScreenCover(isPresented: $showPostImageView) {
-                    PostImageView(imageSelected: $imageSelected )
+                    PostImageView(images: $images, videos: $videos)
                         .preferredColorScheme(colorScheme)
                 }
 

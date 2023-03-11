@@ -44,11 +44,6 @@ struct PostView: View {
                                     if (authViewModel.email == post.email) {
                                         Button {
                                             self.showAlert.toggle()
-                                            
-//                                            Task {
-//                                                await postViewModel.deletePost(post.postID)
-//                                            }
-                                            
                                         } label: {
                                             Text("Delete")
                                         }
@@ -119,15 +114,14 @@ struct PostView: View {
                                     $0
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
+                                    
                                 } else: {
                                     $0
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3 )
+                                        .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 2 )
                                         .clipped()
                                 }
-                                
-                                
                             })
                         .scaleEffect(1 + currentScale)
                         .gesture(
@@ -196,7 +190,6 @@ struct PostView: View {
                             NavigationLink(destination: LikePostUserListView(postID: post.postID)) {
                                 Text("\(post.likeCount) likes")
                                     .fontWeight(.medium)
-                                    .foregroundColor(.red)
                             }
                             
                         }.padding(.leading,10)
@@ -209,7 +202,7 @@ struct PostView: View {
                             ProfileView(email: post.email, isMyProfile: post.email == authViewModel.email)
                         } label: {
                             Text(post.displayName)
-                                .fontWeight(.bold)
+                                .fontWeight(.medium)
                         }
                         
                         Text(post.caption)

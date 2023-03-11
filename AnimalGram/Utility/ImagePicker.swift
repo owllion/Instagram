@@ -51,7 +51,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         
-        let parent: ImagePicker
+        var parent: ImagePicker
         //we need our parent to dismiss the screen and do other things
         
         init(parent: ImagePicker) {

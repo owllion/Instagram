@@ -74,7 +74,7 @@ class ImageManager {
         return storagePath
     }
     
-    func uploadImageAndGetURL(type: String, id: String, image: UIImage, done: @escaping FireBaseUploadResHandler) {
+    func uploadImageAndGetURL(type: String, id: String, image: UIImage, done: @escaping FireBaseUploadResHandler){
         
         var compression: CGFloat = 1.0
         let maxFileSize:Int = 240 * 240 //Maximum file size that we want to save
@@ -84,7 +84,6 @@ class ImageManager {
             print("Error getting data from image")
             return
         }
-        print("original", originalData)
         
         
         //check maximum file size
@@ -110,7 +109,7 @@ class ImageManager {
         
         //save data to path
         let path = type == "post" ? self.getPostImagePath(with: id) : self.getProfileImagePath(with: id)
-
+        
         path.putData(uploadData, metadata: metaData)
         { _, error in
             if let error = error {

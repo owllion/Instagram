@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct PostImageView: View {
     
@@ -16,13 +17,16 @@ struct PostImageView: View {
     
     @State var captionText: String = ""
     
-    @Binding var imageSelected: UIImage
+    @Binding var images: [UIImage]
+    @Binding var videos: [URL]
     
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             HStack {
                 Button {
+                    self.images = [self.images[0]]
+                    self.videos = [self.videos[0]]
                     dismiss()
                 } label: {
                     Image(systemName: "xmark")
@@ -33,48 +37,69 @@ struct PostImageView: View {
                 Spacer()
             }
             
-            ScrollView(.vertical, showsIndicators: false) {
-                
-                Image(uiImage: imageSelected)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 200, height: 200, alignment: .center)
-                    .cornerRadius(20)
-                    .clipped()
-                
-                TextField(
-                    "",
-                    text: $captionText,
-                    prompt:
-                        Text("Add your caption here...")
-                        .foregroundColor(.gray)
-                )
-                .customTextField(background: Color.MyTheme.beige)
-                .padding(.horizontal)
-                
-                Button {
-                    postViewModel.createPost(with: captionText, image: imageSelected, userID: authViewModel.userID!, imageURL: authViewModel.imageURL, userName: authViewModel.displayName, email: authViewModel.email)
-                } label: {
-                    Text("Post Picture".uppercased())
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .padding()
-                        .frame(height: 60)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.MyTheme.purple)
-                        .cornerRadius(12)
-                        .padding(.horizontal)
-                } .tint(Color.MyTheme.yellow)
-                    .alert(isPresented: $postViewModel.showAlert) {
-                        Alert(
-                            title: Text(postViewModel.alertMessage),
-                            message: nil,
-                            dismissButton: .default(Text("OK")) {
-                                self.dismiss()
-                            }
-                        )
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    if let images = images {
+                        ForEach(images[1...].indices, id: \.self) { index in
+                            Image(uiImage: images[index])
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 200, height: 200, alignment: .center)
+                                .cornerRadius(20)
+                                .clipped()
+                        }
                     }
+                   
+                    if let videos = videos {
+                        ForEach(videos[1...].indices, id: \.self) { index in
+                           
+                            VideoPlayer(player: AVPlayer(url: videos[index]))
+                                .frame(minHeight: 200)
+                            
+                        }
+                    }
+                }
+                
+                
+                
+               
             }
+            
+            
+            TextField(
+                "",
+                text: $captionText,
+                prompt:
+                    Text("Add your caption here...")
+                    .foregroundColor(.gray)
+            )
+            .customTextField(background: Color.MyTheme.beige)
+            .padding(.horizontal)
+            
+            Button {
+//                    postViewModel.createPost(with: captionText, image: imageSelected, userID: authViewModel.userID!, imageURL: authViewModel.imageURL, userName: authViewModel.displayName, email: authViewModel.email)
+            } label: {
+                Text("Post Picture".uppercased())
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .padding()
+                    .frame(height: 60)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.MyTheme.purple)
+                    .cornerRadius(12)
+                    .padding(.horizontal)
+            } .tint(Color.MyTheme.yellow)
+                .alert(isPresented: $postViewModel.showAlert) {
+                    Alert(
+                        title: Text(postViewModel.alertMessage),
+                        message: nil,
+                        dismissButton: .default(Text("OK")) {
+                            self.images = [self.images[0]]
+                            self.videos = [self.videos[0]]
+                            self.dismiss()
+                        }
+                    )
+                }
         }.overlay {
             
             if postViewModel.isLoading {
@@ -94,9 +119,9 @@ struct PostImageView: View {
 }
 
 struct PostImageView_Previews: PreviewProvider {
-    @State static var image = UIImage(named: "dog3")!
-    
+    @State static var images = [UIImage(named: "dog3")!]
+    @State static var videos = [URL(string: "https://bit.ly/swswift")!]
     static var previews: some View {
-        PostImageView(imageSelected: $image)
+        PostImageView(images: $images, videos: $videos)
     }
 }
