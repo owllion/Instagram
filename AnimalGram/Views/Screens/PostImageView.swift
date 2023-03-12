@@ -39,17 +39,26 @@ struct PostImageView: View {
                 
                 HStack(spacing: 15) {
                     if let images = images {
-                        TabView(selection: $selection) {
-                            ForEach(images[1...].indices, id: \.self) { index in
-                                Image(uiImage: images[index])
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: UIScreen.main.bounds.width - 45)  
-                                    .cornerRadius(20)
-                            }
-                        }.tabViewStyle(PageTabViewStyle())
-                        
+                        ForEach(images[1...].indices, id: \.self) { index in
+                                                        Image(uiImage: images[index])
+                                                            .resizable()
+                                                            .aspectRatio(contentMode: .fit)
+                                                            .frame(width: UIScreen.main.bounds.width - 45)
+                                                            .cornerRadius(20)
+                                                    }
                     }
+//                    if let images = images {
+//                        TabView(selection: $selection) {
+//                            ForEach(images[1...].indices, id: \.self) { index in
+//                                Image(uiImage: images[index])
+//                                    .resizable()
+//                                    .aspectRatio(contentMode: .fit)
+//                                    .frame(width: UIScreen.main.bounds.width - 45)
+//                                    .cornerRadius(20)
+//                            }
+//                        }.tabViewStyle(PageTabViewStyle())
+//
+//                    }
                 }
             }
                

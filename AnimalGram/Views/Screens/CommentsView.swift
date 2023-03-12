@@ -28,10 +28,14 @@ struct CommentsView: View {
                     LazyVStack {
                         ForEach(commentViewModel.comments, id: \.self) {
                             comment in MessageView(comment: comment, postID: postID).id(comment.id)
-                        }.onChange(of: commentViewModel.comments) { newValue in
-                            withAnimation(.easeIn) {
-                                value.scrollTo(newValue.last?.id)
+                        }.onChange(of: commentViewModel.comments) { [comments = commentViewModel.comments] newValue in
+                            
+                            if comments.count != newValue.count {
+                                withAnimation(.easeIn) {
+                                    value.scrollTo(newValue.last?.id)
+                                }
                             }
+                            
                            
                         }
                     }

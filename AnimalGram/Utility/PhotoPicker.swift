@@ -27,7 +27,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
         return picker
     }
     func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
-       
+        
     }
     //SwiftUI call this automatically when an instance og PhotoPicker is created.
     func makeCoordinator() -> Coordinator {
@@ -36,10 +36,11 @@ struct PhotoPicker: UIViewControllerRepresentable {
     
     //NSObject -> lets Objective-c check for the functionality,and latter protocal is what actually provides it.
     //THe reason we use class: need to inherit from NSObject so that objective-c can query our coordinator to see what functionality it supports.
+    //Use a Coordinator to act as your PHPickerViewControllerDelegate
     class Coordinator: NSObject, PHPickerViewControllerDelegate {
         //照片選好-> 要去通知coordinator -> 必須得在Coordinator裡面能夠取到imageSelected -> 但直接把binding傳下來不好，反之可以跟coordinator說他的parent是誰 他就可以直接透過parent去修改值了
         var parent: PhotoPicker
-        //
+        
         init(parent: PhotoPicker) {
             self.parent = parent
         }
@@ -53,12 +54,32 @@ struct PhotoPicker: UIViewControllerRepresentable {
             
             for res in results {
                 let provider = res.itemProvider
-                self.getPhotos(from: provider)
+                
+                if provider.hasItemConformingToTypeIdentifier(UTType.webP.identifier) {
+                    self.getWebpPhotos(from: provider)
+                } else {
+                    self.getPhotos(from: provider)
+                }
+                
             }
+        }
+        
+        private func getWebpPhotos(from itemProvider: NSItemProvider) {
+            
+            itemProvider.loadDataRepresentation(forTypeIdentifier: UTType.webP.identifier) { data, error in
+                if let data = data, let image = UIImage.init(data: data) {
+                    DispatchQueue.main.async {
+                        self.parent.images.append(image)
+                    }
+                }
+                
+            }
+            
         }
         
         private func getPhotos(from itemProvider: NSItemProvider) {
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                //load object在背景執行 所以賦值時要回到main thread
                 itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                     if let error = error {
                         print(error.localizedDescription)
@@ -72,8 +93,5 @@ struct PhotoPicker: UIViewControllerRepresentable {
                 }
             }
         }
-        
-        
-       
     }
 }

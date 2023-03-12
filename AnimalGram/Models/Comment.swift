@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct Comment : Identifiable, Hashable {
+struct Comment : Identifiable, Hashable, Equatable {
     var id: String = UUID().uuidString
     var userName: String
     var userImageURL: String
