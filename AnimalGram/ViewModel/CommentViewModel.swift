@@ -16,6 +16,7 @@ class CommentViewModel : ObservableObject {
     @Published var alertMessage: String = ""
     
     @Published var isLoading: Bool = false
+    @Published var isAddingComment: Bool = false
     
     
     func handleAlert(_ error: Error, msg: String?) {
@@ -31,7 +32,7 @@ class CommentViewModel : ObservableObject {
     @MainActor
     func addComment(postID: String, content: String, imgUrl: String, userName: String ) async{
         
-        self.isLoading = true
+        self.isAddingComment = true
         
         let document = postCollection.document(postID).collection(K.FireStore.Post.Comment.collectionName).document()
         let commentID = document.documentID
@@ -48,10 +49,10 @@ class CommentViewModel : ObservableObject {
         
         do {
             try await document.setData(data)
-            self.isLoading = false
+            self.isAddingComment = false
             
         }catch {
-            self.isLoading = false
+            self.isAddingComment = false
             self.handleAlert(error, msg: "Something worng when adding comment to DB")
         }
     }

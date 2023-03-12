@@ -63,6 +63,7 @@
 		25D80B8029BB03380019D34B /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D80B7F29BB03380019D34B /* CustomProgressView.swift */; };
 		25D80B8229BB0C690019D34B /* dots-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 25D80B8129BB0C690019D34B /* dots-loading.json */; };
 		25D80B8429BB6FC70019D34B /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D80B8329BB6FC70019D34B /* PhotoPicker.swift */; };
+		25D80B8B29BD85150019D34B /* GlobalStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D80B8A29BD85150019D34B /* GlobalStateViewModel.swift */; };
 		25FCF39829AB314300D8C8F1 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FCF39729AB314300D8C8F1 /* CircularProgressView.swift */; };
 		25FCF39A29AB357300D8C8F1 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FCF39929AB357300D8C8F1 /* MainTabView.swift */; };
 		F99D7F03ACB47933B29CA3AA /* Pods_AnimalGram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B31E87545773D8F7B064FA /* Pods_AnimalGram.framework */; };
@@ -127,6 +128,7 @@
 		25D80B7F29BB03380019D34B /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		25D80B8129BB0C690019D34B /* dots-loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dots-loading.json"; sourceTree = "<group>"; };
 		25D80B8329BB6FC70019D34B /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		25D80B8A29BD85150019D34B /* GlobalStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStateViewModel.swift; sourceTree = "<group>"; };
 		25FCF39729AB314300D8C8F1 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		25FCF39929AB357300D8C8F1 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		462FF1EDD5F06C659D596C42 /* Pods-AnimalGram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalGram.debug.xcconfig"; path = "Target Support Files/Pods-AnimalGram/Pods-AnimalGram.debug.xcconfig"; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				2562956B29B064C100BE59CB /* CommentViewModel.swift */,
 				2562957129B0F8E700BE59CB /* SettingsEditTextViewModel.swift */,
 				2556F8D529B5C8750041B792 /* LikePostUserListViewModel.swift */,
+				25D80B8A29BD85150019D34B /* GlobalStateViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				256B184329A5BE9D00087828 /* OnboardingView_2.swift in Sources */,
 				256B182D29A49E4200087828 /* ProfileView.swift in Sources */,
 				256B182129A3796200087828 /* BrowseView.swift in Sources */,
+				25D80B8B29BD85150019D34B /* GlobalStateViewModel.swift in Sources */,
 				256B183B29A5058F00087828 /* SettingsEditImageView.swift in Sources */,
 				256B181B29A36A9600087828 /* CommentsView.swift in Sources */,
 				2556F8C429B4821D0041B792 /* LaunchView.swift in Sources */,

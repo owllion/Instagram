@@ -9,11 +9,13 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @StateObject private var authViewModel = AuthenticationViewModel()
+    @StateObject private var globalStateViewModel = GlobalStateViewModel()
     @State var isActive: Bool = false
     
     var body: some View {
         if self.isActive {
             ContentView().environmentObject(authViewModel)
+                .environmentObject(globalStateViewModel)
         } else {
             VStack {
                 VStack {

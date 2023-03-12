@@ -9,7 +9,8 @@ import SwiftUI
 import FirebaseFirestore
 
 struct ImageGridView: View {
-
+    
+    @EnvironmentObject var globalStateViewModel : GlobalStateViewModel
     @ObservedObject var profileViewModel = ProfileViewModel()
     
     var posts: [Post]
@@ -23,7 +24,9 @@ struct ImageGridView: View {
                     } label: {
                         PostView(post: posts[index], showHeaderAndFooter: false)
                             
-                    }
+                    }.simultaneousGesture(TapGesture().onEnded {
+                        globalStateViewModel.isFromSinglePost = true
+                    })
                 }
 
         }

@@ -10,19 +10,13 @@ import SwiftUI
 struct FeedView: View {
     
     @EnvironmentObject var authViewModel: AuthenticationViewModel
+    @EnvironmentObject var globalStateViewModel: GlobalStateViewModel
     @ObservedObject var feedViewModel = FeedViewModel()
     @ObservedObject var profileViewModel = ProfileViewModel()
     
-   
-    
-    @State var displayPosts: [Post] = [Post]()
-
     var posts: [Post]
     var scrollIndex: Int?
     var title: String
-    
-    var postID: String?
-    var userID: String? //get userPosts
     
     var body: some View {
         ScrollViewReader { scrollView in 
@@ -36,7 +30,7 @@ struct FeedView: View {
             }.navigationTitle(title)
                 .navigationBarTitleDisplayMode(.large)
                 .onAppear {
-                    if let scrollIndex = self.scrollIndex {
+                    if let scrollIndex = self.scrollIndex, globalStateViewModel.isFromSinglePost {
                         withAnimation(.easeIn(duration: 0.8)) {
                             scrollView.scrollTo(scrollIndex)
                         }

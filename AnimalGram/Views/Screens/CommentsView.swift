@@ -13,6 +13,7 @@ struct CommentsView: View {
     var postID: String
     
     @EnvironmentObject var authViewModel: AuthenticationViewModel
+    @EnvironmentObject var globalStateViewModel: GlobalStateViewModel
     @Environment(\.colorScheme) var colorScheme
     @StateObject var commentViewModel = CommentViewModel()
     @State var submissionText : String = ""
@@ -26,7 +27,12 @@ struct CommentsView: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(commentViewModel.comments, id: \.self) {
-                            comment in MessageView(comment: comment, postID: postID)
+                            comment in MessageView(comment: comment, postID: postID).id(comment.id)
+                        }.onChange(of: commentViewModel.comments) { newValue in
+                            withAnimation(.easeIn) {
+                                value.scrollTo(newValue.last?.id)
+                            }
+                           
                         }
                     }
                 }
@@ -56,15 +62,15 @@ struct CommentsView: View {
                                  await commentViewModel.addComment(postID: postID, content: submissionText, imgUrl: authViewModel.imageURL, userName: authViewModel.displayName)
                                     
                                     self.submissionText = ""
-                                    
-                                    value.scrollTo(commentViewModel.comments.last?.id, anchor: .top)
+                               
+                                
                                
                             }
                     } label: {
-                        if commentViewModel.isLoading {
+                        if commentViewModel.isAddingComment {
                             Circle()
                                 .stroke(AngularGradient(gradient: Gradient(colors: [Color.primary, Color.primary.opacity(0)]), center: .center))
-                                .frame(width: 80, height: 80)
+                                .frame(width: 20, height: 20)
                                 .rotationEffect(Angle(degrees: animate ? 360 : 0))
                         } else {
                             Image(systemName: "paperplane.fill")
@@ -78,6 +84,10 @@ struct CommentsView: View {
         .padding(.all, 10)
         .navigationTitle("Comments")
         .navigationBarTitleDisplayMode(.large)
+        .onDisappear {
+            globalStateViewModel.isFromSinglePost = false
+            //set to false, then when we back from commentsView, the FeedView will not scroll to the position of the post we click in.
+        }
         .onAppear {
             commentViewModel.getComments(postID: postID)
             withAnimation(Animation.linear(duration: 1.5).repeatForever(autoreverses: false)) {
@@ -85,7 +95,13 @@ struct CommentsView: View {
                 animate.toggle()
             }
             
-        }.alert(isPresented: $commentViewModel.showAlert) {
+        }.overlay {
+            if commentViewModel.isLoading {
+                CustomProgressView()
+            }
+        }
+        
+        .alert(isPresented: $commentViewModel.showAlert) {
             return Alert(
                 title: Text("Error!"),
                 message: Text(commentViewModel.alertMessage),
