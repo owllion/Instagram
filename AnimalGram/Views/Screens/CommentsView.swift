@@ -16,6 +16,9 @@ struct CommentsView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject var commentViewModel = CommentViewModel()
     @State var submissionText : String = ""
+    @State var animate: Bool = false
+
+    
     
     var body: some View {
         VStack {
@@ -41,8 +44,8 @@ struct CommentsView: View {
                                  image
                                      .resizable()
                                      .scaledToFill()
-                                     .frame(width: 40, height: 40, alignment: .center)
-                                     .cornerRadius(20)
+                                     .frame(width: 50, height: 50, alignment: .center)
+                                     .cornerRadius(25)
                              })
                     
                     TextField("Add a comment here ...", text: $submissionText)
@@ -50,19 +53,19 @@ struct CommentsView: View {
                             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                             
                             Task {
-                                do {
-                                    try await commentViewModel.addComment(postID: postID, content: submissionText, imgUrl: authViewModel.imageURL, userName: authViewModel.displayName)
+                                 await commentViewModel.addComment(postID: postID, content: submissionText, imgUrl: authViewModel.imageURL, userName: authViewModel.displayName)
                                     
                                     self.submissionText = ""
                                     
                                     value.scrollTo(commentViewModel.comments.last?.id, anchor: .top)
-                                }catch {
-                                    
-                                }
+                               
                             }
                     } label: {
                         if commentViewModel.isLoading {
-                            CircularProgressView()
+                            Circle()
+                                .stroke(AngularGradient(gradient: Gradient(colors: [Color.primary, Color.primary.opacity(0)]), center: .center))
+                                .frame(width: 80, height: 80)
+                                .rotationEffect(Angle(degrees: animate ? 360 : 0))
                         } else {
                             Image(systemName: "paperplane.fill")
                                 .font(.title2)
@@ -70,18 +73,17 @@ struct CommentsView: View {
                         
                     } .disabled(self.submissionText == "" ? true : false)
                 }.padding(.all,15)
-                   
-                
             }
-            
-            
-           
         }
         .padding(.all, 10)
         .navigationTitle("Comments")
         .navigationBarTitleDisplayMode(.large)
         .onAppear {
             commentViewModel.getComments(postID: postID)
+            withAnimation(Animation.linear(duration: 1.5).repeatForever(autoreverses: false)) {
+                
+                animate.toggle()
+            }
             
         }.alert(isPresented: $commentViewModel.showAlert) {
             return Alert(

@@ -10,12 +10,11 @@ import PhotosUI
 
 struct PhotoPicker: UIViewControllerRepresentable {
     @Binding var images: [UIImage]
-    @Binding var videos: [URL]
     
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
-        config.selectionLimit = 5
-        config.filter = .any(of: [.videos, .images])
+        config.selectionLimit = 8
+        config.filter = .images
         config.preferredAssetRepresentationMode = .current
         //if not add this, the import process is gonna take too much time
         
@@ -53,22 +52,11 @@ struct PhotoPicker: UIViewControllerRepresentable {
             guard !results.isEmpty else { return }
             
             for res in results {
-                
                 let provider = res.itemProvider
-                
-                //簡單講：可透過type identifiers去確認是照片還是影片，而這個registerxxx他是個陣列，has the values of strings representing all types that data relates to.THe first obj is what we need.
-                guard let typeIndextifier = provider.registeredTypeIdentifiers.first,
-                      let utType = UTType(typeIndextifier) else { continue }
-                
-                if utType.conforms(to: .image) {
-                    self.getPhotos(from: provider)
-                } else if utType.conforms(to: .movie) {
-                    self.getVideos(from: provider, typeIdentifier: typeIndextifier)
-                }
+                self.getPhotos(from: provider)
             }
-            
-           
         }
+        
         private func getPhotos(from itemProvider: NSItemProvider) {
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
                 itemProvider.loadObject(ofClass: UIImage.self) { image, error in
@@ -81,22 +69,6 @@ struct PhotoPicker: UIViewControllerRepresentable {
                             self.parent.images.append(image)
                         }
                     }
-                }
-            }
-        }
-        
-        private func getVideos(from itemProvider: NSItemProvider, typeIdentifier: String) {
-            itemProvider.loadFileRepresentation(forTypeIdentifier: typeIdentifier) { url, error in
-                if let error = error {
-                    print(error.localizedDescription)
-                }
-                
-                guard let url = url else { return }
-                print(FileManager.default.fileExists(atPath: url.path),"exist?")
-                print(url,"exist url")
-                
-                DispatchQueue.main.async {
-                    self.parent.videos.append(url)
                 }
             }
         }

@@ -11,7 +11,6 @@ struct FeedView: View {
     
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     @ObservedObject var feedViewModel = FeedViewModel()
-    @ObservedObject var browseViewModel = BrowseViewModel()
     @ObservedObject var profileViewModel = ProfileViewModel()
     
    

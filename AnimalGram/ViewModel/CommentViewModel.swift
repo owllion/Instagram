@@ -29,7 +29,7 @@ class CommentViewModel : ObservableObject {
     }
     
     @MainActor
-    func addComment(postID: String, content: String, imgUrl: String, userName: String ) async throws {
+    func addComment(postID: String, content: String, imgUrl: String, userName: String ) async{
         
         self.isLoading = true
         

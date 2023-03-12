@@ -6,15 +6,16 @@ struct CircularProgressView: View {
     @State private var progress = 0.9
 
        var body: some View {
-           VStack {
-               ProgressView(value: progress)
-                   //.progressViewStyle(.circular)
-                     .scaleEffect(x: 1, y: 2, anchor: .center)
-                     .clipShape(RoundedRectangle(cornerRadius: 6))
-                     .padding(.horizontal)
-          
-                   
-           }
+           Text("Hello")
+//           VStack {
+//               ProgressView(value: progress)
+//                   //.progressViewStyle(.circular)
+//                     .scaleEffect(x: 1, y: 2, anchor: .center)
+//                     .clipShape(RoundedRectangle(cornerRadius: 6))
+//                     .padding(.horizontal)
+//
+//
+//           }
               
        }
 }

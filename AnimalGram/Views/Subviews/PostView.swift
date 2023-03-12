@@ -119,7 +119,7 @@ struct PostView: View {
                                     $0
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 2 )
+                                        .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3 )
                                         .clipped()
                                 }
                             })

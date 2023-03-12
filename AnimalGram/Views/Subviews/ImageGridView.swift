@@ -9,8 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct ImageGridView: View {
-    
-    @ObservedObject var browseViewModel = BrowseViewModel()
+
     @ObservedObject var profileViewModel = ProfileViewModel()
     
     var posts: [Post]

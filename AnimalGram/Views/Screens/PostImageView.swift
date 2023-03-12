@@ -16,9 +16,8 @@ struct PostImageView: View {
     @Environment(\.dismiss) var dismiss
     
     @State var captionText: String = ""
-    
+    @State var selection:Int = 0
     @Binding var images: [UIImage]
-    @Binding var videos: [URL]
     
     
     var body: some View {
@@ -26,7 +25,6 @@ struct PostImageView: View {
             HStack {
                 Button {
                     self.images = [self.images[0]]
-                    self.videos = [self.videos[0]]
                     dismiss()
                 } label: {
                     Image(systemName: "xmark")
@@ -38,33 +36,23 @@ struct PostImageView: View {
             }
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
+                
+                HStack(spacing: 15) {
                     if let images = images {
-                        ForEach(images[1...].indices, id: \.self) { index in
-                            Image(uiImage: images[index])
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 200, height: 200, alignment: .center)
-                                .cornerRadius(20)
-                                .clipped()
-                        }
-                    }
-                   
-                    if let videos = videos {
-                        ForEach(videos[1...].indices, id: \.self) { index in
-                           
-                            VideoPlayer(player: AVPlayer(url: videos[index]))
-                                .frame(minHeight: 200)
-                            
-                        }
+                        TabView(selection: $selection) {
+                            ForEach(images[1...].indices, id: \.self) { index in
+                                Image(uiImage: images[index])
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: UIScreen.main.bounds.width - 45)  
+                                    .cornerRadius(20)
+                            }
+                        }.tabViewStyle(PageTabViewStyle())
+                        
                     }
                 }
-                
-                
-                
-               
             }
-            
+               
             
             TextField(
                 "",
@@ -94,8 +82,6 @@ struct PostImageView: View {
                         title: Text(postViewModel.alertMessage),
                         message: nil,
                         dismissButton: .default(Text("OK")) {
-                            self.images = [self.images[0]]
-                            self.videos = [self.videos[0]]
                             self.dismiss()
                         }
                     )
@@ -122,6 +108,6 @@ struct PostImageView_Previews: PreviewProvider {
     @State static var images = [UIImage(named: "dog3")!]
     @State static var videos = [URL(string: "https://bit.ly/swswift")!]
     static var previews: some View {
-        PostImageView(images: $images, videos: $videos)
+        PostImageView(images: $images)
     }
 }
