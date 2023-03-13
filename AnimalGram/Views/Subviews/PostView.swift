@@ -102,7 +102,7 @@ struct PostView: View {
                 HStack {
                     ZStack {
                         
-                        if post.postImageURLs.count == 1 {
+                        if post.postImageURLs.count == 1 || !showHeaderAndFooter {
                             URLImage(
                                 url: URL(string: post.postImageURLs[0])!,
                                 failure: { error, retry in
@@ -142,17 +142,9 @@ struct PostView: View {
                         }
                         else {
                             TabView(selection: $selection) {
-                                ForEach(post.postImageURLs, id:\.self) { url in
+                                ForEach(post.postImageURLs.indices, id:\.self) { index in
                                     URLImage(
-                                        url: URL(string: url)!,
-//                                        empty: {
-//                                            Text("Wait please.")
-//                                        },
-//                                        inProgress: {
-//                                            progress -> Text in
-//                                                return Text("Loading...")
-//
-//                                        },
+                                        url: URL(string: post.postImageURLs[index])!,
                                         failure: { error, retry in
                                             VStack {
                                                 Text("Fetching Image Fail")
@@ -168,20 +160,12 @@ struct PostView: View {
                                         },
                                         content: { image in
                                             
-                                            image.if(showHeaderAndFooter) {
-                                                
-                                                $0
+                                            image
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fill)
-                                                    .tag(url)
+                                                    .tag(index)
                                                 
-                                            } else: {
-                                                $0
-                                                    .resizable()
-                                                    .scaledToFill()
-                                                    .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3 )
-                                                    .clipped()
-                                            }
+                                           
                                         })
                                     .scaleEffect(1 + currentScale)
                                     .gesture(
