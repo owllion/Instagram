@@ -145,9 +145,25 @@ struct PostView: View {
                                 ForEach(post.postImageURLs, id:\.self) { url in
                                     URLImage(
                                         url: URL(string: url)!,
+//                                        empty: {
+//                                            Text("Wait please.")
+//                                        },
+//                                        inProgress: {
+//                                            progress -> Text in
+//                                                return Text("Loading...")
+//
+//                                        },
                                         failure: { error, retry in
                                             VStack {
-                                                Text(error.localizedDescription)
+                                                Text("Fetching Image Fail")
+                                                    .font(.title3)
+                                                    .foregroundColor(.gray)
+                                                
+                                                Button("Retry", action: retry)
+                                                    .foregroundColor(Color.blue)
+                                                    .padding()
+                                                    .background(.ultraThickMaterial, in: RoundedRectangle(cornerRadius: 8))
+                                                    
                                             }
                                         },
                                         content: { image in

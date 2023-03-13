@@ -23,13 +23,8 @@ struct PostImageView: View {
         VStack(alignment: .center, spacing: 0) {
             HStack {
                 Button {
-                    if self.images != nil {
-                        self.images = []
-                    } else {
-                        self.imageSelected = nil
-                    }
-                    
-                    dismiss()
+                    self.clearSelectedData()
+                    self.dismiss()
                 } label: {
                     ExitButtonView()
                         .frame(width: 32, height: 32)
@@ -41,16 +36,16 @@ struct PostImageView: View {
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 15) {
-                   
+                    
                     
                     //photo from camera
                     if let imageSelected = imageSelected {
-                            Image(uiImage: imageSelected)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: UIScreen.main.bounds.width - 45,height: 250)
-                                .cornerRadius(20)
-                               
+                        Image(uiImage: imageSelected)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: UIScreen.main.bounds.width - 45,height: 250)
+                            .cornerRadius(20)
+                        
                         
                         
                     }
@@ -68,7 +63,7 @@ struct PostImageView: View {
                                     } label: {
                                         ExitButtonView()
                                             .frame(width: 32,height: 32)
-                                            
+                                        
                                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                                     }.offset(y: -20)
                                 }
@@ -105,11 +100,12 @@ struct PostImageView: View {
                         .cornerRadius(12)
                 } .tint(Color.MyTheme.yellow)
             }.padding(.all,20)
-            .alert(isPresented: $postViewModel.showAlert) {
+                .alert(isPresented: $postViewModel.showAlert) {
                     Alert(
                         title: Text(postViewModel.alertMessage),
                         message: nil,
                         dismissButton: .default(Text("OK")) {
+                            self.clearSelectedData()
                             self.dismiss()
                         }
                     )
@@ -121,6 +117,11 @@ struct PostImageView: View {
                 CustomProgressView()
             }
         }
+    }
+    
+    func clearSelectedData() {
+            self.images = [UIImage]()
+            self.imageSelected = nil
     }
 }
 
