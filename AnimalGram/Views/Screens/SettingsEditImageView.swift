@@ -15,9 +15,12 @@ struct SettingsEditImageView: View {
     @StateObject var settingsEditTextViewModel = SettingsEditTextViewModel()
     @Environment(\.dismiss) var dismiss
 
-    @State var imageSelected: UIImage = UIImage(named: "dog3")!
+//    @State var imageSelected: UIImage = UIImage(named: "dog3")!
+    @State var imageSelected: UIImage?
     
     @State var hasSelectedImg: Bool = false
+    //onEnter-> show by imagURL
+    //done picking new image -> show by UIImage
     
     @State var title: String
     @State var description: String
@@ -29,7 +32,7 @@ struct SettingsEditImageView: View {
         VStack(alignment: .leading,spacing: 10) {
             
             Text(description)
-            if hasSelectedImg {
+            if hasSelectedImg,let imageSelected = imageSelected {
                 Image(uiImage: imageSelected)
                     .resizable()
                     .scaledToFill()
@@ -71,37 +74,42 @@ struct SettingsEditImageView: View {
             }.onChange(of: imageSelected, perform: { _ in
                 self.hasSelectedImg = true
             })
-                
-            Button {
-                settingsEditTextViewModel.uploadUserAvatar(userID: authViewModel.userID!, imageSelected: imageSelected) {
-                    url, error in
+            
+            if hasSelectedImg {
+                withAnimation(.easeIn(duration: 1.0)) {
+                    Button {
+                        settingsEditTextViewModel.uploadUserAvatar(userID: authViewModel.userID!, imageSelected: imageSelected!) {
+                            url, error in
+                                
+                            if let error = error {
+                                self.settingsEditTextViewModel.handleAlert(error, msg: nil)
+                                return
+                            }
+                            self.authViewModel.imageURL = url!
+                            
+                            //update db
+                            Task {
+                                await self.settingsEditTextViewModel.updateUserAvatar(email: self.authViewModel.email, url: url!)
+                            }
+                            
+                            
+                            settingsEditTextViewModel.handleSuccess(msg: "Successfully change your avatar")
+                        }
                         
-                    if let error = error {
-                        self.settingsEditTextViewModel.handleAlert(error, msg: nil)
-                        return
-                    }
-                    self.authViewModel.imageURL = url!
-                    
-                    //update db
-                    Task {
-                        await self.settingsEditTextViewModel.updateUserAvatar(email: self.authViewModel.email, url: url!)
-                    }
-                    
-                    
-                    settingsEditTextViewModel.handleSuccess(msg: "Successfully change your avatar")
+                        
+                    } label: {
+                        Text("Save".uppercased())
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .padding()
+                            .frame(height: 60)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.MyTheme.purple)
+                            .cornerRadius(12)
+                    }.tint(Color.MyTheme.yellow)
                 }
-                
-                
-            } label: {
-                Text("Save".uppercased())
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .padding()
-                    .frame(height: 60)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.MyTheme.purple)
-                    .cornerRadius(12)
-            }.tint(Color.MyTheme.yellow)
+            }
+          
                
             
             Spacer()

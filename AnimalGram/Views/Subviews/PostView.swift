@@ -7,6 +7,7 @@ struct PostView: View {
     @StateObject var postViewModel = PostViewModel()
     @StateObject var commentsViewModel = CommentViewModel()
     
+    @State var selection:Int = 0
     @State private var showAlert = false
     @State var currentScale: CGFloat = 0
     
@@ -100,42 +101,91 @@ struct PostView: View {
                 //MARK: - Image
                 HStack {
                     ZStack {
-                        URLImage(
-                            url: URL(string: post.postImageURL)!,
-                            failure: { error, retry in
-                                VStack {
-                                    Text(error.localizedDescription)
-                                }
-                            },
-                            content: { image in
-                                
-                                image.if(showHeaderAndFooter) {
-                                    
-                                    $0
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                    
-                                } else: {
-                                    $0
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3 )
-                                        .clipped()
-                                }
-                            })
-                        .scaleEffect(1 + currentScale)
-                        .gesture(
-                            MagnificationGesture()
-                                .onChanged { value in
-                                    self.currentScale = value
-                                }
-                                .onEnded { value in
-                                    withAnimation(.spring()) {
-                                        currentScale = 0
+                        
+                        if post.postImageURLs.count == 1 {
+                            URLImage(
+                                url: URL(string: post.postImageURLs[0])!,
+                                failure: { error, retry in
+                                    VStack {
+                                        Text(error.localizedDescription)
                                     }
+                                },
+                                content: { image in
+                                    
+                                    image.if(showHeaderAndFooter) {
+                                        
+                                        $0
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                        
+                                    } else: {
+                                        $0
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3 )
+                                            .clipped()
+                                    }
+                                })
+                            .scaleEffect(1 + currentScale)
+                            .gesture(
+                                MagnificationGesture()
+                                    .onChanged { value in
+                                        self.currentScale = value
+                                    }
+                                    .onEnded { value in
+                                        withAnimation(.spring()) {
+                                            currentScale = 0
+                                        }
+                                    }
+                                
+                            )
+                        }
+                        else {
+                            TabView(selection: $selection) {
+                                ForEach(post.postImageURLs, id:\.self) { url in
+                                    URLImage(
+                                        url: URL(string: url)!,
+                                        failure: { error, retry in
+                                            VStack {
+                                                Text(error.localizedDescription)
+                                            }
+                                        },
+                                        content: { image in
+                                            
+                                            image.if(showHeaderAndFooter) {
+                                                
+                                                $0
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .tag(url)
+                                                
+                                            } else: {
+                                                $0
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3 )
+                                                    .clipped()
+                                            }
+                                        })
+                                    .scaleEffect(1 + currentScale)
+                                    .gesture(
+                                        MagnificationGesture()
+                                            .onChanged { value in
+                                                self.currentScale = value
+                                            }
+                                            .onEnded { value in
+                                                withAnimation(.spring()) {
+                                                    currentScale = 0
+                                                }
+                                            }
+                                        
+                                    )
                                 }
-                            
-                        )
+                                
+                            }.tabViewStyle(PageTabViewStyle())
+                                .frame(height: 300)
+                        }
+                       
                         
                         LikeAnimationView(animate: $postViewModel.animateLike)
                     }
@@ -269,7 +319,7 @@ struct PostView: View {
 
 struct PostView_Previews: PreviewProvider {
     @State static var isLoading: Bool = false
-    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", postImageURL: "", userImageURL: "", email: "", likeCount: 0, likedBy: ["123"], createdAt: Int(Date().timeIntervalSince1970))
+    static var post: Post = Post(postID: "", userID: "", displayName: "Tomothee", caption: "Test caption", postImageURLs: [String](), userImageURL: "", email: "", likeCount: 0, likedBy: ["123"], createdAt: Int(Date().timeIntervalSince1970))
     
     static var previews: some View {
         PostView(post: post, showHeaderAndFooter: true).previewLayout(.sizeThatFits)

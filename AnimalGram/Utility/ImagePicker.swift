@@ -13,8 +13,8 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Binding var sourceType: UIImagePickerController.SourceType
     //使用者可以自行選擇要拍照還是從相簿import，所以用變數存起來變成dynamic
 
-    @Binding var imageSelected: UIImage
-    //參數傳入
+    //@Binding var imageSelected: UIImage
+    @Binding var imageSelected: UIImage?
     
     @Environment(\.dismiss) var dismiss
     //every screen has access to this variable,coz it's environment variable(like global variable?)
@@ -79,9 +79,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             if let image = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage {
                 //select the image for our app
                 parent.imageSelected = image
-                
-                print("被呼叫 parent imageSelected")
-                
+                                
                 //dismiss the screen ,both needs parent(which is ImagePicker)
                 parent.dismiss()
                 //or parent.presentationMode.wrappedValue.dismiss()

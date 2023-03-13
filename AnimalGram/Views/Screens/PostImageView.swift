@@ -16,14 +16,19 @@ struct PostImageView: View {
     @Environment(\.dismiss) var dismiss
     
     @State var captionText: String = ""
-    @Binding var images: [UIImage]    
+    @Binding var images: [UIImage]
+    @Binding var imageSelected: UIImage?
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             HStack {
                 Button {
-                    self.images = [self.images[0]]
-                   
+                    if self.images != nil {
+                        self.images = []
+                    } else {
+                        self.imageSelected = nil
+                    }
+                    
                     dismiss()
                 } label: {
                     ExitButtonView()
@@ -35,33 +40,46 @@ struct PostImageView: View {
             }
             
             ScrollView(.vertical, showsIndicators: false) {
-                
                 VStack(spacing: 15) {
+                   
+                    
+                    //photo from camera
+                    if let imageSelected = imageSelected {
+                            Image(uiImage: imageSelected)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: UIScreen.main.bounds.width - 45,height: 250)
+                                .cornerRadius(20)
+                               
+                        
+                        
+                    }
+                    
                     if let images = images {
-                        ForEach(images[1...].indices, id: \.self) { index in
-                            Image(uiImage: images[index])
+                        ForEach(images, id: \.self) { image in
+                            Image(uiImage: image)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: UIScreen.main.bounds.width - 45,height: 250)
                                 .cornerRadius(20)
                                 .overlay {
                                     Button {
-                                        print("f")
+                                        self.images.remove(at: images.firstIndex(of: image)!)
                                     } label: {
                                         ExitButtonView()
                                             .frame(width: 32,height: 32)
                                             
                                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                                          
-                                   
                                     }.offset(y: -20)
-
-                                    
-                                        
                                 }
                         }
                     }
                 }.padding(.top, 20)
+                    .onChange(of: images) {  newValue in
+                        if newValue.count == 0 {
+                            dismiss()
+                        }
+                    }
             }
             
             VStack(spacing: 10) {
@@ -75,7 +93,7 @@ struct PostImageView: View {
                 .customTextField(background: Color.MyTheme.beige)
                 
                 Button {
-                    //                    postViewModel.createPost(with: captionText, image: imageSelected, userID: authViewModel.userID!, imageURL: authViewModel.imageURL, userName: authViewModel.displayName, email: authViewModel.email)
+                    postViewModel.createPost(with: captionText, images: images, userID: authViewModel.userID!, imageURL: authViewModel.imageURL, userName: authViewModel.displayName, email: authViewModel.email)
                 } label: {
                     Text("Post Pictures".uppercased())
                         .font(.title3)
@@ -101,27 +119,16 @@ struct PostImageView: View {
         .overlay {
             if postViewModel.isLoading {
                 CustomProgressView()
-                //                ZStack {
-                //                    Color.primary.opacity(0.2).edgesIgnoringSafeArea(.all)
-                //                    ProgressView("Loading...")
-                //                        .progressViewStyle(
-                //                            CircularProgressViewStyle(tint: .cyan)
-                //                        )
-                //                }
-                
             }
-            
         }
     }
 }
 
 struct PostImageView_Previews: PreviewProvider {
-    @State static var images = [UIImage(named: "dog3")!]
-    @State static var videos = [URL(string: "https://bit.ly/swswift")!]
-    
-    @State var videos = [URL(string: "https://bit.ly/swswift")!]
+    @State static var images: [UIImage] = [UIImage]()
+    @State static var imageSelected: UIImage?
     
     static var previews: some View {
-        PostImageView(images: $images)
+        PostImageView(images: $images, imageSelected: $imageSelected)
     }
 }

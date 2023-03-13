@@ -132,22 +132,37 @@ class PostViewModel: ObservableObject {
         viewController?.present(activityViewController, animated: true, completion: nil)
     }
 
-    func createPost(with caption: String,image: UIImage,userID: String, imageURL: String ,userName: String, email: String) {
+    func createPost(with caption: String,images: [UIImage],userID: String, imageURL: String ,userName: String, email: String) {
         
         self.isLoading = true
         
         let postID = generatePostIDForCreatingPost()
         
-        ImageManager.instance.uploadImageAndGetURL(type: "post", id: postID, image: image) { [self] url, error in
-            if let error = error {
-                self.handleError(error, msg: nil)
+        let group = DispatchGroup()
+        
+        var imageURLs: [String] = [String]()
+        
+        for image in images {
+            print(image,"this is image(single)")
+            group.enter()
+            
+            ImageManager.instance.uploadImageAndGetURL(type: "post", id: postID, image: image) { [self] url, error in
+                if let error = error {
+                    self.handleError(error, msg: nil)
+                }
+                
+                imageURLs.append(url!)
+                group.leave()
             }
+        }
+        group.notify(queue: .main) { [self] in
+            print(imageURLs,"this is imageUrl")
             let postData: [String: Any] = [
                 K.FireStore.Post.postIDField: postID,
                 K.FireStore.Post.userIDField: userID,
                 K.FireStore.Post.emailField: email,
                 K.FireStore.Post.displayNameField: userName,
-                K.FireStore.Post.postImageURLField: url! as String,
+                K.FireStore.Post.postImageURLField: imageURLs,
                 K.FireStore.Post.userImageURLField : imageURL ,
                 K.FireStore.Post.captionField: caption,
                 K.FireStore.Post.createdAtField: Int(Date().timeIntervalSince1970),
@@ -166,12 +181,11 @@ class PostViewModel: ObservableObject {
                     self.handleSuccess("Successfully post!")
                 }
             }
-            
         }
-        
-        
+                
+               
     }
-    
+        
     @MainActor
     func deletePost(_ postID: String) async  {
         do {

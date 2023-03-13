@@ -69,12 +69,13 @@ class ImageManager {
     }
     
     func getPostImagePath(with postID: String) -> StorageReference {
-        let postPath = "posts/\(postID)/1"
+        let postPath = "posts/\(postID)/\(UUID().uuidString)"
         let storagePath = ref.reference(withPath: postPath)
         return storagePath
     }
     
     func uploadImageAndGetURL(type: String, id: String, image: UIImage, done: @escaping FireBaseUploadResHandler){
+        print()
         
         var compression: CGFloat = 1.0
         let maxFileSize:Int = 240 * 240 //Maximum file size that we want to save
@@ -120,6 +121,7 @@ class ImageManager {
                 
                 path.downloadURL { url, error in
                     guard let url = url else {return done(nil, error)}
+                    print(url,"this is from imageManager")
                     done(url.absoluteString, nil)
                 }
             }

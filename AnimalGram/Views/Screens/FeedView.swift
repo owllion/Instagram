@@ -30,11 +30,18 @@ struct FeedView: View {
             }.navigationTitle(title)
                 .navigationBarTitleDisplayMode(.large)
                 .onAppear {
+//                    print(self.globalStateViewModel.isFromSinglePost,"from sigle FeedView")
                     if let scrollIndex = self.scrollIndex, globalStateViewModel.isFromSinglePost {
                         withAnimation(.easeIn(duration: 0.8)) {
                             scrollView.scrollTo(scrollIndex)
                         }
                     }
+//                    if !globalStateViewModel.isFromSinglePost {
+//                        feedViewModel.getPosts()
+//                       
+//                    }
+                    
+                    
                 }
                 
         }
@@ -43,7 +50,7 @@ struct FeedView: View {
 }
 
 struct FeedView_Previews: PreviewProvider {
-    @State static var posts = [Post(postID: "", userID: "", displayName: "", caption: "", postImageURL: "", userImageURL: "", email: "", likeCount: 9, likedBy: [], createdAt: Int(Date().timeIntervalSince1970))]
+    @State static var posts = [Post(postID: "", userID: "", displayName: "", caption: "", postImageURLs: [String](), userImageURL: "", email: "", likeCount: 9, likedBy: [], createdAt: Int(Date().timeIntervalSince1970))]
     static var previews: some View {
         NavigationView {
             FeedView(posts: posts, scrollIndex: 5, title: "")

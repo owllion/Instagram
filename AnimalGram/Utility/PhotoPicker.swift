@@ -10,12 +10,11 @@ import PhotosUI
 
 struct PhotoPicker: UIViewControllerRepresentable {
     @Binding var images: [UIImage]
-    @Binding var videos: [URL]
     
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
         config.selectionLimit = 8
-        config.filter = .any(of: [.images, .videos])
+        config.filter = .images
         config.preferredAssetRepresentationMode = .current
         //if not add this, the import process is gonna take too much time
         

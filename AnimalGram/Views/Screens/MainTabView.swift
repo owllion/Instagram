@@ -38,6 +38,7 @@ struct MainTabView: View {
                     Label("Profile", systemImage: "person.fill")
                 }
             }.onAppear {
+                print("mainTabview")
                 feedViewModel.getPosts()
             }
     }

@@ -12,7 +12,7 @@ struct Post: Identifiable ,Hashable {
     var userID: String
     var displayName: String
     var caption: String
-    var postImageURL: String
+    var postImageURLs: Array<String>
     var userImageURL: String
     var email: String
     var likeCount: Int

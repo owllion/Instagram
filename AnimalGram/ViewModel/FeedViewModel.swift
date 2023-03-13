@@ -30,6 +30,7 @@ class FeedViewModel: ObservableObject {
     }
     
     func getPosts() {
+        print("here is getPosts")
         self.isLoading = true
         
         postCollection
@@ -57,7 +58,7 @@ class FeedViewModel: ObservableObject {
                         let displayName = data[K.FireStore.Post.displayNameField] as? String,
                         let createdAt = data[K.FireStore.Post.createdAtField] as? Int,
                         let caption = data[K.FireStore.Post.captionField] as? String,
-                        let postImageURL = data[K.FireStore.Post.postImageURLField] as? String,
+                        let postImageURLs = data[K.FireStore.Post.postImageURLField] as? [String],
                         let userImageURL = data[K.FireStore.Post.userImageURLField] as? String,
                         
                             let email = data[K.FireStore.Post.emailField] as? String,
@@ -65,7 +66,7 @@ class FeedViewModel: ObservableObject {
                         let likeBy = data[K.FireStore.Post.likeByField] as? Array<String>
                             
                     {
-                        let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURL: postImageURL, userImageURL: userImageURL, email: email, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
+                        let newPost = Post(id: UUID().uuidString, postID: postId, userID: userID, displayName: displayName, caption: caption, postImageURLs: postImageURLs, userImageURL: userImageURL, email: email, likeCount: likeCount , likedBy: likeBy, createdAt: createdAt)
                         self.posts.append(newPost)
                     }
                     

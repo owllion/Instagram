@@ -11,10 +11,14 @@ import UIKit
 struct UploadView: View {
     
     @Environment(\.colorScheme) var colorScheme
-    @State var images: [UIImage] = [UIImage(imageLiteralResourceName: "logo")]
+//    @State var images: [UIImage] = [UIImage(imageLiteralResourceName: "logo")]
+//    @State var imageSelected: UIImage = UIImage(named: "logo")!
+    @State var images: [UIImage] = [UIImage]()
+    @State var imageSelected: UIImage?
+    
     @State var showImagePicker: Bool = false
+    @State var showPHPicker: Bool = false
     @State var showPostImageView: Bool = false
-    @State var imageSelected: UIImage = UIImage(imageLiteralResourceName: "logo")
     @State var sourceType:UIImagePickerController.SourceType = .camera
     
     var body: some View {
@@ -24,7 +28,6 @@ struct UploadView: View {
                 
                 Button {
                     sourceType = UIImagePickerController.SourceType.camera
-                    //設定好之後就顯示imagePicker screen
                     showImagePicker.toggle()
                 } label: {
                     Text("Take photo".uppercased())
@@ -38,8 +41,8 @@ struct UploadView: View {
                 ).background(Color.MyTheme.purple)
                 
                 Button {
-                    sourceType = UIImagePickerController.SourceType.photoLibrary
-                    showImagePicker.toggle()
+                    //import using PHPickerController
+                    showPHPicker.toggle()
                 } label: {
                     Text("import photo".uppercased())
                         .font(.largeTitle)
@@ -52,11 +55,32 @@ struct UploadView: View {
                 ).background(Color.MyTheme.yellow)
             }
             .sheet(isPresented: $showImagePicker) {
-                segueToPostImageView()
+                if imageSelected != nil {
+                    segueToPostImageView()
+                }
             } content: {
-//                ImagePicker(sourceType: $sourceType, imageSelected: $imageSelected)
-//                    .tint(colorScheme == .light ? Color.MyTheme.purple : Color.MyTheme.yellow )
-                PhotoPicker(images: $images,videos: $videos)
+                ImagePicker(sourceType: $sourceType, imageSelected: $imageSelected )
+                        .onChange(of: imageSelected) {
+                            newValue in
+                            print("imageSelected new value")
+                            
+
+                        }
+           
+                
+            }
+            .sheet(isPresented: $showPHPicker) {
+                if images.count > 0 {
+                    segueToPostImageView()
+                }
+            } content: {
+                PhotoPicker(images: $images)
+                    .onChange(of: images.count) { newValue in
+                        print(newValue,"this is newValue")
+                        print(showPostImageView,"this is showPostImagevie")
+                       // self.segueToPostImageView()
+
+                    }
             }
 
             
@@ -66,7 +90,7 @@ struct UploadView: View {
                 .frame(width: 100,height: 100,alignment: .center)
                 .shadow(radius: 12)
                 .fullScreenCover(isPresented: $showPostImageView) {
-                    PostImageView(images: $images)
+                    PostImageView(images: $images, imageSelected: $imageSelected)
                         .preferredColorScheme(colorScheme)
                 }
 
