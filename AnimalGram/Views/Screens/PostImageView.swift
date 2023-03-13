@@ -16,19 +16,19 @@ struct PostImageView: View {
     @Environment(\.dismiss) var dismiss
     
     @State var captionText: String = ""
-    @Binding var images: [UIImage]
-    
+    @Binding var images: [UIImage]    
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             HStack {
                 Button {
                     self.images = [self.images[0]]
+                   
                     dismiss()
                 } label: {
-                    Image(systemName: "xmark")
-                        .font(.title)
-                        .padding()
+                    ExitButtonView()
+                        .frame(width: 32, height: 32)
+                        .padding(.leading, 15)
                 }.tint(.primary)
                 
                 Spacer()
@@ -43,11 +43,25 @@ struct PostImageView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: UIScreen.main.bounds.width - 45,height: 250)
-                                
                                 .cornerRadius(20)
+                                .overlay {
+                                    Button {
+                                        print("f")
+                                    } label: {
+                                        ExitButtonView()
+                                            .frame(width: 32,height: 32)
+                                            
+                                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                                          
+                                   
+                                    }.offset(y: -20)
+
+                                    
+                                        
+                                }
                         }
                     }
-                }
+                }.padding(.top, 20)
             }
             
             VStack(spacing: 10) {
@@ -82,7 +96,9 @@ struct PostImageView: View {
                         }
                     )
                 }
-        }.overlay {
+        }
+        
+        .overlay {
             if postViewModel.isLoading {
                 CustomProgressView()
                 //                ZStack {
@@ -102,6 +118,9 @@ struct PostImageView: View {
 struct PostImageView_Previews: PreviewProvider {
     @State static var images = [UIImage(named: "dog3")!]
     @State static var videos = [URL(string: "https://bit.ly/swswift")!]
+    
+    @State var videos = [URL(string: "https://bit.ly/swswift")!]
+    
     static var previews: some View {
         PostImageView(images: $images)
     }

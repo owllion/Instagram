@@ -12,7 +12,6 @@ struct UploadView: View {
     
     @Environment(\.colorScheme) var colorScheme
     @State var images: [UIImage] = [UIImage(imageLiteralResourceName: "logo")]
-    
     @State var showImagePicker: Bool = false
     @State var showPostImageView: Bool = false
     @State var imageSelected: UIImage = UIImage(imageLiteralResourceName: "logo")
@@ -57,7 +56,7 @@ struct UploadView: View {
             } content: {
 //                ImagePicker(sourceType: $sourceType, imageSelected: $imageSelected)
 //                    .tint(colorScheme == .light ? Color.MyTheme.purple : Color.MyTheme.yellow )
-                PhotoPicker(images: $images)
+                PhotoPicker(images: $images,videos: $videos)
             }
 
             

@@ -64,6 +64,7 @@
 		25D80B8229BB0C690019D34B /* dots-loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 25D80B8129BB0C690019D34B /* dots-loading.json */; };
 		25D80B8429BB6FC70019D34B /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D80B8329BB6FC70019D34B /* PhotoPicker.swift */; };
 		25D80B8B29BD85150019D34B /* GlobalStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D80B8A29BD85150019D34B /* GlobalStateViewModel.swift */; };
+		25D80B8D29BE14860019D34B /* ExitButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D80B8C29BE14860019D34B /* ExitButtonView.swift */; };
 		25FCF39829AB314300D8C8F1 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FCF39729AB314300D8C8F1 /* CircularProgressView.swift */; };
 		25FCF39A29AB357300D8C8F1 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FCF39929AB357300D8C8F1 /* MainTabView.swift */; };
 		F99D7F03ACB47933B29CA3AA /* Pods_AnimalGram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B31E87545773D8F7B064FA /* Pods_AnimalGram.framework */; };
@@ -129,6 +130,7 @@
 		25D80B8129BB0C690019D34B /* dots-loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "dots-loading.json"; sourceTree = "<group>"; };
 		25D80B8329BB6FC70019D34B /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		25D80B8A29BD85150019D34B /* GlobalStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStateViewModel.swift; sourceTree = "<group>"; };
+		25D80B8C29BE14860019D34B /* ExitButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButtonView.swift; sourceTree = "<group>"; };
 		25FCF39729AB314300D8C8F1 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		25FCF39929AB357300D8C8F1 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		462FF1EDD5F06C659D596C42 /* Pods-AnimalGram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalGram.debug.xcconfig"; path = "Target Support Files/Pods-AnimalGram/Pods-AnimalGram.debug.xcconfig"; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			children = (
 				2556F8D829B5D5610041B792 /* AvatarWithNavLink.swift */,
 				25D80B7F29BB03380019D34B /* CustomProgressView.swift */,
+				25D80B8C29BE14860019D34B /* ExitButtonView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 				256B181229A34A8600087828 /* FeedView.swift in Sources */,
 				2562957229B0F8E700BE59CB /* SettingsEditTextViewModel.swift in Sources */,
 				25D80B8429BB6FC70019D34B /* PhotoPicker.swift in Sources */,
+				25D80B8D29BE14860019D34B /* ExitButtonView.swift in Sources */,
 				256B184129A5B75D00087828 /* SignInWithAppleButtonCustom.swift in Sources */,
 				2562956629AF56E000BE59CB /* NetworkManager.swift in Sources */,
 				256B181729A355E900087828 /* Post.swift in Sources */,
