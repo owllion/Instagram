@@ -1,1 +1,1 @@
-# AnimalGram
+# Instagram clone
