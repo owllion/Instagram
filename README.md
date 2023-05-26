@@ -15,7 +15,7 @@ This is a SwiftUI-based Instagram clone project that aims to replicate the core 
 - User authentication and profile management.
 - Explore and discover new posts and users.
 
-## Technologies
+### Technologies
 - swiftUI 
 
 
