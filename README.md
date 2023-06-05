@@ -16,7 +16,9 @@ This is a SwiftUI-based Instagram clone project that aims to replicate the core 
 - Explore and discover new posts and users.
 
 ### Technologies
-- swiftUI 
+- SwiftUI 
+- Firebase
+- Firebase Storage
 
 
 ### Screenshot
